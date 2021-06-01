@@ -1,120 +1,29 @@
-import abc
-import aifc
-import argparse
-import array
-import ast
-import asynchat
-import asyncio
-import asyncore
-import atexit
-import audioop
-import base64
-import bdb
-import binascii
-import binhex
-import bisect
-import builtins
-import bz2
-import calendar
-import cgi
-import cgitb
-import chunk
-import cmath
-import code
-import codecs
-import codeop
-import collections
-import colorsys
-import compileall
-import configparser
-import contextlib
-import contextvars
-import copy
-import copyreg
-import cProfile
-import csv
-import ctypes
-import dataclasses
-import datetime
-import decimal
-import difflib
-import dis
-import doctest
-import email
-import enum
-import errno
-import faulthandler
-import fnmatch
-import formatter
-import fractions
-import ftplib
-import functools
-import gc
-import getopt
-import getpass
-import gettext
-import graphlib
-import gzip
-import hashlib
-import heapq
-import hmac
-import html
-import http
-import imaplib
-import imghdr
-import importlib
-import inspect
-import io
-import ipaddress
-import itertools
-import json
-import keyword
-import lib2to3
-import linecache
-import locale
-import lzma
-import mailbox
-import mailcap
-import marshal
-import math
-import mimetypes
-import mmap
-import modulefinder
-import multiprocessing
-import nntplib
-import numbers
-import operator
+import pygame
+from pygame.locals import *
 import os
-import parser
-import pathlib
-import pdb
-import pickle
-import pickletools
-import pkgutil
-import platform
-import plistlib
-import poplib
-import pprint
-import profile
-import pstats
-import py_compile
-import pyclbr
-import pydoc
-import queue
-import quopri
-import random
-import re
-import reprlib
-import rlcompleter
-import runpy
-import sched
-import secrets
-import select
-import selectors
-import shelve
-import shlex
-import shutil
-import signal
-import site
+import sys
 
-print("Hello, wordl!")
+pygame.init()
+
+screen = pygame.display.set_mode((900,580))
+
+bg1 = pygame.image.load(os.path.join("mapideas", "hedge.png"))
+bg2 = pygame.image.load(os.path.join("mapideas", "meadow.png"))
+bg3 = pygame.image.load(os.path.join("mapideas", "rake.png"))
+bg = bg1
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+        elif event.type == pygame.MOUSEBUTTONUP:
+            if bg == bg1:
+                bg = bg2
+            elif bg == bg2:
+                bg = bg3
+            else:
+                bg = bg1
+
+    screen.fill((255,255,255))
+    screen.blit(bg, (0,0))
+
+    pygame.display.flip()
