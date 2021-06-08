@@ -30,9 +30,14 @@ class AI(object):
         self.speed = speed
         self.path=[(444,246),(444,114),(294,114),(294,462),(150,462),(150,342),(570,342),(570,204),(672,204),(672,414),(402,414),(402,570)]
         self.alive = True
-    def getthrough(self):
+        self.hp = 1 # implement later
+    def remove(self,reason):
     	self.alive = False
-    	# player loses some amount of health
+    	if reason == "getthrough":
+    		pass # player loses some amount of health
+    	else:
+    		pass # give player some cash money
+    	
     def update(self):
         if len(self.path) == 0:
            self.getthrough()
@@ -49,6 +54,12 @@ class AI(object):
         if (z[0]/-self.speed,z[1]/-self.speed)==(0,0):
             self.path=self.path[1:]
         pygame.draw.circle(screen,((255,0,0)),(self.x,self.y),8)
+    def takedamage(self,amount):
+    	self.hp -= amount
+    	if self.hp <= 0:
+    		self.remove("dead")
+
+
 
 
 
