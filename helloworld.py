@@ -7,9 +7,9 @@ pygame.init()
 
 screen = pygame.display.set_mode((900,580))
 
-bg1 = pygame.image.load(os.path.join("mapideas", "hedge.png"))
-bg2 = pygame.image.load(os.path.join("mapideas", "meadow.png"))
-bg3 = pygame.image.load(os.path.join("mapideas", "rake.png"))
+
+bg1 = pygame.image.load(os.path.join("mapideas", "meadow.png"))
+bg2 = pygame.image.load(os.path.join("mapideas", "rake.png"))
 
 ts1 = pygame.image.load(os.path.join("towers", "drafts","t1.png")).convert_alpha()
 ts2 = pygame.image.load(os.path.join("towers", "drafts","t1o.png")).convert_alpha()
@@ -33,10 +33,8 @@ while True:
         elif event.type == pygame.MOUSEBUTTONUP:
             if bg == bg1:
                 bg = bg2
-            elif bg == bg2:
-                bg = bg3
-            else:
-                bg = bg1
+            else: bg = bg1:
+            
 
     screen.fill((255,255,255))
     screen.blit(bg, (0,0))
