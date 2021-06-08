@@ -28,7 +28,7 @@ class AI(object):
         self.x=x
         self.y=y
         self.speed = speed
-        self.path=[(444,246),(444,114),(294,114),(294,462),(150,460),(150,340),(570,340),(570,200),(674,200),(674,414),(400,414),(400,574)]
+        self.path=[(444,246),(444,114),(294,114),(294,462),(150,462),(150,342),(570,342),(570,204),(672,204),(672,414),(402,414),(402,570)]
     def update(self):
         if not self.path:
            return
@@ -49,7 +49,7 @@ class AI(object):
 
 
 
-enemies = [AI(0,240,)]
+enemies = [AI(0,240,6)]
 
 while True:
     for event in pygame.event.get():
