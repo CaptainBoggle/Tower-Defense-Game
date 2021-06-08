@@ -34,8 +34,9 @@ class AI(object):
     	self.alive = False
     	# player loses some amount of health
     def update(self):
-        if not self.path:
-           getthrough()
+        if len(self.path) == 0:
+           self.getthrough()
+           return
         if self.x<(self.path[0])[0]:
             self.x+=self.speed
         if self.x>(self.path[0])[0]:
