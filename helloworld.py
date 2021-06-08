@@ -27,7 +27,6 @@ class Tower(pygame.sprite.Sprite):
         
 dragging = False
 while True:
-    mx, my = pygame.mouse.get_pos()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
