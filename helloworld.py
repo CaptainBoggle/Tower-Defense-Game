@@ -40,7 +40,7 @@ class AI(object):
     	
     def update(self):
         if len(self.path) == 0:
-           self.getthrough()
+           self.remove("getthrough")
            return
         if self.x<(self.path[0])[0]:
             self.x+=self.speed
