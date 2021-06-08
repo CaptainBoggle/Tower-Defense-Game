@@ -29,9 +29,13 @@ class AI(object):
         self.y=y
         self.speed = speed
         self.path=[(444,246),(444,114),(294,114),(294,462),(150,462),(150,342),(570,342),(570,204),(672,204),(672,414),(402,414),(402,570)]
+        self.alive = True
+    def getthrough(self):
+    	self.alive = False
+    	# player loses some amount of health
     def update(self):
         if not self.path:
-           return
+           getthrough()
         if self.x<(self.path[0])[0]:
             self.x+=self.speed
         if self.x>(self.path[0])[0]:
@@ -43,13 +47,13 @@ class AI(object):
         z=(self.x-(self.path[0])[0],self.y-(self.path[0])[1])
         if (z[0]/-self.speed,z[1]/-self.speed)==(0,0):
             self.path=self.path[1:]
-        pygame.draw.circle(screen,((255,0,0)),(self.x,self.y),3,0)
+        pygame.draw.circle(screen,((255,0,0)),(self.x,self.y),8)
 
 
 
 
 
-enemies = [AI(0,240,6)]
+enemies = [AI(0,240,6),AI(0,240,1.5),AI(0,240,2),AI(0,240,3)]
 
 while True:
     for event in pygame.event.get():
@@ -66,6 +70,7 @@ while True:
 
     screen.fill((255,255,255))
     screen.blit(bg, (0,0))
+    enemies[:] = [enemy for enemy in enemies if enemy.alive]
     for e in enemies:
     	e.update()
 
