@@ -2,8 +2,8 @@ import pygame
 from pygame.locals import *
 import os
 import sys
-from tower import Tower
-from enemy import AI
+import tower
+import enemy
 import player
 
 pygame.init()
@@ -19,10 +19,9 @@ ts2 = pygame.image.load(os.path.join("towers", "drafts","t1o.png")).convert_alph
 ts3 = pygame.image.load(os.path.join("towers", "drafts","t2.png")).convert_alpha()
 ts4 = pygame.image.load(os.path.join("towers", "drafts","t2o.png")).convert_alpha()
 
-
 bg = bg1
 
-enemies = [AI(0,240,6),AI(0,240,1.5),AI(0,240,2),AI(0,240,3)]
+enemies = [enemy.AI(0,240,6),enemy.AI(0,240,1.5),enemy.AI(0,240,2),enemy.AI(0,240,3)]
 
 while True:
     for event in pygame.event.get():
@@ -41,7 +40,8 @@ while True:
     screen.blit(bg, (0,0))
     enemies[:] = [enemy for enemy in enemies if enemy.alive]
     for e in enemies:
-    	e.update()
+        e.update()
+        pygame.draw.circle(screen,((255,0,0)),(e.x,e.y),8)
 
     clock.tick(60)
     pygame.display.flip()

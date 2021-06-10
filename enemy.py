@@ -3,11 +3,7 @@ from pygame.locals import *
 import os
 import sys
 
-global_screen = None
-screen = global_screen
-
 class AI(object):
-    screen = main_screen
     def __init__(self,x,y,speed):
         self.x=x
         self.y=y
@@ -37,7 +33,6 @@ class AI(object):
         z=(self.x-(self.path[0])[0],self.y-(self.path[0])[1])
         if (z[0]/-self.speed,z[1]/-self.speed)==(0,0):
             self.path=self.path[1:]
-        pygame.draw.circle(screen,((255,0,0)),(self.x,self.y),8)
     def takedamage(self,amount):
     	self.hp -= amount
     	if self.hp <= 0:
