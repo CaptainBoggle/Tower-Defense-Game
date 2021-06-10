@@ -1,0 +1,13 @@
+import pygame
+from pygame.locals import *
+import os
+import sys
+
+
+
+
+class Tower(pygame.sprite.Sprite):
+    def __init__(self,image,pos):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = image
+        self.rect = self.image.get_rect(center=pos)
