@@ -6,3 +6,5 @@ File/folder structure:
 helloworld.py - demonstrates various map background possibilities.
 
 mapideas - contains files for possible map backgrounds
+
+towers - contains tower artworks, including drafts
