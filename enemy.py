@@ -12,12 +12,14 @@ class AI(object):
         self.path=[(444,246),(444,114),(294,114),(294,462),(150,462),(150,342),(570,342),(570,204),(672,204),(672,414),(402,414),(402,570)]
         self.alive = True
         self.hp = 1 # implement later
+        self.worth = 10
+    
     def remove(self,reason):
     	self.alive = False
     	if reason == "getthrough":
-    		pass # player loses some amount of health
+    		globs.playerhealth -= self.hp
     	else:
-    		pass # give player some cash money
+    		globs.playercash += self.worth # give player some cash money
     	
     def update(self):
         if len(self.path) == 0:
