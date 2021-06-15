@@ -5,6 +5,7 @@ import sys
 import tower
 import enemy
 import player
+import globs
 
 pygame.init()
 
