@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 import os
 import sys
+import globs
 
 class AI(object):
     def __init__(self,x,y,speed):
