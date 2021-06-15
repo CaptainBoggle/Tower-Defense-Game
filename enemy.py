@@ -13,6 +13,7 @@ class AI(object):
         self.alive = True
         self.hp = 1 # implement later
         self.worth = 10
+        self.frame = 0
     
     def remove(self,reason):
     	self.alive = False
@@ -36,6 +37,10 @@ class AI(object):
         z=(self.x-(self.path[0])[0],self.y-(self.path[0])[1])
         if (z[0]/-self.speed,z[1]/-self.speed)==(0,0):
             self.path=self.path[1:]
+        if self.frame == 0:
+            self.frame = 1
+        else:
+            self.frame = 0
     def takedamage(self,amount):
     	self.hp -= amount
     	if self.hp <= 0:
