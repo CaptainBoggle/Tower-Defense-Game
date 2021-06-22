@@ -11,3 +11,8 @@ class Tower(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = image
         self.rect = self.image.get_rect(center=pos)
+        self.range=5
+
+    def Targeting(enemies):
+        for e in enemies:
+            
