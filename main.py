@@ -6,6 +6,7 @@ import tower
 import enemy
 import player
 import globs
+import random
 
 pygame.init()
 
@@ -13,7 +14,7 @@ screen = pygame.display.set_mode((900,580), pygame.SCALED, pygame.RESIZABLE)
 clock=pygame.time.Clock()
 
 bg1 = pygame.image.load(os.path.join("mapideas", "meadow.png"))
-bg2 = pygame.image.load(os.path.join("mapideas", "rake.png"))
+#bg2 = pygame.image.load(os.path.join("mapideas", "rake.png"))
 
 ts1 = pygame.image.load(os.path.join("towers", "drafts","t1.png")).convert_alpha()
 ts2 = pygame.image.load(os.path.join("towers", "drafts","t1o.png")).convert_alpha()
@@ -34,9 +35,7 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.MOUSEBUTTONUP:
-            if bg == bg1:
-                bg = bg2
-            else: bg = bg1
+            enemies.append(enemy.AI(0,240,random.choice(6,1.5,2,3)))
 
     pygame.display.set_caption(str(pygame.mouse.get_pos()))
 
