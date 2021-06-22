@@ -33,6 +33,8 @@ frameprogression = ([slimef1]*10)+([slimef2]*10)
 
 enemies = [enemy.AI(0,240,6),enemy.AI(0,240,1.5),enemy.AI(0,240,2),enemy.AI(0,240,3)]
 
+test = tower.Tower(slimef1,(350,288))
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -40,7 +42,7 @@ while True:
         elif event.type == pygame.MOUSEBUTTONUP:
             enemies.append(enemy.AI(0,240,random.choice([6,1.5,2,3])))
 
-    #pygame.display.set_caption(str(pygame.mouse.get_pos()))
+    pygame.display.set_caption(str(pygame.mouse.get_pos()))
             
 
     screen.fill((255,255,255))
@@ -53,7 +55,9 @@ while True:
         e.update()
         screen.blit(pygame.transform.rotate(frameprogression[e.frame],e.angle),(e.x-32,e.y-32))
     
-    screen.blit(pygame.transform.rotate(slimetest,enemies[-1].angle),(enemies[-1].x-32,enemies[-1].y-32))
+    target = test.getTarget(enemies)
 
+    if target: screen.blit(pygame.transform.rotate(slimetest,target.angle),(target.x-32,target.y-32))
+    pygame.draw.circle(screen, (0,0,255), (test.x,test.y), 100, 1)
     clock.tick(60)
     pygame.display.flip()
