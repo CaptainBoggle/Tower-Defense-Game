@@ -35,7 +35,7 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
         elif event.type == pygame.MOUSEBUTTONUP:
-            enemies.append(enemy.AI(0,240,random.choice(6,1.5,2,3)))
+            enemies.append(enemy.AI(0,240,random.choice([6,1.5,2,3])))
 
     pygame.display.set_caption(str(pygame.mouse.get_pos()))
 
