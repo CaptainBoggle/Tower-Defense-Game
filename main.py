@@ -10,28 +10,23 @@ import random
 
 pygame.init()
 
-screen = pygame.display.set_mode((900,580), pygame.SCALED, pygame.RESIZABLE)
-clock=pygame.time.Clock()
+screen = globs.screen
+clock=globs.clock
+bg = globs.bg
+firesprite = globs.firesprite
+electricsprite = globs.electricsprite
+slimef1 = globs.slimef1
+slimef2 = globs.slimef2
+slimetest = globs.slimetest
 
-bg = pygame.image.load(os.path.join("mapideas", "meadow.png"))
-
-
-firesprite = pygame.image.load(os.path.join("towers", "fire.png")).convert_alpha()
-electricsprite = pygame.image.load(os.path.join("towers", "electric.png")).convert_alpha()
-
-
-
-slimef1 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "enemyslime","sprite_0.png")).convert_alpha())
-slimef2 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "enemyslime","sprite_1.png")).convert_alpha())
-slimetest = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "enemyslime","sprite_1.png")).convert_alpha())
 slimetest.fill("RED")
 
 
-frameprogression = ([slimef1]*10)+([slimef2]*10)
+frameprogression = globs.frameprogression
 
 enemies = [enemy.AI(0,240,6),enemy.AI(0,240,1.5),enemy.AI(0,240,2),enemy.AI(0,240,3)]
 
-test = tower.Tower(slimef1,(350,288))
+test = tower.ElectricTower((350,288))
 
 while True:
     for event in pygame.event.get():

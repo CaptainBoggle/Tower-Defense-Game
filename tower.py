@@ -7,10 +7,10 @@ import math
 
 
 
-class Tower(pygame.sprite.Sprite):
-    def __init__(self,image,pos):
+class ElectricTower(pygame.sprite.Sprite):
+    def __init__(self,pos):
         pygame.sprite.Sprite.__init__(self)
-        self.image = image
+        self.image = globs.electricsprite
         self.rect = self.image.get_rect(center=pos)
         self.range=100
         self.x,self.y = pos
