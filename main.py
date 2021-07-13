@@ -5,24 +5,16 @@ import sys
 import tower
 import enemy
 import player
-import globs
+from globs import *
 import random
 
 pygame.init()
 
-screen = globs.screen
-clock=globs.clock
-bg = globs.bg
-firesprite = globs.firesprite
-electricsprite = globs.electricsprite
-slimef1 = globs.slimef1
-slimef2 = globs.slimef2
-slimetest = globs.slimetest
+
+
 
 slimetest.fill("RED")
 
-
-frameprogression = globs.frameprogression
 
 enemies = [enemy.AI(0,240,6),enemy.AI(0,240,1.5),enemy.AI(0,240,2),enemy.AI(0,240,3)]
 
