@@ -13,15 +13,13 @@ pygame.init()
 screen = pygame.display.set_mode((900,580), pygame.SCALED, pygame.RESIZABLE)
 clock=pygame.time.Clock()
 
-bg1 = pygame.image.load(os.path.join("mapideas", "meadow.png"))
-#bg2 = pygame.image.load(os.path.join("mapideas", "rake.png"))
+bg = pygame.image.load(os.path.join("mapideas", "meadow.png"))
 
-ts1 = pygame.image.load(os.path.join("towers", "drafts","t1.png")).convert_alpha()
-ts2 = pygame.image.load(os.path.join("towers", "drafts","t1o.png")).convert_alpha()
-ts3 = pygame.image.load(os.path.join("towers", "drafts","t2.png")).convert_alpha()
-ts4 = pygame.image.load(os.path.join("towers", "drafts","t2o.png")).convert_alpha()
 
-bg = bg1
+firesprite = pygame.image.load(os.path.join("towers", "fire.png")).convert_alpha()
+electricsprite = pygame.image.load(os.path.join("towers", "electric.png")).convert_alpha()
+
+
 
 slimef1 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "enemyslime","sprite_0.png")).convert_alpha())
 slimef2 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "enemyslime","sprite_1.png")).convert_alpha())
