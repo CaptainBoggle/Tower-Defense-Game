@@ -2,8 +2,10 @@ import pygame
 from pygame.locals import *
 import os
 import sys
-import globs
+from globs import *
 import math
+
+
 
 
 
@@ -29,14 +31,16 @@ class ElectricTower(pygame.sprite.Sprite):
 
     def updateLines(self):
         for line in self.lines:
-            
+            pass
 
     def update(self,e):
         self.cooldown -= 1
         if self.cooldown == 0:
             target = self.getTarget(e)
             self.cooldown = self.cooldowntime
-
+            target.takedamage(self.damage)
+            stime = clock.get
+            self.lines += [(self.x,self.y),(target.x,target.y),]
 
 
 
