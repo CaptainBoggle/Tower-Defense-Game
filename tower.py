@@ -4,7 +4,7 @@ import os
 import sys
 from globs import *
 import math
-
+import enemy
 
 
 
@@ -12,7 +12,7 @@ import math
 class ElectricTower(pygame.sprite.Sprite):
     def __init__(self,pos):
         pygame.sprite.Sprite.__init__(self)
-        self.image = globs.electricsprite
+        self.image = electricsprite
         self.rect = self.image.get_rect(center=pos)
         self.range=100
         self.x,self.y = pos
@@ -26,21 +26,30 @@ class ElectricTower(pygame.sprite.Sprite):
             return True
         return False
     
+    def lineRendering(self,line):
+        if pygame.time.get_ticks()-line[1] < 700:
+            return True
+        return False
+
     def getTarget(self,enemies):
         return next(filter(self.inRange, enemies[::-1]),None)
 
     def updateLines(self):
+        self.lines = [i for i in self.lines if self.lineRendering(i)]
+        print(self.lines)
         for line in self.lines:
-            pass
+            pygame.draw.line(screen,(204,204,102),(self.x,self.y),line[0],2)
 
     def update(self,e):
-        self.cooldown -= 1
-        if self.cooldown == 0:
+        if self.cooldown>0:
+            self.cooldown -= 1
+        if (self.cooldown == 0 and self.getTarget(e)):
             target = self.getTarget(e)
             self.cooldown = self.cooldowntime
             target.takedamage(self.damage)
-            stime = clock.get
-            self.lines += [(self.x,self.y),(target.x,target.y),]
+            stime = pygame.time.get_ticks()
+            self.lines.append([(target.x,target.y),stime])
+        self.updateLines()
 
 
 

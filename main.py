@@ -40,9 +40,12 @@ while True:
         e.update()
         screen.blit(pygame.transform.rotate(frameprogression[e.frame],e.angle),(e.x-32,e.y-32))
     
-    target = test.getTarget(enemies)
+    #target = test.getTarget(enemies)
 
-    if target: screen.blit(pygame.transform.rotate(slimetest,target.angle),(target.x-32,target.y-32))
-    pygame.draw.circle(screen, (0,0,255), (test.x,test.y), 100, 1)
+    #if target: screen.blit(pygame.transform.rotate(slimetest,target.angle),(target.x-32,target.y-32))
+    #pygame.draw.circle(screen, (0,0,255), (test.x,test.y), 100, 1)
+    test.update(enemies)
+    
+
     clock.tick(60)
     pygame.display.flip()
