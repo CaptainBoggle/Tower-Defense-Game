@@ -17,7 +17,7 @@ class ElectricTower(pygame.sprite.Sprite):
         self.range=100
         self.x,self.y = pos
         self.damage = 5
-        self.cooldowntime = 30
+        self.cooldowntime = 15
         self.cooldown = self.cooldowntime
         self.lines = []
 
@@ -27,7 +27,7 @@ class ElectricTower(pygame.sprite.Sprite):
         return False
     
     def lineRendering(self,line):
-        if pygame.time.get_ticks()-line[1] < 700:
+        if pygame.time.get_ticks()-line[1] < 300:
             return True
         return False
 
@@ -36,11 +36,11 @@ class ElectricTower(pygame.sprite.Sprite):
 
     def updateLines(self):
         self.lines = [i for i in self.lines if self.lineRendering(i)]
-        print(self.lines)
         for line in self.lines:
             pygame.draw.line(screen,(204,204,102),(self.x,self.y),line[0],2)
 
     def update(self,e):
+        screen.blit(self.image,(self.x-16,self.y-11))
         if self.cooldown>0:
             self.cooldown -= 1
         if (self.cooldown == 0 and self.getTarget(e)):

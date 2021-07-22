@@ -11,7 +11,7 @@ class AI(object):
         self.speed = speed
         self.path=[(444,246,270),(444,114,0),(294,114,90),(294,462,180),(150,462,90),(150,342,0),(570,342,270),(570,204,0),(672,204,270),(672,414,180),(402,414,90),(402,570,180)]
         self.alive = True
-        self.hp = 100 # implement later
+        self.hp = 50 # implement later
         self.worth = 10
         self.frame = 0
         self.angle = 270
