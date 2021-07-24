@@ -1,26 +1,13 @@
 import pygame, sys
 mainClock = pygame.time.Clock()
 from pygame.locals import *
-# import main
 
 pygame.init()
-pygame.display.set_caption("Game base")
-screen = pygame.display.set_mode((500, 500), 0, 32)
-SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
+from textRenderer import *
 
-font = pygame.font.Font("retro.ttf", 35)
-medFont = pygame.font.Font("retro.ttf", 50)
-lrgFont = pygame.font.Font("retro.ttf", 80)
-contrastLrgFont = pygame.font.Font("retro.ttf", 83)
-contrastMedFont = pygame.font.Font("retro.ttf", 51)
+pygame.display.set_caption("Game base")
 
 click = False
-
-def draw_text(text, font, color, surface, x, y):
-  textobj = font.render(text, 1, color)
-  textrect = textobj.get_rect()
-  textrect.topleft = (x, y)
-  surface.blit(textobj, textrect)
 
 def main_menu(toggleMenu):
   while True:

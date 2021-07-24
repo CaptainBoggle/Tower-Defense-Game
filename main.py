@@ -2,12 +2,19 @@ import pygame
 from pygame.locals import *
 import os
 import sys
+import random
+
 import tower
 import enemy
 import player
 import menu
 from globs import *
-import random
+
+pygame.init()
+from textRenderer import *
+
+SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
+
 
 # showMenu = True
 
@@ -43,6 +50,42 @@ def playGame(toggleMenu):
 
         screen.fill((255,255,255))
         screen.blit(bg, (0,0))
+
+        click = False
+
+        showMenu = False
+
+        # drawing the menu bar
+        menuBar = pygame.Rect(0, 0, SCREEN_WIDTH, 60)
+        pygame.draw.rect(screen, (28, 73, 49), menuBar) # colour of menuBar 
+
+        text_width, text_height = font.size("MENU")
+
+        menuButton = pygame.Rect((SCREEN_WIDTH - text_width - 80), 0, (text_width + 80), 60)
+        pygame.draw.rect(screen, (235, 191, 107), menuButton) # colour of menuButton
+        
+        mx, my = pygame.mouse.get_pos()
+        if menuButton.collidepoint((mx, my)): # if menu button is pressed
+            if click:
+                print("CLick")
+                menu.main_menu(toggleMenu)
+
+        draw_text("MENU", font, (252, 244, 230), screen, (SCREEN_WIDTH - text_width - 40), 14)
+
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    running = False
+
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True #signals the button press
+
+        #enemy spawning
         enemies[:] = [enemy for enemy in enemies if enemy.alive]
         
         enemies.sort(key=lambda e: len(e.path), reverse=True)
