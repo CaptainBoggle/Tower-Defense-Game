@@ -10,6 +10,7 @@ pygame.display.set_caption("Game base")
 click = False
 
 def main_menu(toggleMenu):
+  click = False
   while True:
     screen.fill((4, 67, 40))
 
@@ -19,17 +20,16 @@ def main_menu(toggleMenu):
     text_width, text_height = medFont.size("Main Menu")
     draw_text("Main Menu", medFont, (235, 191, 107), screen, (SCREEN_WIDTH/2 - text_width/2), 120)
 
-    text_width, text_height = contrastLrgFont.size("CASTLE DEFENCE")
-    draw_text("CASTLE DEFENCE", contrastLrgFont, (244, 197, 113), screen, (SCREEN_WIDTH/2 - text_width/2), 37)
+    text_width, text_height = contrastLrgFont.size("A.I. DEFENCE")
+    draw_text("A.I. DEFENCE", contrastLrgFont, (244, 197, 113), screen, (SCREEN_WIDTH/2 - text_width/2), 37)
 
-    text_width, text_height = lrgFont.size("CASTLE DEFENCE")
-    draw_text("CASTLE DEFENCE", lrgFont, (252, 247, 239), screen, (SCREEN_WIDTH/2 - text_width/2), 40)
+    text_width, text_height = lrgFont.size("A.I. DEFENCE")
+    draw_text("A.I. DEFENCE", lrgFont, (252, 247, 239), screen, (SCREEN_WIDTH/2 - text_width/2), 40)
 
     mx, my = pygame.mouse.get_pos()
 
     button_1 = pygame.Rect((SCREEN_WIDTH/2 - 100), 190, 200, 70)
     button_2 = pygame.Rect((SCREEN_WIDTH/2 - 100), 290, 200, 60)
-    
 
     if button_1.collidepoint((mx, my)): # when they are pressed
       if click:
@@ -82,6 +82,7 @@ def game():
     pygame.draw.rect(screen, (235, 191, 107), menuButton) # colour of menuButton
     
     mx, my = pygame.mouse.get_pos()
+
     if menuButton.collidepoint((mx, my)): # if menu button is pressed
       if click:
         main_menu()
