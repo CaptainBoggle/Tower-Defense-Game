@@ -36,7 +36,7 @@ def main_menu(toggleMenu):
         toggleMenu(False) #run game
     if button_2.collidepoint((mx, my)):
       if click:
-        quit() #quit game
+        quit() # quit game
 
     pygame.draw.rect(screen, (129, 185, 62), button_1) # colour of buttons 
     text_width, text_height = font.size("PLAY")
@@ -59,55 +59,7 @@ def main_menu(toggleMenu):
 
       if event.type == MOUSEBUTTONDOWN:
         if event.button == 1:
-          click = True #signals the button press
+          click = True # signals the button press
 
     pygame.display.update()
     mainClock.tick(60)
-
-
-def game():
-  click = False
-  running = True
-  while running:
-    showMenu = False
-    # break
-    screen.fill((145, 202, 120)) #clear the screen
-
-    menuBar = pygame.Rect(0, 0, SCREEN_WIDTH, 60)
-    pygame.draw.rect(screen, (28, 73, 49), menuBar) # colour of menuBar 
-
-    text_width, text_height = font.size("MENU")
-
-    menuButton = pygame.Rect((SCREEN_WIDTH - text_width - 80), 0, (text_width + 80), 60)
-    pygame.draw.rect(screen, (235, 191, 107), menuButton) # colour of menuButton
-    
-    mx, my = pygame.mouse.get_pos()
-
-    if menuButton.collidepoint((mx, my)): # if menu button is pressed
-      if click:
-        main_menu()
-
-    draw_text("MENU", font, (252, 244, 230), screen, (SCREEN_WIDTH - text_width - 40), 14)
-
-    for event in pygame.event.get():
-      if event.type == QUIT:
-        pygame.quit()
-        sys.exit()
-      
-      if event.type == KEYDOWN:
-        if event.key == K_ESCAPE:
-          running = False
-
-      if event.type == MOUSEBUTTONDOWN:
-        if event.button == 1:
-          click = True #signals the button press
-    
-    pygame.display.update()
-    mainClock.tick(60)
-
-  # return
-def quit():
-  pygame.quit()
-  sys.exit()
-
-# main_menu()

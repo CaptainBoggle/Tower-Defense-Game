@@ -32,9 +32,7 @@ def toggleMenu(showMenu):
 
 
 def playGame(toggleMenu):
-    print("HI")
 
-    # print(mx,my)
     slimetest.fill("RED")
 
     enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),
@@ -45,7 +43,6 @@ def playGame(toggleMenu):
     running = True
     while running == True:
         mx, my = pygame.mouse.get_pos()
-        # print(mx, my)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -69,9 +66,9 @@ def playGame(toggleMenu):
 
         menuButton = pygame.Rect(
             (SCREEN_WIDTH - text_width - 80), 0, (text_width + 80), 60)
+
         # colour of menuButton
         pygame.draw.rect(screen, (235, 191, 107), menuButton)
-        # print(mx, my)
         
         draw_text("MENU", font, (252, 244, 230), screen,
               (SCREEN_WIDTH - text_width - 40), 14)
@@ -86,7 +83,6 @@ def playGame(toggleMenu):
                     running = False
 
             if event.type == MOUSEBUTTONDOWN:
-                print(event.button)
                 if event.button == 1:
                     click = True  # signals the button press
                     if menuButton.collidepoint((mx, my)):  # if menu button is pressed
@@ -107,11 +103,8 @@ def playGame(toggleMenu):
         # if target: screen.blit(pygame.transform.rotate(slimetest,target.angle),(target.x-32,target.y-32))
         # pygame.draw.circle(screen, (0,0,255), (test.x,test.y), 100, 1)
         test.update(enemies)
-
-        clock.tick(60)
         pygame.display.flip()
-        # print("HI")
 
+    clock.tick(60)
 
-# playGame()
 menu.main_menu(toggleMenu)
