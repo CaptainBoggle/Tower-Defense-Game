@@ -1,8 +1,7 @@
 import pygame, sys
-
 mainClock = pygame.time.Clock()
 from pygame.locals import *
-from button import button
+# import main
 
 pygame.init()
 pygame.display.set_caption("Game base")
@@ -23,7 +22,7 @@ def draw_text(text, font, color, surface, x, y):
   textrect.topleft = (x, y)
   surface.blit(textobj, textrect)
 
-def main_menu():
+def main_menu(toggleMenu):
   while True:
     screen.fill((4, 67, 40))
 
@@ -47,14 +46,14 @@ def main_menu():
 
     if button_1.collidepoint((mx, my)): # when they are pressed
       if click:
-        game() #run game
+        toggleMenu(False) #run game
     if button_2.collidepoint((mx, my)):
       if click:
         quit() #quit game
 
     pygame.draw.rect(screen, (129, 185, 62), button_1) # colour of buttons 
-    text_width, text_height = font.size("START GAME")
-    draw_text("START GAME", font, (254, 244, 228), screen, (SCREEN_WIDTH/2 - text_width/2), 209)
+    text_width, text_height = font.size("PLAY")
+    draw_text("PLAY", font, (254, 244, 228), screen, (SCREEN_WIDTH/2 - text_width/2), 209)
 
     pygame.draw.rect(screen, (71, 126, 47), button_2)
     text_width, text_height = font.size("QUIT")
@@ -83,6 +82,8 @@ def game():
   click = False
   running = True
   while running:
+    showMenu = False
+    # break
     screen.fill((145, 202, 120)) #clear the screen
 
     menuBar = pygame.Rect(0, 0, SCREEN_WIDTH, 60)
@@ -112,12 +113,13 @@ def game():
       if event.type == MOUSEBUTTONDOWN:
         if event.button == 1:
           click = True #signals the button press
-
+    
     pygame.display.update()
     mainClock.tick(60)
 
+  # return
 def quit():
   pygame.quit()
   sys.exit()
 
-main_menu()
+# main_menu()
