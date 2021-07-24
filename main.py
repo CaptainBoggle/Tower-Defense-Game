@@ -13,25 +13,18 @@ from globs import *
 pygame.init()
 from textRenderer import *
 
+menuOpenCount = 1
 SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
 
-
-# showMenu = True
-
-# if showMenu == True:
-#     menu.main_menu()
-# else:
-#     pygame.init()
-#     playGame()
-
-def toggleMenu(showMenu):
+def toggleMenu(showMenu, menuOpenCount):
     if(showMenu):
-        menu.main_menu(toggleMenu)
+        menuOpenCount += 1
+        menu.main_menu(toggleMenu, menuOpenCount)
     else:
-        playGame(toggleMenu)
+        playGame(toggleMenu, menuOpenCount)
 
 
-def playGame(toggleMenu):
+def playGame(toggleMenu, menuOpenCount):
 
     slimetest.fill("RED")
 
@@ -80,13 +73,14 @@ def playGame(toggleMenu):
 
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
-                    running = False
+                    menu.main_menu(toggleMenu, menuOpenCount)
 
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
                     click = True  # signals the button press
                     if menuButton.collidepoint((mx, my)):  # if menu button is pressed
-                        menu.main_menu(toggleMenu)
+                        menuOpenCount += 1
+                        menu.main_menu(toggleMenu, menuOpenCount)
 
         # enemy spawning
         enemies[:] = [enemy for enemy in enemies if enemy.alive]
@@ -107,4 +101,4 @@ def playGame(toggleMenu):
 
     clock.tick(60)
 
-menu.main_menu(toggleMenu)
+menu.main_menu(toggleMenu, menuOpenCount)

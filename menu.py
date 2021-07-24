@@ -1,18 +1,27 @@
-import pygame, sys
+import pygame, sys, os
 mainClock = pygame.time.Clock()
 from pygame.locals import *
 
 pygame.init()
 from textRenderer import *
 
-pygame.display.set_caption("Game base")
+transparentOverlay = pygame.image.load(os.path.join("mapideas", "transparentOverlay.png"))
 
 click = False
 
-def main_menu(toggleMenu):
+def main_menu(toggleMenu, menuOpenCount):
   click = False
+  if menuOpenCount > 1:
+    transparentBackground = True
+
   while True:
-    screen.fill((4, 67, 40))
+    if menuOpenCount <= 1:
+      screen.fill((4, 67, 40))
+    else:
+      image = pygame.Surface([640,480], pygame.SRCALPHA, 32)
+      image = image.convert_alpha()
+      # transparentOverlay.set_colorkey(BLACK)
+      # print("not game lnch")
 
     text_width, text_height = contrastMedFont.size("Main Menu")
     draw_text("Main Menu", contrastMedFont, (252, 244, 230), screen, (SCREEN_WIDTH/2 - text_width/2), 120)
@@ -33,7 +42,7 @@ def main_menu(toggleMenu):
 
     if button_1.collidepoint((mx, my)): # when they are pressed
       if click:
-        toggleMenu(False) #run game
+        toggleMenu(False, menuOpenCount) #run game
     if button_2.collidepoint((mx, my)):
       if click:
         quit() # quit game
@@ -54,8 +63,11 @@ def main_menu(toggleMenu):
       
       if event.type == KEYDOWN:
         if event.key == K_ESCAPE:
-          pygame.quit()
-          sys.exit()
+          if menuOpenCount > 1:
+            toggleMenu(False, menuOpenCount) #return to game if game is paused
+          else:
+            pygame.quit()
+            sys.exit()
 
       if event.type == MOUSEBUTTONDOWN:
         if event.button == 1:
