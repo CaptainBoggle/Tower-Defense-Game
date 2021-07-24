@@ -73,6 +73,7 @@ def playGame(toggleMenu, menuOpenCount):
 
             if event.type == KEYDOWN:
                 if event.key == K_ESCAPE:
+                    menuOpenCount += 1
                     menu.main_menu(toggleMenu, menuOpenCount)
 
             if event.type == MOUSEBUTTONDOWN:

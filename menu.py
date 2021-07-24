@@ -5,23 +5,27 @@ from pygame.locals import *
 pygame.init()
 from textRenderer import *
 
-transparentOverlay = pygame.image.load(os.path.join("mapideas", "transparentOverlay.png"))
+transparentOverlay = pygame.image.load(os.path.join("mapideas", "dgBackground.png"))
+# transparentOverlay.set_alpha(128)
+
+def blit_alpha(target, source, location, opacity):
+    temp = pygame.Surface((source.get_width(), source.get_height())).convert()
+    temp.blit(target, (0, 0))
+    temp.blit(source, (0, 0))
+    temp.set_alpha(opacity)
+    target.blit(temp, location)
 
 click = False
 
 def main_menu(toggleMenu, menuOpenCount):
   click = False
-  if menuOpenCount > 1:
-    transparentBackground = True
+
+  if menuOpenCount <= 1:
+    screen.fill((4, 67, 40))
+  else:
+    blit_alpha(screen, transparentOverlay, (0, 0), 128)
 
   while True:
-    if menuOpenCount <= 1:
-      screen.fill((4, 67, 40))
-    else:
-      image = pygame.Surface([640,480], pygame.SRCALPHA, 32)
-      image = image.convert_alpha()
-      # transparentOverlay.set_colorkey(BLACK)
-      # print("not game lnch")
 
     text_width, text_height = contrastMedFont.size("Main Menu")
     draw_text("Main Menu", contrastMedFont, (252, 244, 230), screen, (SCREEN_WIDTH/2 - text_width/2), 120)
@@ -40,7 +44,7 @@ def main_menu(toggleMenu, menuOpenCount):
     button_1 = pygame.Rect((SCREEN_WIDTH/2 - 100), 190, 200, 70)
     button_2 = pygame.Rect((SCREEN_WIDTH/2 - 100), 290, 200, 60)
 
-    if button_1.collidepoint((mx, my)): # when they are pressed
+    if button_1.collidepoint((mx, my)): # when buttons are pressed
       if click:
         toggleMenu(False, menuOpenCount) #run game
     if button_2.collidepoint((mx, my)):
