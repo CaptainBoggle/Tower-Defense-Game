@@ -106,8 +106,8 @@ def playGame():
 
 
         # drawing the menu bar
-        menuBar = pygame.Rect(0, 0, SCREEN_WIDTH, 60)
-        pygame.draw.rect(screen, (28, 73, 49), menuBar)  # colour of menuBar
+        menuBar = pygame.Rect(0, 0, SCREEN_WIDTH, 55)
+        pygame.draw.rect(screen, (1, 50, 24), menuBar)  # colour of menuBar
 
         text_width, text_height = medFont.size("I I")
         button("I I",(SCREEN_WIDTH - text_width - 80),0,(text_width + 80),60,(235, 191, 107),(252, 244, 230), (SCREEN_WIDTH - text_width - 40), 8,medFont,pauser)
