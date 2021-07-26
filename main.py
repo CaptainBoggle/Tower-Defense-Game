@@ -102,6 +102,6 @@ def playGame(toggleMenu, menuOpenCount):
         test.update(enemies)
         pygame.display.flip()
 
-    clock.tick(60)
+        clock.tick(60)
 
 menu.main_menu(toggleMenu, menuOpenCount)
