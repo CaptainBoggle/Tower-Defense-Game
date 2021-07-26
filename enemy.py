@@ -9,6 +9,7 @@ class AI(object):
         self.x=x
         self.y=y
         self.speed = speed
+        self.defspeed = speed
         self.path=[(444,246,270),(444,114,0),(294,114,90),(294,462,180),(150,462,90),(150,342,0),(570,342,270),(570,204,0),(672,204,270),(672,414,180),(402,414,90),(402,570,180)]
         self.alive = True
         self.hp = 50 # implement later
@@ -24,6 +25,7 @@ class AI(object):
     		globs.playercash += self.worth # give player some cash money
     	
     def update(self):
+        
         if len(self.path) == 0:
            self.remove("getthrough")
            return
@@ -43,6 +45,8 @@ class AI(object):
             self.frame+=1
         else:
             self.frame=0
+        print(self.x,self.y)
+    
     def takedamage(self,amount):
     	self.hp -= amount
     	if self.hp <= 0:

@@ -17,7 +17,7 @@ slimetest.fill("RED")
 
 
 enemies = [enemy.AI(0,240,6),enemy.AI(0,240,1.5),enemy.AI(0,240,2),enemy.AI(0,240,3)]
-
+#enemies = [enemy.AI(0,240,6)]
 test = tower.ElectricTower((350,288))
 
 while True:

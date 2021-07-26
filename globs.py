@@ -11,7 +11,7 @@ clock=pygame.time.Clock()
 
 bg = pygame.image.load(os.path.join("mapideas", "meadow.png"))
 
-
+icesprite = pygame.image.load(os.path.join("towers", "ice.png")).convert_alpha()
 firesprite = pygame.image.load(os.path.join("towers", "fire.png")).convert_alpha()
 electricsprite = pygame.image.load(os.path.join("towers", "electric.png")).convert_alpha()
 
