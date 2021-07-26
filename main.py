@@ -66,6 +66,8 @@ def playGame(toggleMenu, menuOpenCount):
         draw_text("I I", medFont, (252, 244, 230), screen,
               (SCREEN_WIDTH - text_width - 40), 8)
 
+    
+        
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
@@ -100,6 +102,6 @@ def playGame(toggleMenu, menuOpenCount):
         test.update(enemies)
         pygame.display.flip()
 
-    clock.tick(60)
+        clock.tick(60)
 
 menu.main_menu(toggleMenu, menuOpenCount)

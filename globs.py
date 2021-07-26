@@ -9,9 +9,9 @@ playercash = 150
 screen = pygame.display.set_mode((900,580), pygame.SCALED, pygame.RESIZABLE)
 clock=pygame.time.Clock()
 
-bg = pygame.image.load(os.path.join("mapideas", "meadow.png"))
+bg = pygame.image.load(os.path.join("mapideas", "map.png"))
 
-
+icesprite = pygame.image.load(os.path.join("towers", "ice.png")).convert_alpha()
 firesprite = pygame.image.load(os.path.join("towers", "fire.png")).convert_alpha()
 electricsprite = pygame.image.load(os.path.join("towers", "electric.png")).convert_alpha()
 
