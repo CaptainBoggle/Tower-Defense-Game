@@ -66,9 +66,7 @@ def playGame(toggleMenu, menuOpenCount):
         draw_text("MENU", font, (252, 244, 230), screen,
               (SCREEN_WIDTH - text_width - 40), 14)
 
-        
-        enemies = [enemy.AI(0,240,6),enemy.AI(0,240,1.5),enemy.AI(0,240,2),enemy.AI(0,240,3)]
-        test = tower.ElectricTower((350,288))
+    
         
         for event in pygame.event.get():
             if event.type == QUIT:
