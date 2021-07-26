@@ -52,19 +52,19 @@ def playGame(toggleMenu, menuOpenCount):
         showMenu = False
 
         # drawing the menu bar
-        menuBar = pygame.Rect(0, 0, SCREEN_WIDTH, 60)
-        pygame.draw.rect(screen, (28, 73, 49), menuBar)  # colour of menuBar
+        menuBar = pygame.Rect(0, 0, SCREEN_WIDTH, 55)
+        pygame.draw.rect(screen, (1, 50, 24), menuBar)  # colour of menuBar
 
         text_width, text_height = medFont.size("I I")
 
         menuButton = pygame.Rect(
-            (SCREEN_WIDTH - text_width - 80), 0, (text_width + 80), 60)
+            (SCREEN_WIDTH - text_width - 80), 0, (text_width + 80), 55)
 
         # colour of menuButton
         pygame.draw.rect(screen, (235, 191, 107), menuButton)
         
         draw_text("I I", medFont, (252, 244, 230), screen,
-              (SCREEN_WIDTH - text_width - 40), 8)
+              (SCREEN_WIDTH - text_width - 40), 5)
 
     
         
