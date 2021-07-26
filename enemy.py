@@ -45,7 +45,7 @@ class AI(object):
             self.frame+=1
         else:
             self.frame=0
-        print(self.x,self.y)
+        #print(self.x,self.y)
     
     def takedamage(self,amount):
     	self.hp -= amount

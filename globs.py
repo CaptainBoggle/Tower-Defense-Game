@@ -5,7 +5,7 @@ import sys
 
 playerhealth = 100
 playercash = 150
-
+transparentOverlay = pygame.image.load(os.path.join("mapideas", "dgBackground.png"))
 screen = pygame.display.set_mode((900,580), pygame.SCALED, pygame.RESIZABLE)
 clock=pygame.time.Clock()
 

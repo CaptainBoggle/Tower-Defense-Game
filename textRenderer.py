@@ -1,6 +1,6 @@
 import pygame
-
-screen = pygame.display.set_mode((500, 500), 0, 32)
+import globs
+screen = globs.screen
 SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
 
 font = pygame.font.Font("retro.ttf", 35)
