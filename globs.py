@@ -6,10 +6,11 @@ import sys
 playerhealth = 100
 playercash = 150
 
-screen = pygame.display.set_mode((900,580), pygame.SCALED, pygame.RESIZABLE)
+screen = pygame.display.set_mode((900, 580), pygame.SCALED, pygame.RESIZABLE)
 clock=pygame.time.Clock()
 
-bg = pygame.image.load(os.path.join("mapideas", "map.png"))
+bg = pygame.image.load(os.path.join("mapideas", "map2.png"))
+bg = pygame.transform.scale(bg, (900, 580))
 
 icesprite = pygame.image.load(os.path.join("towers", "ice.png")).convert_alpha()
 firesprite = pygame.image.load(os.path.join("towers", "fire.png")).convert_alpha()
