@@ -82,8 +82,7 @@ def playGame():
     enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),
                         enemy.AI(0, 240, 2), enemy.AI(0, 240, 3)]
 
-    test = tower.ElectricTower((350, 288))
-
+    towers = [tower.FireTower((350, 288)),tower.IceTower((460,288)),tower.FireTower((350,382))]
     running = True
     while running == True:
         mx, my = pygame.mouse.get_pos()
@@ -127,7 +126,9 @@ def playGame():
 
         # if target: screen.blit(pygame.transform.rotate(slimetest,target.angle),(target.x-32,target.y-32))
         # pygame.draw.circle(screen, (0,0,255), (test.x,test.y), 100, 1)
-        test.update(enemies)
+        for t in towers:
+            t.update(enemies)
+
         pygame.display.flip()
 
         clock.tick(60)

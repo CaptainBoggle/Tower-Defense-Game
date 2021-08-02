@@ -3,8 +3,19 @@ from pygame.locals import *
 import os
 import sys
 import globs
+import random
+import itertools
+
+def alternator():
+    iterator = 0
+    while True:
+        value = 1 if iterator % 2 == 0 else 0
+        iterator += 1
+        yield value
+
 
 class AI(object):
+
     def __init__(self,x,y,speed):
         self.x=x
         self.y=y
@@ -12,11 +23,11 @@ class AI(object):
         self.defspeed = speed
         self.path=[(444,246,270),(444,114,0),(294,114,90),(294,462,180),(150,462,90),(150,342,0),(570,342,270),(570,204,0),(672,204,270),(672,414,180),(402,414,90),(402,570,180)]
         self.alive = True
-        self.hp = 50 # implement later
+        self.hp = 100 # implement later
         self.worth = 10
         self.frame = 0
         self.angle = 270
-    
+        self.slow = 0
     def remove(self,reason):
     	self.alive = False
     	if reason == "getthrough":
@@ -25,6 +36,8 @@ class AI(object):
     		globs.playercash += self.worth # give player some cash money
     	
     def update(self):
+        if self.slow != 0:
+            return
         
         if len(self.path) == 0:
            self.remove("getthrough")
