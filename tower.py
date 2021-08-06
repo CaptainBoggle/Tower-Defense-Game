@@ -6,7 +6,7 @@ from globs import *
 import math
 import enemy
 import itertools
-
+import random
 
 
 class ElectricTower(pygame.sprite.Sprite):
@@ -55,7 +55,7 @@ class ElectricTower(pygame.sprite.Sprite):
         self.updateLines()
     
     
-    def levelup(self,type):
+    def levelup(self,type=random.choice(["range","cooldown","damage"])):
         self.level += 1
         
         if type == "range":
@@ -72,7 +72,7 @@ class ElectricTower(pygame.sprite.Sprite):
 class IceTower(pygame.sprite.Sprite):
     def __init__(self,pos):
         pygame.sprite.Sprite.__init__(self)
-        self.level = 2
+        self.level = 0
         self.image = icesprite
         self.rect = self.image.get_rect(center=pos)
         self.range=60
@@ -94,12 +94,13 @@ class IceTower(pygame.sprite.Sprite):
         nextcycle = next(self.cycle)
         for enemy in e:
             if self.inRange(enemy):
-                pygame.draw.polygon(surface=screen, color=(0,206,209), points=[(enemy.x+5,enemy.y), (enemy.x,enemy.y+5), (enemy.x,enemy.y-5)])
+                screen.blit(cold,(enemy.x-16,enemy.y-16))
+                #pygame.draw.polygon(surface=screen, color=(0,206,209), points=[(enemy.x+5,enemy.y), (enemy.x,enemy.y+5), (enemy.x,enemy.y-5)])
                 enemy.slow = nextcycle
             else:
                 enemy.slow = 0
 
-    def levelup(self,type):
+    def levelup(self,type=random.choice(["range","intensity"])):
         self.level += 1
         
         if type == "range":
@@ -115,7 +116,7 @@ class IceTower(pygame.sprite.Sprite):
 class FireTower(pygame.sprite.Sprite):
     def __init__(self,pos):
         pygame.sprite.Sprite.__init__(self)
-        self.level = 2
+        self.level = 0
         self.image = firesprite
         self.rect = self.image.get_rect(center=pos)
         self.range=60
@@ -142,7 +143,7 @@ class FireTower(pygame.sprite.Sprite):
 
 
 
-    def levelup(self,type):
+    def levelup(self,type=random.choice(["range","targets","damage"])):
         self.level += 1
         
         if type == "range":

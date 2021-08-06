@@ -93,10 +93,12 @@ def playGame():
             elif event.type == pygame.MOUSEBUTTONUP:
                 enemies.append(enemy.AI(0, 240, random.choice([6, 1.5, 2, 3])))
 
+
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     pauser()
-
+                elif event.key == pygame.K_SPACE:
+                    random.choice(towers).levelup(type="range")
 
         pygame.display.set_caption(str(pygame.mouse.get_pos()))
 
@@ -109,8 +111,12 @@ def playGame():
         pygame.draw.rect(screen, (1, 50, 24), menuBar)  # colour of menuBar
 
         text_width, text_height = medFont.size("I I")
-        button("I I",(SCREEN_WIDTH - text_width - 80),0,(text_width + 80),60,(235, 191, 107),(252, 244, 230), (SCREEN_WIDTH - text_width - 40), 8,medFont,pauser)
+        button("I I",(SCREEN_WIDTH - text_width - 80),0,(text_width + 80),55,(235, 191, 107),(252, 244, 230), (SCREEN_WIDTH - text_width - 40), 8,medFont,pauser)
         
+        # drawing player health and player currency
+        screen.blit(coin,(45,19))
+        text_width, text_height = font.size(str(playercash))
+        draw_text(str(playercash), font, (235, 191, 107), screen, 75, (54-text_height)/2)
 
         # enemy spawning
         enemies[:] = [enemy for enemy in enemies if enemy.alive]

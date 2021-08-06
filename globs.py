@@ -22,4 +22,7 @@ slimef1 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", 
 slimef2 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "enemyslime","sprite_1.png")).convert_alpha())
 slimetest = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "enemyslime","sprite_1.png")).convert_alpha())
 
+cold = pygame.image.load(os.path.join("towers","Snowflake.png"))
+coin = pygame.image.load(os.path.join("mapideas","coin.png"))
+
 frameprogression = ([slimef1]*10)+([slimef2]*10)
