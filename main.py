@@ -117,6 +117,10 @@ def playGame():
         screen.blit(coin,(45,19))
         text_width, text_height = font.size(str(playercash))
         draw_text(str(playercash), font, (235, 191, 107), screen, 75, (54-text_height)/2)
+        
+        screen.blit(heart,(150,19))
+        text_width, text_height = font.size(str(playerhealth))
+        draw_text(str(playerhealth), font, (235, 191, 107), screen, 180, (54-text_height)/2)
 
         # enemy spawning
         enemies[:] = [enemy for enemy in enemies if enemy.alive]
