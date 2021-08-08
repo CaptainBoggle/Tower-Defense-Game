@@ -22,7 +22,27 @@ slimef1 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", 
 slimef2 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "enemyslime","sprite_1.png")).convert_alpha())
 slimetest = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "enemyslime","sprite_1.png")).convert_alpha())
 
+crabf1 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "Crab","Crab0.png")).convert_alpha())
+crabf2 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "Crab","Crab1.png")).convert_alpha())
+crabf3 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "Crab","Crab2.png")).convert_alpha())
+crabf4 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "Crab","Crab3.png")).convert_alpha())
+
+pythonf1 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "Snake","snake0.png")).convert_alpha())
+pythonf2 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "Snake","snake1.png")).convert_alpha())
+pythonf3 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "Snake","snake2.png")).convert_alpha())
+pythonf4 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "Snake","snake3.png")).convert_alpha())
+pythonf5 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "Snake","snake4.png")).convert_alpha())
+pythonf6 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "Snake","snake5.png")).convert_alpha())
+pythonf7 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "Snake","snake6.png")).convert_alpha())
+
+
 cold = pygame.image.load(os.path.join("towers","Snowflake.png"))
 coin = pygame.image.load(os.path.join("mapideas","coin.png"))
 heart = pygame.image.load(os.path.join("mapideas","heart.png"))
-frameprogression = ([slimef1]*10)+([slimef2]*10)
+
+
+
+
+sframeprogression = ([slimef1]*10)+([slimef2]*10)
+cframeprogression = ([crabf1]*5)+([crabf2]*5)+([crabf3]*5)+([crabf4]*5)
+pframeprogression = ([pythonf1,pythonf2,pythonf3,pythonf4,pythonf5,pythonf6,pythonf7]*3)

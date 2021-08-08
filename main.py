@@ -76,12 +76,17 @@ def pauser():
     pause = True
     paused()
 
+
+
 def playGame():
     global pause
     pauser()
     enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),
                         enemy.AI(0, 240, 2), enemy.AI(0, 240, 3)]
 
+    
+    
+    
     towers = [tower.FireTower((350, 288)),tower.IceTower((460,288)),tower.FireTower((350,382))]
     running = True
     while running == True:
@@ -91,7 +96,7 @@ def playGame():
             if event.type == pygame.QUIT:
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONUP:
-                enemies.append(enemy.AI(0, 240, random.choice([6, 1.5, 2, 3])))
+                pass
 
 
             elif event.type == pygame.KEYDOWN:
@@ -122,16 +127,19 @@ def playGame():
         text_width, text_height = font.size(str(playerhealth))
         draw_text(str(playerhealth), font, (235, 191, 107), screen, 180, (54-text_height)/2)
 
-        # enemy spawning
+        # enemy culling
         enemies[:] = [enemy for enemy in enemies if enemy.alive]
 
         enemies.sort(key=lambda e: len(e.path), reverse=True)
 
         for e in enemies:
             e.update()
-            screen.blit(pygame.transform.rotate(
-                frameprogression[e.frame], e.angle), (e.x-32, e.y-32))
-
+            if e.type == "s":
+                screen.blit(pygame.transform.rotate(sframeprogression[e.frame], e.angle), (e.x-32, e.y-32))
+            if e.type == "c":
+                screen.blit(pygame.transform.rotate(cframeprogression[e.frame], e.angle), (e.x-32, e.y-32))
+            else: 
+                screen.blit(pygame.transform.rotate(pframeprogression[e.frame], e.angle), (e.x-32, e.y-32))
         # target = test.getTarget(enemies)
 
         # if target: screen.blit(pygame.transform.rotate(slimetest,target.angle),(target.x-32,target.y-32))
