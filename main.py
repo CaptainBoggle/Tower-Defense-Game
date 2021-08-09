@@ -10,7 +10,7 @@ from pygame.mixer import pause
 import tower
 import enemy
 import player
-from globs import *
+import globs
 
 
 pygame.init()
@@ -47,7 +47,7 @@ def unpause():
     pause = False
 
 def paused():
-    blit_alpha(screen, transparentOverlay, (0, 0), 128)
+    blit_alpha(screen, globs.transparentOverlay, (0, 0), 128)
     text_width, text_height = contrastMedFont.size("Main Menu")
     draw_text("Main Menu", contrastMedFont, (252, 244, 230), screen, (SCREEN_WIDTH/2 - text_width/2), 120)
     
@@ -70,7 +70,7 @@ def paused():
         text_width, text_height = font.size("QUIT")
         button("QUIT",(SCREEN_WIDTH/2 - 100),290,200,60,(71, 126, 47),(254, 244, 228), (SCREEN_WIDTH/2 - text_width/2), 304,font,quitgame)
         pygame.display.update()
-        clock.tick(60)   
+        globs.clock.tick(60)   
 
 counter = 0
 
@@ -126,7 +126,7 @@ def playGame():
             counter += 1
 
         screen.fill((255, 255, 255))
-        screen.blit(bg, (0, 0))
+        screen.blit(globs.bg, (0, 0))
 
         # drawing the menu bar
         menuBar = pygame.Rect(0, 0, SCREEN_WIDTH, 55)
@@ -138,13 +138,13 @@ def playGame():
             button("",(SCREEN_WIDTH - 2*text_width - 200+60),0,(text_width+60),55,(255, 191, 107),(252, 244, 230), (SCREEN_WIDTH - 2*text_width - 80+60), 8,medFont,nextwave)
             pygame.draw.polygon(screen,(252, 244, 230),[((SCREEN_WIDTH - 2*text_width - 180+70),(55-text_height)),((SCREEN_WIDTH - 2*text_width - 180+70),55-(55-text_height)),((SCREEN_WIDTH - text_width - 180+70),27)])
         # drawing player health and player currency
-        screen.blit(coin,(45,19))
-        text_width, text_height = font.size(str(playercash))
-        draw_text(str(playercash), font, (235, 191, 107), screen, 75, (54-text_height)/2)
+        screen.blit(globs.coin,(45,19))
+        text_width, text_height = font.size(str(globs.playercash))
+        draw_text(str(globs.playercash), font, (235, 191, 107), screen, 75, (54-text_height)/2)
         
-        screen.blit(heart,(150,19))
-        text_width, text_height = font.size(str(playerhealth))
-        draw_text(str(playerhealth), font, (235, 191, 107), screen, 180, (54-text_height)/2)
+        screen.blit(globs.heart,(150,19))
+        text_width, text_height = font.size(str(globs.playerhealth))
+        draw_text(str(globs.playerhealth), font, (235, 191, 107), screen, 180, (54-text_height)/2)
 
         
 
@@ -156,11 +156,11 @@ def playGame():
         for e in enemies:
             e.update()
             if e.type == "s":
-                screen.blit(pygame.transform.rotate(sframeprogression[e.frame], e.angle), (e.x-32, e.y-32))
+                screen.blit(pygame.transform.rotate(globs.sframeprogression[e.frame], e.angle), (e.x-32, e.y-32))
             elif e.type == "c":
-                screen.blit(pygame.transform.rotate(cframeprogression[e.frame], e.angle), (e.x-16, e.y-16))
+                screen.blit(pygame.transform.rotate(globs.cframeprogression[e.frame], e.angle), (e.x-16, e.y-16))
             else: 
-                screen.blit(pygame.transform.rotate(pframeprogression[e.frame], e.angle), (e.x-16, e.y-16))
+                screen.blit(pygame.transform.rotate(globs.pframeprogression[e.frame], e.angle), (e.x-16, e.y-16))
         # target = test.getTarget(enemies)
 
         # if target: screen.blit(pygame.transform.rotate(slimetest,target.angle),(target.x-32,target.y-32))
@@ -170,7 +170,7 @@ def playGame():
 
         pygame.display.flip()
 
-        clock.tick(60)
+        globs.clock.tick(60)
 
 playGame()
 
