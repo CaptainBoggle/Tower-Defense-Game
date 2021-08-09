@@ -16,9 +16,9 @@ def alternator():
 
 class AI(object):
 
-    def __init__(self,x,y,type):
-        self.x=x
-        self.y=y
+    def __init__(self,type):
+        self.x=0
+        self.y=240
         #self.speed = speed
         #self.defspeed = speed
         self.path=[(444,246,270),(444,114,0),(294,114,90),(294,462,180),(150,462,90),(150,342,0),(570,342,270),(570,204,0),(672,204,270),(672,414,180),(402,414,90),(402,570,180)]
@@ -32,17 +32,17 @@ class AI(object):
         self.ftotal = 19
         if self.type == "p":
             self.worth = 15
-            self.ftotal = 20
+            self.ftotal = 34
             self.speed = 6
-            self.health = 100
+            self.hp = 100
         elif self.type == "s":
             self.worth = 10
             self.speed = 3
-            self.health = 125
+            self.hp = 125
         else:
             self.worth = 20
             self.speed = 1.5
-            self.health = 300
+            self.hp = 300
     def remove(self,reason):
     	self.alive = False
     	if reason == "getthrough":

@@ -1,9 +1,10 @@
+import wave
 import pygame
 from pygame.locals import *
 import os
 import sys
 import random
-
+from waves import wavescombined
 from pygame.mixer import pause
 
 import tower
@@ -71,25 +72,33 @@ def paused():
         pygame.display.update()
         clock.tick(60)   
 
+counter = 0
+
 def pauser():
     global pause 
     pause = True
     paused()
 
+def youwin():
+    pygame.quit()
 
+def nextwave():
+    global counter
+    counter += 1
 
 def playGame():
     global pause
+    global counter
     pauser()
-    enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),
-                        enemy.AI(0, 240, 2), enemy.AI(0, 240, 3)]
-
+    #enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),enemy.AI(0, 240, 2), enemy.AI(0, 240, 3)]
+    enemies = []
     
     
     
     towers = [tower.FireTower((350, 288)),tower.IceTower((460,288)),tower.FireTower((350,382))]
     running = True
     while running == True:
+        waiting = False
         mx, my = pygame.mouse.get_pos()
         
         for event in pygame.event.get():
@@ -105,11 +114,19 @@ def playGame():
                 elif event.key == pygame.K_SPACE:
                     random.choice(towers).levelup(type="range")
 
-        pygame.display.set_caption(str(pygame.mouse.get_pos()))
+        # wave handling
+        
+        if wavescombined[counter] == "n":
+            counter+=1
+        elif wavescombined[counter] == "w":
+            text_width, text_height = medFont.size("I I")
+            waiting = True
+        else:
+            enemies.append(enemy.AI(wavescombined[counter]))
+            counter += 1
 
         screen.fill((255, 255, 255))
         screen.blit(bg, (0, 0))
-
 
         # drawing the menu bar
         menuBar = pygame.Rect(0, 0, SCREEN_WIDTH, 55)
@@ -117,7 +134,7 @@ def playGame():
 
         text_width, text_height = medFont.size("I I")
         button("I I",(SCREEN_WIDTH - text_width - 80),0,(text_width + 80),55,(235, 191, 107),(252, 244, 230), (SCREEN_WIDTH - text_width - 40), 8,medFont,pauser)
-        
+        button("▶",(SCREEN_WIDTH - text_width - 80),text_height+10,(text_width + 80),55,(235, 191, 107),(252, 244, 230), (SCREEN_WIDTH - text_width - 40), 8,medFont,nextwave)
         # drawing player health and player currency
         screen.blit(coin,(45,19))
         text_width, text_height = font.size(str(playercash))
@@ -126,6 +143,8 @@ def playGame():
         screen.blit(heart,(150,19))
         text_width, text_height = font.size(str(playerhealth))
         draw_text(str(playerhealth), font, (235, 191, 107), screen, 180, (54-text_height)/2)
+
+        
 
         # enemy culling
         enemies[:] = [enemy for enemy in enemies if enemy.alive]
@@ -136,7 +155,7 @@ def playGame():
             e.update()
             if e.type == "s":
                 screen.blit(pygame.transform.rotate(sframeprogression[e.frame], e.angle), (e.x-32, e.y-32))
-            if e.type == "c":
+            elif e.type == "c":
                 screen.blit(pygame.transform.rotate(cframeprogression[e.frame], e.angle), (e.x-32, e.y-32))
             else: 
                 screen.blit(pygame.transform.rotate(pframeprogression[e.frame], e.angle), (e.x-32, e.y-32))

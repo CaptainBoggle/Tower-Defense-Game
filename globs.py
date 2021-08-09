@@ -45,4 +45,4 @@ heart = pygame.image.load(os.path.join("mapideas","heart.png"))
 
 sframeprogression = ([slimef1]*10)+([slimef2]*10)
 cframeprogression = ([crabf1]*5)+([crabf2]*5)+([crabf3]*5)+([crabf4]*5)
-pframeprogression = ([pythonf1,pythonf2,pythonf3,pythonf4,pythonf5,pythonf6,pythonf7]*3)
+pframeprogression = ([pythonf1]*5)+([pythonf2]*5)+([pythonf3]*5)+([pythonf4]*5) + ([pythonf5]*5)+([pythonf6]*5)+([pythonf7]*5)
