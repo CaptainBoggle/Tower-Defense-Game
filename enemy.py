@@ -43,6 +43,7 @@ class AI(object):
             self.worth = 20
             self.speed = 1.5
             self.hp = 300
+    
     def remove(self,reason):
     	self.alive = False
     	if reason == "getthrough":

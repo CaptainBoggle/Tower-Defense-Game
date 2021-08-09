@@ -134,7 +134,9 @@ def playGame():
 
         text_width, text_height = medFont.size("I I")
         button("I I",(SCREEN_WIDTH - text_width - 80),0,(text_width + 80),55,(235, 191, 107),(252, 244, 230), (SCREEN_WIDTH - text_width - 40), 8,medFont,pauser)
-        button("▶",(SCREEN_WIDTH - text_width - 80),text_height+10,(text_width + 80),55,(235, 191, 107),(252, 244, 230), (SCREEN_WIDTH - text_width - 40), 8,medFont,nextwave)
+        if waiting:
+            button("",(SCREEN_WIDTH - 2*text_width - 200+60),0,(text_width+60),55,(255, 191, 107),(252, 244, 230), (SCREEN_WIDTH - 2*text_width - 80+60), 8,medFont,nextwave)
+            pygame.draw.polygon(screen,(252, 244, 230),[((SCREEN_WIDTH - 2*text_width - 180+70),(55-text_height)),((SCREEN_WIDTH - 2*text_width - 180+70),55-(55-text_height)),((SCREEN_WIDTH - text_width - 180+70),27)])
         # drawing player health and player currency
         screen.blit(coin,(45,19))
         text_width, text_height = font.size(str(playercash))
@@ -156,9 +158,9 @@ def playGame():
             if e.type == "s":
                 screen.blit(pygame.transform.rotate(sframeprogression[e.frame], e.angle), (e.x-32, e.y-32))
             elif e.type == "c":
-                screen.blit(pygame.transform.rotate(cframeprogression[e.frame], e.angle), (e.x-32, e.y-32))
+                screen.blit(pygame.transform.rotate(cframeprogression[e.frame], e.angle), (e.x-16, e.y-16))
             else: 
-                screen.blit(pygame.transform.rotate(pframeprogression[e.frame], e.angle), (e.x-32, e.y-32))
+                screen.blit(pygame.transform.rotate(pframeprogression[e.frame], e.angle), (e.x-16, e.y-16))
         # target = test.getTarget(enemies)
 
         # if target: screen.blit(pygame.transform.rotate(slimetest,target.angle),(target.x-32,target.y-32))
