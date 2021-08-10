@@ -1,3 +1,4 @@
+from cgitb import small
 import wave
 import pygame
 from pygame.locals import *
@@ -134,9 +135,40 @@ def playGame():
 
         text_width, text_height = medFont.size("I I")
         button("I I",(SCREEN_WIDTH - text_width - 80),0,(text_width + 80),55,(235, 191, 107),(252, 244, 230), (SCREEN_WIDTH - text_width - 40), 8,medFont,pauser)
+        
+        # drawing stuff while next wave incoming
+        
+
         if waiting:
             button("",(SCREEN_WIDTH - 2*text_width - 200+60),0,(text_width+60),55,(255, 191, 107),(252, 244, 230), (SCREEN_WIDTH - 2*text_width - 80+60), 8,medFont,nextwave)
             pygame.draw.polygon(screen,(252, 244, 230),[((SCREEN_WIDTH - 2*text_width - 180+70),(55-text_height)),((SCREEN_WIDTH - 2*text_width - 180+70),55-(55-text_height)),((SCREEN_WIDTH - text_width - 180+70),27)])
+            
+            screen.blit(globs.icesprite,((350),(55-text_height)))
+            
+            screen.blit(globs.firesprite,((450),(55-text_height)))
+            
+            screen.blit(globs.electricsprite,((550),(55-text_height)))
+
+            text_height,text_width = smallFont.size("200")
+            draw_text("200", smallFont, (235, 191, 107), screen, 380, (54-text_height)/2) # ice cost
+            draw_text("200", smallFont, (235, 191, 107), screen, 480, (54-text_height)/2) # fire cost
+            draw_text("200", smallFont, (235, 191, 107), screen, 580, (54-text_height)/2) # elec cost
+            
+            if globs.playercash < 2000: # replace 2000 with ice cost
+                pygame.draw.rect(screen, (226,54,54), (340, 5, 80, 45),3)
+                pygame.draw.line(screen, (226,54,54), (340, 5), (420, 50), 3)
+                pygame.draw.line(screen, (226,54,54), (340, 50), (420, 5), 3)
+
+            if globs.playercash < 2000: # replace 2000 with fire cost
+                pygame.draw.rect(screen, (226,54,54), (440, 5, 80, 45),3)
+                pygame.draw.line(screen, (226,54,54), (440, 5), (520, 50), 3)
+                pygame.draw.line(screen, (226,54,54), (440, 50), (520, 5), 3)
+
+            if globs.playercash < 2000: # replace 2000 with elec cost
+                pygame.draw.rect(screen, (226,54,54), (540, 5, 80, 45),3)
+                pygame.draw.line(screen, (226,54,54), (540, 5), (620, 50), 3)
+                pygame.draw.line(screen, (226,54,54), (540, 50), (620, 5), 3)
+
         # drawing player health and player currency
         screen.blit(globs.coin,(45,19))
         text_width, text_height = font.size(str(globs.playercash))

@@ -3,8 +3,8 @@ from pygame.locals import *
 import os
 import sys
 
-playerhealth = 100
 playercash = 150
+playerhealth = 200
 transparentOverlay = pygame.image.load(os.path.join("mapideas", "dgBackground.png"))
 screen = pygame.display.set_mode((900,580), pygame.SCALED, pygame.RESIZABLE)
 clock=pygame.time.Clock()
@@ -46,3 +46,4 @@ heart = pygame.image.load(os.path.join("mapideas","heart.png"))
 sframeprogression = ([slimef1]*10)+([slimef2]*10)
 cframeprogression = ([crabf1]*5)+([crabf2]*5)+([crabf3]*5)+([crabf4]*5)
 pframeprogression = ([pythonf1]*5)+([pythonf2]*5)+([pythonf3]*5)+([pythonf4]*5) + ([pythonf5]*5)+([pythonf6]*5)+([pythonf7]*5)
+

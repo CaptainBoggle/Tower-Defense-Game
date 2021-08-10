@@ -3,6 +3,8 @@ import globs
 screen = globs.screen
 SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
 
+
+smallFont = pygame.font.Font("retro.ttf", 25)
 font = pygame.font.Font("retro.ttf", 35)
 medFont = pygame.font.Font("retro.ttf", 50)
 lrgFont = pygame.font.Font("retro.ttf", 80)
