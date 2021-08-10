@@ -89,11 +89,10 @@ def nextwave():
 def playGame():
     global pause
     global counter
+    screen.fill((4, 67, 40))
     pauser()
     #enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),enemy.AI(0, 240, 2), enemy.AI(0, 240, 3)]
     enemies = []
-    
-    
     
     towers = [tower.FireTower((350, 288)),tower.IceTower((460,288)),tower.FireTower((350,382))]
     running = True
