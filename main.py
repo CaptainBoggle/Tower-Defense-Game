@@ -68,6 +68,7 @@ def paused():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+
         text_width, text_height = font.size("PLAY")
         button("PLAY",(SCREEN_WIDTH/2 - 100),190,200,70,(129, 185, 62),(254, 244, 228),(SCREEN_WIDTH/2 - text_width/2), 209,font,unpause)
         text_width, text_height = font.size("QUIT")
@@ -133,6 +134,7 @@ def playGame():
         if waiting:
             button("",(SCREEN_WIDTH - 2*text_width - 200+60),0,(text_width+60),55,(255, 191, 107),(252, 244, 230), (SCREEN_WIDTH - 2*text_width - 80+60), 8,medFont,nextwave)
             pygame.draw.polygon(screen,(252, 244, 230),[((SCREEN_WIDTH - 2*text_width - 180+70),(55-text_height)),((SCREEN_WIDTH - 2*text_width - 180+70),55-(55-text_height)),((SCREEN_WIDTH - text_width - 180+70),27)])
+        
         # drawing player health and player currency
         screen.blit(globs.coin,(45,19))
         text_width, text_height = font.size(str(globs.playercash))
@@ -141,8 +143,6 @@ def playGame():
         screen.blit(globs.heart,(150,19))
         text_width, text_height = font.size(str(globs.playerhealth))
         draw_text(str(globs.playerhealth), font, (235, 191, 107), screen, 180, (54-text_height)/2)
-
-        
 
         # enemy culling
         enemies[:] = [enemy for enemy in enemies if enemy.alive]
