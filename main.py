@@ -47,6 +47,9 @@ def unpause():
     pause = False
 
 def paused():
+    global pause 
+    pause = True
+
     blit_alpha(screen, globs.transparentOverlay, (0, 0), 128)
     text_width, text_height = contrastMedFont.size("Main Menu")
     draw_text("Main Menu", contrastMedFont, (252, 244, 230), screen, (SCREEN_WIDTH/2 - text_width/2), 120)
@@ -74,11 +77,6 @@ def paused():
 
 counter = 0
 
-def pauser():
-    global pause 
-    pause = True
-    paused()
-
 def youwin():
     pygame.quit()
 
@@ -90,7 +88,7 @@ def playGame():
     global pause
     global counter
     screen.fill((4, 67, 40))
-    pauser()
+    paused()
     #enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),enemy.AI(0, 240, 2), enemy.AI(0, 240, 3)]
     enemies = []
     
@@ -106,10 +104,9 @@ def playGame():
             elif event.type == pygame.MOUSEBUTTONUP:
                 pass
 
-
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    pauser()
+                    paused()
                 elif event.key == pygame.K_SPACE:
                     random.choice(towers).levelup(type="range")
 
@@ -132,7 +129,7 @@ def playGame():
         pygame.draw.rect(screen, (1, 50, 24), menuBar)  # colour of menuBar
 
         text_width, text_height = medFont.size("I I")
-        button("I I",(SCREEN_WIDTH - text_width - 80),0,(text_width + 80),55,(235, 191, 107),(252, 244, 230), (SCREEN_WIDTH - text_width - 40), 8,medFont,pauser)
+        button("I I",(SCREEN_WIDTH - text_width - 80),0,(text_width + 80),55,(235, 191, 107),(252, 244, 230), (SCREEN_WIDTH - text_width - 40), 8,medFont,paused)
         if waiting:
             button("",(SCREEN_WIDTH - 2*text_width - 200+60),0,(text_width+60),55,(255, 191, 107),(252, 244, 230), (SCREEN_WIDTH - 2*text_width - 80+60), 8,medFont,nextwave)
             pygame.draw.polygon(screen,(252, 244, 230),[((SCREEN_WIDTH - 2*text_width - 180+70),(55-text_height)),((SCREEN_WIDTH - 2*text_width - 180+70),55-(55-text_height)),((SCREEN_WIDTH - text_width - 180+70),27)])
