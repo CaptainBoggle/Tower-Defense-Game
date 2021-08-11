@@ -13,6 +13,16 @@ import enemy
 import player
 import globs
 
+placingIce = False
+placingFire = False
+placingElec = False
+
+def pRect(x1,y1,x2,y2):
+    return pygame.Rect((x1, y1), (x2-x1, y2-y1))
+
+
+trackbounds = [pRect(0,222,474,269),pRect(279,98,475,146),pRect(334,144,277,222),pRect(417,145,475,225),pRect(332,268,281,478),pRect(281,435,138,477),pRect(198,436,138,300),pRect(138,300,584,353),pRect(584,353,527,177),pRect(527,177,699,230),pRect(699,230,636,432),pRect(636,432,373,375),pRect(373,375,426,579),pRect(0,55,899,0)]
+
 
 pygame.init()
 from textRenderer import *
@@ -88,17 +98,28 @@ def nextwave():
     counter += 1
 
 def newIceTower():
-    pass
+    global placingIce
+    globs.playercash -= globs.iceCost
+    placingIce = True
+
     
 def newFireTower():
-    pass
+    global placingFire
+    globs.playercash -= globs.fireCost
+    placingFire = True
 
 def newElecTower():
-    pass
-
+    global placingElec
+    globs.playercash -= globs.elecCost
+    placingElec = True
+    
 def playGame():
     global pause
     global counter
+    global placingIce
+    global placingFire
+    global placingElec
+    global trackbounds
     pauser()
     #enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),enemy.AI(0, 240, 2), enemy.AI(0, 240, 3)]
     enemies = []
@@ -109,13 +130,32 @@ def playGame():
     while running == True:
         waiting = False
         mx, my = pygame.mouse.get_pos()
-        
+        mpos = str(mx) + " " + str(my)
+        pygame.display.set_caption(mpos)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            
             elif event.type == pygame.MOUSEBUTTONUP:
                 pass
 
+            elif event.type == pygame.MOUSEBUTTONDOWN and pygame.Rect(mx-13,my,26,21).collidelist(trackbounds) == -1:
+                
+                if placingElec:   
+                    placingElec = False
+                    towers.append(tower.ElectricTower((mx,my)))
+                    trackbounds.append(pygame.Rect(mx-13,my,26,21))
+
+                elif placingIce:
+                    placingIce = False
+                    towers.append(tower.IceTower((mx,my)))
+                    trackbounds.append(pygame.Rect(mx-13,my,26,21))
+
+                elif placingFire:
+                    placingFire = False
+                    towers.append(tower.FireTower((mx,my)))
+                    trackbounds.append(pygame.Rect(mx-13,my,26,21))
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
@@ -128,8 +168,9 @@ def playGame():
         if wavescombined[counter] == "n":
             counter+=1
         elif wavescombined[counter] == "w":
-            text_width, text_height = medFont.size("I I")
-            waiting = True
+            if len(enemies)==0:
+                text_width, text_height = medFont.size("I I")
+                waiting = True
         else:
             enemies.append(enemy.AI(wavescombined[counter]))
             counter += 1
@@ -148,25 +189,29 @@ def playGame():
         
 
         if waiting:
-            button("",(SCREEN_WIDTH - 2*text_width - 200+60),0,(text_width+60),55,(255, 191, 107),(252, 244, 230), (SCREEN_WIDTH - 2*text_width - 80+60), 8,medFont,nextwave)
+            if not placingElec and not placingFire and not placingIce: 
+                button("",(SCREEN_WIDTH - 2*text_width - 200+60),0,(text_width+60),55,(255, 191, 107),(252, 244, 230), (SCREEN_WIDTH - 2*text_width - 80+60), 8,medFont,nextwave)
+            else:
+                button("",(SCREEN_WIDTH - 2*text_width - 200+60),0,(text_width+60),55,(255, 191, 107),(252, 244, 230), (SCREEN_WIDTH - 2*text_width - 80+60), 8,medFont)
+
             pygame.draw.polygon(screen,(252, 244, 230),[((SCREEN_WIDTH - 2*text_width - 180+70),(55-text_height)),((SCREEN_WIDTH - 2*text_width - 180+70),55-(55-text_height)),((SCREEN_WIDTH - text_width - 180+70),27)])
 
             
-            if globs.playercash < 200: # replace 2000 with ice cost
+            if globs.playercash < globs.iceCost:
                 pygame.draw.rect(screen, (226,54,54), (340, 5, 80, 45),3)
                 pygame.draw.line(screen, (226,54,54), (340, 5), (420, 50), 3)
                 pygame.draw.line(screen, (226,54,54), (340, 50), (420, 5), 3)
             else:
                 button("",340,5,80,45,(1, 50, 24),0,0,0,font,newIceTower)
             
-            if globs.playercash < 2000: # replace 2000 with fire cost
+            if globs.playercash < globs.fireCost: 
                 pygame.draw.rect(screen, (226,54,54), (440, 5, 80, 45),3)
                 pygame.draw.line(screen, (226,54,54), (440, 5), (520, 50), 3)
                 pygame.draw.line(screen, (226,54,54), (440, 50), (520, 5), 3)
             else:
                 button("",440,5,80,45,(1, 50, 24),0,0,0,font,newFireTower)
             
-            if globs.playercash < 2000: # replace 2000 with elec cost
+            if globs.playercash < globs.elecCost: 
                 pygame.draw.rect(screen, (226,54,54), (540, 5, 80, 45),3)
                 pygame.draw.line(screen, (226,54,54), (540, 5), (620, 50), 3)
                 pygame.draw.line(screen, (226,54,54), (540, 50), (620, 5), 3)
@@ -181,9 +226,18 @@ def playGame():
             screen.blit(globs.electricsprite,((550),(55-text_height)))
 
             text_height,text_width = smallFont.size("200")
-            draw_text("200", smallFont, (235, 191, 107), screen, 380, (54-text_height)/2) # ice cost
-            draw_text("200", smallFont, (235, 191, 107), screen, 480, (54-text_height)/2) # fire cost
-            draw_text("200", smallFont, (235, 191, 107), screen, 580, (54-text_height)/2) # elec cost
+            draw_text(str(globs.iceCost), smallFont, (235, 191, 107), screen, 380, (54-text_height)/2) # ice cost
+            draw_text(str(globs.fireCost), smallFont, (235, 191, 107), screen, 480, (54-text_height)/2) # fire cost
+            draw_text(str(globs.elecCost), smallFont, (235, 191, 107), screen, 580, (54-text_height)/2) # elec cost
+
+            if placingIce:
+                screen.blit(globs.icesprite,(mx-16,my-11))
+
+            elif placingElec:
+                screen.blit(globs.electricsprite,(mx-16,my-11))
+            
+            elif placingFire:
+                screen.blit(globs.firesprite,(mx-16,my-11))
 
         # drawing player health and player currency
         screen.blit(globs.coin,(45,19))

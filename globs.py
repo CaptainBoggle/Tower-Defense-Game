@@ -16,7 +16,9 @@ icesprite = pygame.image.load(os.path.join("towers", "ice.png")).convert_alpha()
 firesprite = pygame.image.load(os.path.join("towers", "fire.png")).convert_alpha()
 electricsprite = pygame.image.load(os.path.join("towers", "electric.png")).convert_alpha()
 
-
+iceCost = 150
+elecCost = 150
+fireCost = 150
 
 slimef1 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "enemyslime","sprite_0.png")).convert_alpha())
 slimef2 = pygame.transform.scale2x(pygame.image.load(os.path.join("characters", "enemyslime","sprite_1.png")).convert_alpha())
