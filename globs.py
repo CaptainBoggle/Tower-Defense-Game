@@ -3,6 +3,7 @@ from pygame.locals import *
 import os
 import sys
 import itertools
+
 debounce = itertools.cycle(range(10))
 
 clicked = False

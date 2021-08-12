@@ -10,7 +10,7 @@ import random
 
 
 class ElectricTower(pygame.sprite.Sprite):
-    def __init__(self, pos,hitbox):
+    def __init__(self, pos, hitbox):
         pygame.sprite.Sprite.__init__(self)
         self.level = 0
         self.image = globs.electricsprite
@@ -54,11 +54,9 @@ class ElectricTower(pygame.sprite.Sprite):
             self.lines.append([(target.x, target.y), stime])
         self.updateLines()
 
-        
-
     def levelup(self):
         globs.clicked = True
-        globs.playercash -=100 
+        globs.playercash -= 100
         self.level += 1
         self.cooldown -= 5
         self.range += 25
@@ -66,7 +64,7 @@ class ElectricTower(pygame.sprite.Sprite):
 
 
 class IceTower(pygame.sprite.Sprite):
-    def __init__(self, pos,hitbox):
+    def __init__(self, pos, hitbox):
         pygame.sprite.Sprite.__init__(self)
         self.level = 0
         self.image = globs.icesprite
@@ -136,7 +134,7 @@ class FireTower(pygame.sprite.Sprite):
                     globs.screen, (215, 0, 64), (self.x, self.y), (enemy.x, enemy.y), 3
                 )
                 enemy.takedamage(self.damage)
-    
+
     def levelup(self):
         globs.clicked = True
         globs.playercash -= 100

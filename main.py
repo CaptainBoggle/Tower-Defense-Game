@@ -304,7 +304,7 @@ def playGame():
     global wavenum
     wavelength = len(wavescombined) - 1
     paused()
-    
+
     # enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),enemy.AI(0, 240, 2), enemy.AI(0, 240, 3)]
     enemies = []
 
@@ -326,22 +326,31 @@ def playGame():
 
             elif (
                 event.type == pygame.MOUSEBUTTONDOWN
-                and pygame.Rect(mx - 13, my, 26, 21).collidelist(trackbounds+towerhitboxes) == -1
+                and pygame.Rect(mx - 13, my, 26, 21).collidelist(
+                    trackbounds + towerhitboxes
+                )
+                == -1
             ):
 
                 if placingElec:
                     placingElec = False
-                    towers.append(tower.ElectricTower((mx, my),pygame.Rect(mx - 13, my, 26, 21)))
+                    towers.append(
+                        tower.ElectricTower((mx, my), pygame.Rect(mx - 13, my, 26, 21))
+                    )
                     towerhitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
 
                 elif placingIce:
                     placingIce = False
-                    towers.append(tower.IceTower((mx, my),pygame.Rect(mx - 13, my, 26, 21)))
+                    towers.append(
+                        tower.IceTower((mx, my), pygame.Rect(mx - 13, my, 26, 21))
+                    )
                     towerhitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
 
                 elif placingFire:
                     placingFire = False
-                    towers.append(tower.FireTower((mx, my),pygame.Rect(mx - 13, my, 26, 21)))
+                    towers.append(
+                        tower.FireTower((mx, my), pygame.Rect(mx - 13, my, 26, 21))
+                    )
                     towerhitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
 
             elif event.type == pygame.KEYDOWN:
@@ -486,7 +495,6 @@ def playGame():
                 (54 - text_height) / 2,
             )  # elec cost
 
-
             if placingIce:
                 screen.blit(globs.icesprite, (mx - 16, my - 11))
 
@@ -563,14 +571,33 @@ def playGame():
                 for t in towers:
                     if t.level < 5:
                         if not globs.clicked:
-                            button(None,t.hitbox.x,t.hitbox.y,t.hitbox.w,t.hitbox.h,None,None,None,None,None,t.levelup)
-                        
-                        
-                        pygame.draw.polygon(screen,(235, 191, 107),[t.hitbox.bottomleft,t.hitbox.midtop,t.hitbox.bottomright,t.hitbox.center])        
+                            button(
+                                None,
+                                t.hitbox.x,
+                                t.hitbox.y,
+                                t.hitbox.w,
+                                t.hitbox.h,
+                                None,
+                                None,
+                                None,
+                                None,
+                                None,
+                                t.levelup,
+                            )
 
+                        pygame.draw.polygon(
+                            screen,
+                            (235, 191, 107),
+                            [
+                                t.hitbox.bottomleft,
+                                t.hitbox.midtop,
+                                t.hitbox.bottomright,
+                                t.hitbox.center,
+                            ],
+                        )
 
         pygame.display.flip()
-        
+
         globs.clock.tick(60)
 
 
