@@ -168,13 +168,13 @@ wavenum = 0
 def nextwave():
     global wavenum
     global counter
-    if wavescombined[counter+1] == "x":
+    if wavescombined[counter + 1] == "x":
         endGame("win")
         return
     globs.playercash += 100
     counter += 1
     wavenum += 1
-    
+
 
 def newIceTower():
     global placingIce
@@ -361,7 +361,6 @@ def playGame():
                     paused()
 
         # wave handling
-
 
         if globs.playerhealth <= 0:
             endGame("lose")
