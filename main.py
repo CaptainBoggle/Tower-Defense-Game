@@ -84,35 +84,78 @@ def paused():
         globs.clock.tick(60)   
 
 counter = 0
+wavenum = 0
 
 def pauser():
     global pause 
     pause = True
     paused()
 
-def youwin():
-    pygame.quit()
+
 
 def nextwave():
+    global wavenum
     global counter
     counter += 1
+    wavenum +=1 
 
 def newIceTower():
     global placingIce
+    if placingIce:
+        return
     globs.playercash -= globs.iceCost
     placingIce = True
 
     
 def newFireTower():
     global placingFire
+    if placingFire:
+        return
     globs.playercash -= globs.fireCost
     placingFire = True
 
 def newElecTower():
     global placingElec
+    if placingElec:
+        return
     globs.playercash -= globs.elecCost
     placingElec = True
     
+def endGame(scenario):
+    if scenario == "win":
+        while True:
+            screen.fill((1, 50, 24))
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+            text_width, text_height = font.size("Congratulations! You win!")
+            draw_text("Congratulations! You win!",font,(254, 244, 228),screen, (SCREEN_WIDTH/2 - text_width/2),110)
+            text_width, text_height = font.size("You had "+str(globs.playerhealth)+" lives left, and "+str(globs.playercash)+" leftover coins.")
+            draw_text("You had "+str(globs.playerhealth)+" lives left, and "+str(globs.playercash)+" leftover coins.",font,(254, 244, 228),screen, (SCREEN_WIDTH/2 - text_width/2),200)
+            text_width, text_height = font.size("QUIT")
+            button("QUIT",(SCREEN_WIDTH/2 - 100),290,200,60,(71, 126, 47),(254, 244, 228), (SCREEN_WIDTH/2 - text_width/2), 304,font,quitgame)
+            pygame.display.update()
+            globs.clock.tick(60)
+    else:
+        while True:
+            screen.fill((1, 50, 24))
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+            text_width, text_height = font.size("Oh no! You lost!")
+            draw_text("Oh no! You lost!",font,(254, 244, 228),screen, (SCREEN_WIDTH/2 - text_width/2),110)
+            text_width, text_height = font.size("You made it to wave "+str(wavenum)+" out of 20.")
+            draw_text("You made it to wave "+str(wavenum)+" out of 20.",font,(254, 244, 228),screen, (SCREEN_WIDTH/2 - text_width/2),200)
+            text_width, text_height = font.size("QUIT")
+            button("QUIT",(SCREEN_WIDTH/2 - 100),290,200,60,(71, 126, 47),(254, 244, 228), (SCREEN_WIDTH/2 - text_width/2), 304,font,quitgame)
+            pygame.display.update()
+            globs.clock.tick(60)
+
+
+
+
 def playGame():
     global pause
     global counter
@@ -120,12 +163,15 @@ def playGame():
     global placingFire
     global placingElec
     global trackbounds
+    global wavenum
+    wavelength = len(wavescombined)-1
     pauser()
     #enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),enemy.AI(0, 240, 2), enemy.AI(0, 240, 3)]
     enemies = []
     
     
-    towers = [tower.FireTower((350, 288)),tower.IceTower((460,288)),tower.FireTower((350,382))]
+    towers = [] 
+    # towers = [tower.FireTower((350, 288)),tower.IceTower((460,288)),tower.FireTower((350,382))]
     running = True
     while running == True:
         waiting = False
@@ -164,7 +210,12 @@ def playGame():
                     random.choice(towers).levelup(type="range")
 
         # wave handling
+        if counter >= wavelength and len(enemies)==0:
+            endGame("win")
         
+        if globs.playerhealth <= 0:
+            endGame("lose")
+
         if wavescombined[counter] == "n":
             counter+=1
         elif wavescombined[counter] == "w":
@@ -248,7 +299,8 @@ def playGame():
         text_width, text_height = font.size(str(globs.playerhealth))
         draw_text(str(globs.playerhealth), font, (235, 191, 107), screen, 180, (54-text_height)/2)
 
-        
+        text_width, text_height = font.size(str(wavenum))
+        draw_text(str(str(wavenum)+"/20"), font, (235, 191, 107), screen, 260, (54-text_height)/2)
 
         # enemy culling
         enemies[:] = [enemy for enemy in enemies if enemy.alive]
