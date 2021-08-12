@@ -47,7 +47,7 @@ class AI(object):
             self.worth = 2
             self.ftotal = 34
             self.speed = 6
-            self.hp = 200
+            self.hp = 350
         elif self.type == "s":
             self.worth = 1
             self.speed = 3
@@ -55,7 +55,7 @@ class AI(object):
         else:
             self.worth = 5
             self.speed = 1.5
-            self.hp = 1000
+            self.hp = 2000  
 
     def remove(self, reason):
         self.alive = False
