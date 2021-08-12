@@ -58,9 +58,9 @@ class ElectricTower(pygame.sprite.Sprite):
         globs.clicked = True
         globs.playercash -= 100
         self.level += 1
-        self.cooldown -= 5
-        self.range += 25
-        self.damage += 15
+        self.cooldown -= 1
+        self.range += 10
+        self.damage += 35
 
 
 class IceTower(pygame.sprite.Sprite):
@@ -99,7 +99,7 @@ class IceTower(pygame.sprite.Sprite):
         globs.clicked = True
         globs.playercash -= 100
         self.level += 1
-        self.range += 25
+        self.range += 5
         self.intensity += 1
         self.cycle = itertools.cycle(range(self.intensity + 2))
 
@@ -139,6 +139,6 @@ class FireTower(pygame.sprite.Sprite):
         globs.clicked = True
         globs.playercash -= 100
         self.level += 1
-        self.range += 25
+        self.range += 10
         self.targets += 1
         self.damage += 1

@@ -5,7 +5,7 @@ import sys
 import globs
 import random
 import itertools
-
+import math
 
 def alternator():
     iterator = 0
@@ -47,20 +47,20 @@ class AI(object):
             self.worth = 15
             self.ftotal = 34
             self.speed = 6
-            self.hp = 100
+            self.hp = 200
         elif self.type == "s":
             self.worth = 10
             self.speed = 3
-            self.hp = 125
+            self.hp = 250
         else:
             self.worth = 20
             self.speed = 1.5
-            self.hp = 300
+            self.hp = 500
 
     def remove(self, reason):
         self.alive = False
         if reason == "getthrough":
-            globs.playerhealth -= self.hp
+            globs.playerhealth -= math.round(self.hp/10)
         else:
             globs.playercash += self.worth  # give player some cash money
 
