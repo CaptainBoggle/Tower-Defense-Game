@@ -53,7 +53,7 @@ class AI(object):
             self.speed = 3
             self.hp = 500
         else:
-            self.worth = 4
+            self.worth = 5
             self.speed = 1.5
             self.hp = 1000
 

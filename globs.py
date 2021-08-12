@@ -22,9 +22,9 @@ electricsprite = pygame.image.load(
     os.path.join("towers", "electric.png")
 ).convert_alpha()
 
-iceCost = 150
+iceCost = 200
 elecCost = 150
-fireCost = 150
+fireCost = 100
 
 slimef1 = pygame.transform.scale2x(
     pygame.image.load(

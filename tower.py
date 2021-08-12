@@ -69,7 +69,7 @@ class IceTower(pygame.sprite.Sprite):
         self.level = 0
         self.image = globs.icesprite
         self.rect = self.image.get_rect(center=pos)
-        self.range = 60
+        self.range = 80
         self.x, self.y = pos
         self.intensity = 0
         self.cycle = itertools.cycle(range(self.intensity + 2))
@@ -114,7 +114,7 @@ class FireTower(pygame.sprite.Sprite):
         self.range = 60
         self.x, self.y = pos
         self.targets = 4
-        self.damage = 1
+        self.damage = 2
         self.hitbox = hitbox
 
     def inRange(self, enemy):
