@@ -45,7 +45,6 @@ tower_hitboxes = []
 pygame.init()
 
 
-
 def blit_alpha(target, source, location, opacity):
     temp = pygame.Surface((source.get_width(), source.get_height())).convert()
     temp.blit(target, (0, 0))
@@ -329,7 +328,7 @@ def play_game():
             elif (
                 event.type == pygame.MOUSEBUTTONDOWN
                 and pygame.Rect(mx - 13, my, 26, 21).collidelist(
-                TRACK_BOUNDS + tower_hitboxes
+                    TRACK_BOUNDS + tower_hitboxes
                 )
                 == -1
             ):
@@ -459,7 +458,9 @@ def play_game():
                 pygame.draw.line(screen, (226, 54, 54), (540, 5), (620, 50), 3)
                 pygame.draw.line(screen, (226, 54, 54), (540, 50), (620, 5), 3)
             elif not placing_ice and not placing_electric and not placing_fire:
-                button("", 540, 5, 80, 45, (1, 50, 24), 0, 0, 0, FONT, new_electric_tower)
+                button(
+                    "", 540, 5, 80, 45, (1, 50, 24), 0, 0, 0, FONT, new_electric_tower
+                )
 
             screen.blit(globs.ICE_SPRITE, ((350), (55 - text_height)))
 
