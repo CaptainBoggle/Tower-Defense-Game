@@ -14,20 +14,18 @@ import itertools
 
 while True:
     replay = False
+
     def play_again():
         global replay
         replay = True
-
 
     placing_ice = False
     placing_fire = False
     placing_electric = False
     from text import *
 
-
     def rect_from_points(x1, y1, x2, y2):
         return pygame.Rect((x1, y1), (x2 - x1, y2 - y1))
-
 
     TRACK_BOUNDS = [
         rect_from_points(0, 222, 474, 269),
@@ -53,9 +51,6 @@ while True:
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.2)
 
-
-
-
     def blit_alpha(target, source, location, opacity):
         temp = pygame.Surface((source.get_width(), source.get_height())).convert()
         temp.blit(target, (0, 0))
@@ -63,14 +58,11 @@ while True:
         temp.set_alpha(opacity)
         target.blit(temp, location)
 
-
     SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
-
 
     def quit_game():
         pygame.quit()
         quit()
-
 
     def button(msg, x, y, w, h, bc, tc, tx, ty, tfont, action=None):
         global screen
@@ -84,12 +76,10 @@ while True:
         if msg:
             draw_text(msg, tfont, tc, screen, tx, ty)
 
-
     def unpause():
         global pause
         pause = False
         pygame.mixer.music.unpause()
-
 
     def paused():
         global pause
@@ -173,10 +163,8 @@ while True:
             pygame.display.update()
             globs.CLOCK.tick(60)
 
-
     counter = 0
     wave_num = 0
-
 
     def next_wave():
         global wave_num
@@ -188,14 +176,12 @@ while True:
         counter += 1
         wave_num += 1
 
-
     def new_ice_tower():
         global placing_ice
         if placing_ice:
             return
         globs.player_cash -= globs.ICE_COST
         placing_ice = True
-
 
     def new_fire_tower():
         global placing_fire
@@ -204,14 +190,12 @@ while True:
         globs.player_cash -= globs.FIRE_COST
         placing_fire = True
 
-
     def new_electric_tower():
         global placing_electric
         if placing_electric:
             return
         globs.player_cash -= globs.ELECTRIC_COST
         placing_electric = True
-
 
     def end_game(scenario):
         global replay
@@ -344,7 +328,6 @@ while True:
                 pygame.display.update()
                 globs.CLOCK.tick(60)
 
-
     def play_game():
         global replay
         global pause
@@ -381,12 +364,10 @@ while True:
                 elif event.type == pygame.MOUSEBUTTONUP:
                     globs.clicked = False
 
-
-
                 elif (
                     event.type == pygame.MOUSEBUTTONDOWN
                     and pygame.Rect(mx - 13, my, 26, 21).collidelist(
-                    TRACK_BOUNDS + tower_hitboxes
+                        TRACK_BOUNDS + tower_hitboxes
                     )
                     == -1
                 ):
@@ -394,7 +375,9 @@ while True:
                     if placing_electric:
                         placing_electric = False
                         towers.append(
-                            tower.electric_tower((mx, my), pygame.Rect(mx - 13, my, 26, 21))
+                            tower.electric_tower(
+                                (mx, my), pygame.Rect(mx - 13, my, 26, 21)
+                            )
                         )
                         tower_hitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
 
@@ -420,7 +403,7 @@ while True:
 
             if globs.player_health <= 0:
                 end_game("lose")
-            
+
             if replay:
                 globs.debounce = itertools.cycle(range(10))
                 globs.clicked = False
@@ -495,7 +478,10 @@ while True:
                     screen,
                     (252, 244, 230),
                     [
-                        ((SCREEN_WIDTH - 2 * text_width - 180 + 70), (55 - text_height)),
+                        (
+                            (SCREEN_WIDTH - 2 * text_width - 180 + 70),
+                            (55 - text_height),
+                        ),
                         (
                             (SCREEN_WIDTH - 2 * text_width - 180 + 70),
                             55 - (55 - text_height),
@@ -509,21 +495,37 @@ while True:
                     pygame.draw.line(screen, (226, 54, 54), (340, 5), (420, 50), 3)
                     pygame.draw.line(screen, (226, 54, 54), (340, 50), (420, 5), 3)
                 elif not placing_ice and not placing_electric and not placing_fire:
-                    button("", 340, 5, 80, 45, (1, 50, 24), 0, 0, 0, FONT, new_ice_tower)
+                    button(
+                        "", 340, 5, 80, 45, (1, 50, 24), 0, 0, 0, FONT, new_ice_tower
+                    )
 
                 if globs.player_cash < globs.FIRE_COST:
                     pygame.draw.rect(screen, (226, 54, 54), (440, 5, 80, 45), 3)
                     pygame.draw.line(screen, (226, 54, 54), (440, 5), (520, 50), 3)
                     pygame.draw.line(screen, (226, 54, 54), (440, 50), (520, 5), 3)
                 elif not placing_ice and not placing_electric and not placing_fire:
-                    button("", 440, 5, 80, 45, (1, 50, 24), 0, 0, 0, FONT, new_fire_tower)
+                    button(
+                        "", 440, 5, 80, 45, (1, 50, 24), 0, 0, 0, FONT, new_fire_tower
+                    )
 
                 if globs.player_cash < globs.ELECTRIC_COST:
                     pygame.draw.rect(screen, (226, 54, 54), (540, 5, 80, 45), 3)
                     pygame.draw.line(screen, (226, 54, 54), (540, 5), (620, 50), 3)
                     pygame.draw.line(screen, (226, 54, 54), (540, 50), (620, 5), 3)
                 elif not placing_ice and not placing_electric and not placing_fire:
-                    button("", 540, 5, 80, 45, (1, 50, 24), 0, 0, 0, FONT, new_electric_tower)
+                    button(
+                        "",
+                        540,
+                        5,
+                        80,
+                        45,
+                        (1, 50, 24),
+                        0,
+                        0,
+                        0,
+                        FONT,
+                        new_electric_tower,
+                    )
 
                 screen.blit(globs.ICE_SPRITE, ((350), (55 - text_height)))
 
@@ -661,6 +663,5 @@ while True:
             pygame.display.flip()
 
             globs.CLOCK.tick(60)
-
 
     play_game()
