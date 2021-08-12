@@ -13,7 +13,6 @@ import globs
 import itertools
 
 
-
 while True:
     replay = False
 
