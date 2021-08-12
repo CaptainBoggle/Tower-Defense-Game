@@ -13,272 +13,143 @@ import enemy
 import globs
 import itertools
 
-placing_ice = False
-placing_fire = False
-placing_electric = False
-from text import *
+while True:
+    replay = False
+    def play_again():
+        global replay
+        replay = True
 
 
-def rect_from_points(x1, y1, x2, y2):
-    return pygame.Rect((x1, y1), (x2 - x1, y2 - y1))
+    placing_ice = False
+    placing_fire = False
+    placing_electric = False
+    from text import *
 
 
-TRACK_BOUNDS = [
-    rect_from_points(0, 222, 474, 269),
-    rect_from_points(279, 98, 475, 146),
-    rect_from_points(334, 144, 277, 222),
-    rect_from_points(417, 145, 475, 225),
-    rect_from_points(332, 268, 281, 478),
-    rect_from_points(281, 435, 138, 477),
-    rect_from_points(198, 436, 138, 300),
-    rect_from_points(138, 300, 584, 353),
-    rect_from_points(584, 353, 527, 177),
-    rect_from_points(527, 177, 699, 230),
-    rect_from_points(699, 230, 636, 432),
-    rect_from_points(636, 432, 373, 375),
-    rect_from_points(373, 375, 426, 579),
-    rect_from_points(0, 55, 899, 0),
-]
-
-tower_hitboxes = []
-
-pygame.init()
+    def rect_from_points(x1, y1, x2, y2):
+        return pygame.Rect((x1, y1), (x2 - x1, y2 - y1))
 
 
+    TRACK_BOUNDS = [
+        rect_from_points(0, 222, 474, 269),
+        rect_from_points(279, 98, 475, 146),
+        rect_from_points(334, 144, 277, 222),
+        rect_from_points(417, 145, 475, 225),
+        rect_from_points(332, 268, 281, 478),
+        rect_from_points(281, 435, 138, 477),
+        rect_from_points(198, 436, 138, 300),
+        rect_from_points(138, 300, 584, 353),
+        rect_from_points(584, 353, 527, 177),
+        rect_from_points(527, 177, 699, 230),
+        rect_from_points(699, 230, 636, 432),
+        rect_from_points(636, 432, 373, 375),
+        rect_from_points(373, 375, 426, 579),
+        rect_from_points(0, 55, 899, 0),
+    ]
 
-def blit_alpha(target, source, location, opacity):
-    temp = pygame.Surface((source.get_width(), source.get_height())).convert()
-    temp.blit(target, (0, 0))
-    temp.blit(source, (0, 0))
-    temp.set_alpha(opacity)
-    target.blit(temp, location)
+    tower_hitboxes = []
 
-
-SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
-
-
-def quit_game():
-    pygame.quit()
-    quit()
-
-
-def button(msg, x, y, w, h, bc, tc, tx, ty, tfont, action=None):
-    global screen
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    if x + w > mouse[0] > x and y + h > mouse[1] > y:
-        if click[0] == 1 and action != None:
-            action()
-    if bc:
-        pygame.draw.rect(screen, bc, (x, y, w, h))
-    if msg:
-        draw_text(msg, tfont, tc, screen, tx, ty)
+    pygame.init()
 
 
-def unpause():
-    global pause
-    pause = False
+
+    def blit_alpha(target, source, location, opacity):
+        temp = pygame.Surface((source.get_width(), source.get_height())).convert()
+        temp.blit(target, (0, 0))
+        temp.blit(source, (0, 0))
+        temp.set_alpha(opacity)
+        target.blit(temp, location)
 
 
-def paused():
-    global pause
-    pause = True
-    blit_alpha(screen, globs.TRANSPARENT_OVERLAY, (0, 0), 128)
-    screen.fill((4, 67, 40))
-    text_width, text_height = CONTRAST_MEDIUM_FONT.size("Main Menu")
-    draw_text(
-        "Main Menu",
-        CONTRAST_MEDIUM_FONT,
-        (252, 244, 230),
-        screen,
-        (SCREEN_WIDTH / 2 - text_width / 2),
-        120,
-    )
+    SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
 
-    text_width, text_height = MEDIUM_FONT.size("Main Menu")
-    draw_text(
-        "Main Menu",
-        MEDIUM_FONT,
-        (235, 191, 107),
-        screen,
-        (SCREEN_WIDTH / 2 - text_width / 2),
-        120,
-    )
 
-    text_width, text_height = CONTRAST_LARGE_FONT.size("A.I. DEFENCE")
-    draw_text(
-        "A.I. DEFENCE",
-        CONTRAST_LARGE_FONT,
-        (244, 197, 113),
-        screen,
-        (SCREEN_WIDTH / 2 - text_width / 2),
-        37,
-    )
+    def quit_game():
+        pygame.quit()
+        quit()
 
-    text_width, text_height = LARGE_FONT.size("A.I. DEFENCE")
-    draw_text(
-        "A.I. DEFENCE",
-        LARGE_FONT,
-        (252, 247, 239),
-        screen,
-        (SCREEN_WIDTH / 2 - text_width / 2),
-        40,
-    )
 
-    while pause:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-        text_width, text_height = FONT.size("PLAY")
-        button(
-            "PLAY",
-            (SCREEN_WIDTH / 2 - 100),
-            190,
-            200,
-            70,
-            (129, 185, 62),
-            (254, 244, 228),
+    def button(msg, x, y, w, h, bc, tc, tx, ty, tfont, action=None):
+        global screen
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        if x + w > mouse[0] > x and y + h > mouse[1] > y:
+            if click[0] == 1 and action != None:
+                action()
+        if bc:
+            pygame.draw.rect(screen, bc, (x, y, w, h))
+        if msg:
+            draw_text(msg, tfont, tc, screen, tx, ty)
+
+
+    def unpause():
+        global pause
+        pause = False
+
+
+    def paused():
+        global pause
+        pause = True
+        blit_alpha(screen, globs.TRANSPARENT_OVERLAY, (0, 0), 128)
+        screen.fill((4, 67, 40))
+        text_width, text_height = CONTRAST_MEDIUM_FONT.size("Main Menu")
+        draw_text(
+            "Main Menu",
+            CONTRAST_MEDIUM_FONT,
+            (252, 244, 230),
+            screen,
             (SCREEN_WIDTH / 2 - text_width / 2),
-            209,
-            FONT,
-            unpause,
+            120,
         )
-        text_width, text_height = FONT.size("QUIT")
-        button(
-            "QUIT",
-            (SCREEN_WIDTH / 2 - 100),
-            290,
-            200,
-            60,
-            (71, 126, 47),
-            (254, 244, 228),
+
+        text_width, text_height = MEDIUM_FONT.size("Main Menu")
+        draw_text(
+            "Main Menu",
+            MEDIUM_FONT,
+            (235, 191, 107),
+            screen,
             (SCREEN_WIDTH / 2 - text_width / 2),
-            304,
-            FONT,
-            quit_game,
+            120,
         )
-        pygame.display.update()
-        globs.CLOCK.tick(60)
 
+        text_width, text_height = CONTRAST_LARGE_FONT.size("A.I. DEFENCE")
+        draw_text(
+            "A.I. DEFENCE",
+            CONTRAST_LARGE_FONT,
+            (244, 197, 113),
+            screen,
+            (SCREEN_WIDTH / 2 - text_width / 2),
+            37,
+        )
 
-counter = 0
-wave_num = 0
+        text_width, text_height = LARGE_FONT.size("A.I. DEFENCE")
+        draw_text(
+            "A.I. DEFENCE",
+            LARGE_FONT,
+            (252, 247, 239),
+            screen,
+            (SCREEN_WIDTH / 2 - text_width / 2),
+            40,
+        )
 
-
-def next_wave():
-    global wave_num
-    global counter
-    if WAVES_COMBINED[counter + 1] == "x":
-        end_game("win")
-        return
-    globs.player_cash += 100
-    counter += 1
-    wave_num += 1
-
-
-def new_ice_tower():
-    global placing_ice
-    if placing_ice:
-        return
-    globs.player_cash -= globs.ICE_COST
-    placing_ice = True
-
-
-def new_fire_tower():
-    global placing_fire
-    if placing_fire:
-        return
-    globs.player_cash -= globs.FIRE_COST
-    placing_fire = True
-
-
-def new_electric_tower():
-    global placing_electric
-    if placing_electric:
-        return
-    globs.player_cash -= globs.ELECTRIC_COST
-    placing_electric = True
-
-
-def end_game(scenario):
-    if scenario == "win":
-        while True:
-            screen.fill((1, 50, 24))
+        while pause:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
-            text_width, text_height = FONT.size("Congratulations! You win!")
-            draw_text(
-                "Congratulations! You win!",
-                FONT,
-                (254, 244, 228),
-                screen,
-                (SCREEN_WIDTH / 2 - text_width / 2),
-                110,
-            )
-            text_width, text_height = FONT.size(
-                "You had "
-                + str(globs.player_health)
-                + " lives left, and "
-                + str(globs.player_cash)
-                + " leftover coins."
-            )
-            draw_text(
-                "You had "
-                + str(globs.player_health)
-                + " lives left, and "
-                + str(globs.player_cash)
-                + " leftover coins.",
-                FONT,
-                (254, 244, 228),
-                screen,
-                (SCREEN_WIDTH / 2 - text_width / 2),
-                200,
-            )
-            text_width, text_height = FONT.size("QUIT")
+            text_width, text_height = FONT.size("PLAY")
             button(
-                "QUIT",
+                "PLAY",
                 (SCREEN_WIDTH / 2 - 100),
-                290,
+                190,
                 200,
-                60,
-                (71, 126, 47),
+                70,
+                (129, 185, 62),
                 (254, 244, 228),
                 (SCREEN_WIDTH / 2 - text_width / 2),
-                304,
+                209,
                 FONT,
-                quit_game,
-            )
-            pygame.display.update()
-            globs.CLOCK.tick(60)
-    else:
-        while True:
-            screen.fill((1, 50, 24))
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    quit()
-            text_width, text_height = FONT.size("Oh no! You lost!")
-            draw_text(
-                "Oh no! You lost!",
-                FONT,
-                (254, 244, 228),
-                screen,
-                (SCREEN_WIDTH / 2 - text_width / 2),
-                110,
-            )
-            text_width, text_height = FONT.size(
-                "You made it to wave " + str(wave_num) + " out of 20."
-            )
-            draw_text(
-                "You made it to wave " + str(wave_num) + " out of 20.",
-                FONT,
-                (254, 244, 228),
-                screen,
-                (SCREEN_WIDTH / 2 - text_width / 2),
-                200,
+                unpause,
             )
             text_width, text_height = FONT.size("QUIT")
             button(
@@ -298,305 +169,493 @@ def end_game(scenario):
             globs.CLOCK.tick(60)
 
 
-def play_game():
-    global pause
-    global counter
-    global placing_ice
-    global placing_fire
-    global placing_electric
-    global TRACK_BOUNDS
-    global tower_hitboxes
-    global wave_num
-    wavelength = len(WAVES_COMBINED) - 1
-    paused()
+    counter = 0
+    wave_num = 0
 
-    # enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),enemy.AI(0, 240, 2), enemy.AI(0, 240, 3)]
-    enemies = []
 
-    towers = []
-    # towers = [tower.fire_tower((350, 288)),tower.ice_tower((460,288)),tower.fire_tower((350,382))]
-    running = True
-    while running:
-        waiting = False
-        mx, my = pygame.mouse.get_pos()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
+    def next_wave():
+        global wave_num
+        global counter
+        if WAVES_COMBINED[counter + 1] == "x":
+            end_game("win")
+            return
+        globs.player_cash += 100
+        counter += 1
+        wave_num += 1
 
-            elif event.type == pygame.MOUSEBUTTONUP:
-                globs.clicked = False
 
-            elif (
-                event.type == pygame.MOUSEBUTTONDOWN
-                and pygame.Rect(mx - 13, my, 26, 21).collidelist(
-                TRACK_BOUNDS + tower_hitboxes
+    def new_ice_tower():
+        global placing_ice
+        if placing_ice:
+            return
+        globs.player_cash -= globs.ICE_COST
+        placing_ice = True
+
+
+    def new_fire_tower():
+        global placing_fire
+        if placing_fire:
+            return
+        globs.player_cash -= globs.FIRE_COST
+        placing_fire = True
+
+
+    def new_electric_tower():
+        global placing_electric
+        if placing_electric:
+            return
+        globs.player_cash -= globs.ELECTRIC_COST
+        placing_electric = True
+
+
+    def end_game(scenario):
+        global replay
+        if scenario == "win":
+            while True:
+                screen.fill((1, 50, 24))
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        quit()
+                text_width, text_height = FONT.size("Congratulations! You win!")
+                draw_text(
+                    "Congratulations! You win!",
+                    FONT,
+                    (254, 244, 228),
+                    screen,
+                    (SCREEN_WIDTH / 2 - text_width / 2),
+                    110,
                 )
-                == -1
-            ):
+                text_width, text_height = FONT.size(
+                    "You had "
+                    + str(globs.player_health)
+                    + " lives left, and "
+                    + str(globs.player_cash)
+                    + " leftover coins."
+                )
+                draw_text(
+                    "You had "
+                    + str(globs.player_health)
+                    + " lives left, and "
+                    + str(globs.player_cash)
+                    + " leftover coins.",
+                    FONT,
+                    (254, 244, 228),
+                    screen,
+                    (SCREEN_WIDTH / 2 - text_width / 2),
+                    200,
+                )
+                text_width, text_height = FONT.size("QUIT")
+                button(
+                    "QUIT",
+                    (SCREEN_WIDTH / 2 - 100),
+                    290,
+                    200,
+                    60,
+                    (71, 126, 47),
+                    (254, 244, 228),
+                    (SCREEN_WIDTH / 2 - text_width / 2),
+                    304,
+                    FONT,
+                    quit_game,
+                )
 
-                if placing_electric:
-                    placing_electric = False
-                    towers.append(
-                        tower.electric_tower((mx, my), pygame.Rect(mx - 13, my, 26, 21))
-                    )
-                    tower_hitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
+                text_width, text_height = FONT.size("PLAY AGAIN?")
+                button(
+                    "PLAY AGAIN?",
+                    (SCREEN_WIDTH / 2 - 100),
+                    370,
+                    200,
+                    60,
+                    (71, 126, 47),
+                    (254, 244, 228),
+                    (SCREEN_WIDTH / 2 - text_width / 2),
+                    384,
+                    FONT,
+                    play_again,
+                )
+                if replay:
+                    return
+                pygame.display.update()
+                globs.CLOCK.tick(60)
+        else:
+            while True:
+                screen.fill((1, 50, 24))
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
+                        quit()
+                text_width, text_height = FONT.size("Oh no! You lost!")
+                draw_text(
+                    "Oh no! You lost!",
+                    FONT,
+                    (254, 244, 228),
+                    screen,
+                    (SCREEN_WIDTH / 2 - text_width / 2),
+                    110,
+                )
+                text_width, text_height = FONT.size(
+                    "You made it to wave " + str(wave_num) + " out of 20."
+                )
+                draw_text(
+                    "You made it to wave " + str(wave_num) + " out of 20.",
+                    FONT,
+                    (254, 244, 228),
+                    screen,
+                    (SCREEN_WIDTH / 2 - text_width / 2),
+                    200,
+                )
+                text_width, text_height = FONT.size("QUIT")
+                button(
+                    "QUIT",
+                    (SCREEN_WIDTH / 2 - 100),
+                    290,
+                    200,
+                    60,
+                    (71, 126, 47),
+                    (254, 244, 228),
+                    (SCREEN_WIDTH / 2 - text_width / 2),
+                    304,
+                    FONT,
+                    quit_game,
+                )
 
-                elif placing_ice:
-                    placing_ice = False
-                    towers.append(
-                        tower.ice_tower((mx, my), pygame.Rect(mx - 13, my, 26, 21))
+                text_width, text_height = FONT.size("PLAY AGAIN?")
+                button(
+                    "PLAY AGAIN?",
+                    (SCREEN_WIDTH / 2 - 100),
+                    370,
+                    200,
+                    60,
+                    (71, 126, 47),
+                    (254, 244, 228),
+                    (SCREEN_WIDTH / 2 - text_width / 2),
+                    384,
+                    FONT,
+                    play_again,
+                )
+                if replay:
+                    return
+                pygame.display.update()
+                globs.CLOCK.tick(60)
+
+
+    def play_game():
+        global replay
+        global pause
+        global counter
+        global placing_ice
+        global placing_fire
+        global placing_electric
+        global TRACK_BOUNDS
+        global tower_hitboxes
+        global wave_num
+        wavelength = len(WAVES_COMBINED) - 1
+        paused()
+
+        # enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),enemy.AI(0, 240, 2), enemy.AI(0, 240, 3)]
+        enemies = []
+
+        towers = []
+        # towers = [tower.fire_tower((350, 288)),tower.ice_tower((460,288)),tower.fire_tower((350,382))]
+        running = True
+        while running:
+            if replay:
+                globs.debounce = itertools.cycle(range(10))
+                globs.clicked = False
+                globs.player_cash = 450
+                globs.player_health = 200
+                return
+
+            waiting = False
+            mx, my = pygame.mouse.get_pos()
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+
+                elif event.type == pygame.MOUSEBUTTONUP:
+                    globs.clicked = False
+
+
+
+                elif (
+                    event.type == pygame.MOUSEBUTTONDOWN
+                    and pygame.Rect(mx - 13, my, 26, 21).collidelist(
+                    TRACK_BOUNDS + tower_hitboxes
                     )
-                    tower_hitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
+                    == -1
+                ):
+
+                    if placing_electric:
+                        placing_electric = False
+                        towers.append(
+                            tower.electric_tower((mx, my), pygame.Rect(mx - 13, my, 26, 21))
+                        )
+                        tower_hitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
+
+                    elif placing_ice:
+                        placing_ice = False
+                        towers.append(
+                            tower.ice_tower((mx, my), pygame.Rect(mx - 13, my, 26, 21))
+                        )
+                        tower_hitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
+
+                    elif placing_fire:
+                        placing_fire = False
+                        towers.append(
+                            tower.fire_tower((mx, my), pygame.Rect(mx - 13, my, 26, 21))
+                        )
+                        tower_hitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
+
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        paused()
+
+            # wave handling
+
+            if globs.player_health <= 0:
+                end_game("lose")
+            
+            if replay:
+                globs.debounce = itertools.cycle(range(10))
+                globs.clicked = False
+                globs.player_cash = 450
+                globs.player_health = 200
+                return
+
+            if WAVES_COMBINED[counter] == "n":
+                counter += 1
+            elif WAVES_COMBINED[counter] == "w":
+                if len(enemies) == 0:
+                    text_width, text_height = MEDIUM_FONT.size("I I")
+                    waiting = True
+            else:
+                enemies.append(enemy.AI(WAVES_COMBINED[counter]))
+                counter += 1
+
+            screen.fill((255, 255, 255))
+            screen.blit(globs.BACKGROUND, (0, 0))
+
+            # drawing the menu bar
+            menu_bar = pygame.Rect(0, 0, SCREEN_WIDTH, 55)
+            pygame.draw.rect(screen, (1, 50, 24), menu_bar)  # colour of menu_bar
+
+            text_width, text_height = MEDIUM_FONT.size("I I")
+            button(
+                "I I",
+                (SCREEN_WIDTH - text_width - 80),
+                0,
+                (text_width + 80),
+                55,
+                (235, 191, 107),
+                (252, 244, 230),
+                (SCREEN_WIDTH - text_width - 40),
+                8,
+                MEDIUM_FONT,
+                paused,
+            )
+
+            # drawing stuff while next wave incoming
+
+            if waiting:
+                if not placing_electric and not placing_fire and not placing_ice:
+                    button(
+                        "",
+                        (SCREEN_WIDTH - 2 * text_width - 200 + 60),
+                        0,
+                        (text_width + 60),
+                        55,
+                        (255, 191, 107),
+                        (252, 244, 230),
+                        (SCREEN_WIDTH - 2 * text_width - 80 + 60),
+                        8,
+                        MEDIUM_FONT,
+                        next_wave,
+                    )
+                else:
+                    button(
+                        "",
+                        (SCREEN_WIDTH - 2 * text_width - 200 + 60),
+                        0,
+                        (text_width + 60),
+                        55,
+                        (255, 191, 107),
+                        (252, 244, 230),
+                        (SCREEN_WIDTH - 2 * text_width - 80 + 60),
+                        8,
+                        MEDIUM_FONT,
+                    )
+
+                pygame.draw.polygon(
+                    screen,
+                    (252, 244, 230),
+                    [
+                        ((SCREEN_WIDTH - 2 * text_width - 180 + 70), (55 - text_height)),
+                        (
+                            (SCREEN_WIDTH - 2 * text_width - 180 + 70),
+                            55 - (55 - text_height),
+                        ),
+                        ((SCREEN_WIDTH - text_width - 180 + 70), 27),
+                    ],
+                )
+
+                if globs.player_cash < globs.ICE_COST:
+                    pygame.draw.rect(screen, (226, 54, 54), (340, 5, 80, 45), 3)
+                    pygame.draw.line(screen, (226, 54, 54), (340, 5), (420, 50), 3)
+                    pygame.draw.line(screen, (226, 54, 54), (340, 50), (420, 5), 3)
+                elif not placing_ice and not placing_electric and not placing_fire:
+                    button("", 340, 5, 80, 45, (1, 50, 24), 0, 0, 0, FONT, new_ice_tower)
+
+                if globs.player_cash < globs.FIRE_COST:
+                    pygame.draw.rect(screen, (226, 54, 54), (440, 5, 80, 45), 3)
+                    pygame.draw.line(screen, (226, 54, 54), (440, 5), (520, 50), 3)
+                    pygame.draw.line(screen, (226, 54, 54), (440, 50), (520, 5), 3)
+                elif not placing_ice and not placing_electric and not placing_fire:
+                    button("", 440, 5, 80, 45, (1, 50, 24), 0, 0, 0, FONT, new_fire_tower)
+
+                if globs.player_cash < globs.ELECTRIC_COST:
+                    pygame.draw.rect(screen, (226, 54, 54), (540, 5, 80, 45), 3)
+                    pygame.draw.line(screen, (226, 54, 54), (540, 5), (620, 50), 3)
+                    pygame.draw.line(screen, (226, 54, 54), (540, 50), (620, 5), 3)
+                elif not placing_ice and not placing_electric and not placing_fire:
+                    button("", 540, 5, 80, 45, (1, 50, 24), 0, 0, 0, FONT, new_electric_tower)
+
+                screen.blit(globs.ICE_SPRITE, ((350), (55 - text_height)))
+
+                screen.blit(globs.FIRE_SPRITE, ((450), (55 - text_height)))
+
+                screen.blit(globs.ELECTRIC_SPRITE, ((550), (55 - text_height)))
+
+                text_height, text_width = SMALL_FONT.size("200")
+                draw_text(
+                    str(globs.ICE_COST),
+                    SMALL_FONT,
+                    (235, 191, 107),
+                    screen,
+                    380,
+                    (54 - text_height) / 2,
+                )  # ice cost
+                draw_text(
+                    str(globs.FIRE_COST),
+                    SMALL_FONT,
+                    (235, 191, 107),
+                    screen,
+                    480,
+                    (54 - text_height) / 2,
+                )  # fire cost
+                draw_text(
+                    str(globs.ELECTRIC_COST),
+                    SMALL_FONT,
+                    (235, 191, 107),
+                    screen,
+                    580,
+                    (54 - text_height) / 2,
+                )  # elec cost
+
+                if placing_ice:
+                    screen.blit(globs.ICE_SPRITE, (mx - 16, my - 11))
+
+                elif placing_electric:
+                    screen.blit(globs.ELECTRIC_SPRITE, (mx - 16, my - 11))
 
                 elif placing_fire:
-                    placing_fire = False
-                    towers.append(
-                        tower.fire_tower((mx, my), pygame.Rect(mx - 13, my, 26, 21))
-                    )
-                    tower_hitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
+                    screen.blit(globs.FIRE_SPRITE, (mx - 16, my - 11))
 
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    paused()
-
-        # wave handling
-
-        if globs.player_health <= 0:
-            end_game("lose")
-
-        if WAVES_COMBINED[counter] == "n":
-            counter += 1
-        elif WAVES_COMBINED[counter] == "w":
-            if len(enemies) == 0:
-                text_width, text_height = MEDIUM_FONT.size("I I")
-                waiting = True
-        else:
-            enemies.append(enemy.AI(WAVES_COMBINED[counter]))
-            counter += 1
-
-        screen.fill((255, 255, 255))
-        screen.blit(globs.BACKGROUND, (0, 0))
-
-        # drawing the menu bar
-        menu_bar = pygame.Rect(0, 0, SCREEN_WIDTH, 55)
-        pygame.draw.rect(screen, (1, 50, 24), menu_bar)  # colour of menu_bar
-
-        text_width, text_height = MEDIUM_FONT.size("I I")
-        button(
-            "I I",
-            (SCREEN_WIDTH - text_width - 80),
-            0,
-            (text_width + 80),
-            55,
-            (235, 191, 107),
-            (252, 244, 230),
-            (SCREEN_WIDTH - text_width - 40),
-            8,
-            MEDIUM_FONT,
-            paused,
-        )
-
-        # drawing stuff while next wave incoming
-
-        if waiting:
-            if not placing_electric and not placing_fire and not placing_ice:
-                button(
-                    "",
-                    (SCREEN_WIDTH - 2 * text_width - 200 + 60),
-                    0,
-                    (text_width + 60),
-                    55,
-                    (255, 191, 107),
-                    (252, 244, 230),
-                    (SCREEN_WIDTH - 2 * text_width - 80 + 60),
-                    8,
-                    MEDIUM_FONT,
-                    next_wave,
-                )
-            else:
-                button(
-                    "",
-                    (SCREEN_WIDTH - 2 * text_width - 200 + 60),
-                    0,
-                    (text_width + 60),
-                    55,
-                    (255, 191, 107),
-                    (252, 244, 230),
-                    (SCREEN_WIDTH - 2 * text_width - 80 + 60),
-                    8,
-                    MEDIUM_FONT,
-                )
-
-            pygame.draw.polygon(
+            # drawing player health and player currency
+            screen.blit(globs.coin, (45, 19))
+            text_width, text_height = FONT.size(str(globs.player_cash))
+            draw_text(
+                str(globs.player_cash),
+                FONT,
+                (235, 191, 107),
                 screen,
-                (252, 244, 230),
-                [
-                    ((SCREEN_WIDTH - 2 * text_width - 180 + 70), (55 - text_height)),
-                    (
-                        (SCREEN_WIDTH - 2 * text_width - 180 + 70),
-                        55 - (55 - text_height),
-                    ),
-                    ((SCREEN_WIDTH - text_width - 180 + 70), 27),
-                ],
+                75,
+                (54 - text_height) / 2,
             )
 
-            if globs.player_cash < globs.ICE_COST:
-                pygame.draw.rect(screen, (226, 54, 54), (340, 5, 80, 45), 3)
-                pygame.draw.line(screen, (226, 54, 54), (340, 5), (420, 50), 3)
-                pygame.draw.line(screen, (226, 54, 54), (340, 50), (420, 5), 3)
-            elif not placing_ice and not placing_electric and not placing_fire:
-                button("", 340, 5, 80, 45, (1, 50, 24), 0, 0, 0, FONT, new_ice_tower)
-
-            if globs.player_cash < globs.FIRE_COST:
-                pygame.draw.rect(screen, (226, 54, 54), (440, 5, 80, 45), 3)
-                pygame.draw.line(screen, (226, 54, 54), (440, 5), (520, 50), 3)
-                pygame.draw.line(screen, (226, 54, 54), (440, 50), (520, 5), 3)
-            elif not placing_ice and not placing_electric and not placing_fire:
-                button("", 440, 5, 80, 45, (1, 50, 24), 0, 0, 0, FONT, new_fire_tower)
-
-            if globs.player_cash < globs.ELECTRIC_COST:
-                pygame.draw.rect(screen, (226, 54, 54), (540, 5, 80, 45), 3)
-                pygame.draw.line(screen, (226, 54, 54), (540, 5), (620, 50), 3)
-                pygame.draw.line(screen, (226, 54, 54), (540, 50), (620, 5), 3)
-            elif not placing_ice and not placing_electric and not placing_fire:
-                button("", 540, 5, 80, 45, (1, 50, 24), 0, 0, 0, FONT, new_electric_tower)
-
-            screen.blit(globs.ICE_SPRITE, ((350), (55 - text_height)))
-
-            screen.blit(globs.FIRE_SPRITE, ((450), (55 - text_height)))
-
-            screen.blit(globs.ELECTRIC_SPRITE, ((550), (55 - text_height)))
-
-            text_height, text_width = SMALL_FONT.size("200")
+            screen.blit(globs.heart, (150, 19))
+            text_width, text_height = FONT.size(str(globs.player_health))
             draw_text(
-                str(globs.ICE_COST),
-                SMALL_FONT,
+                str(globs.player_health),
+                FONT,
                 (235, 191, 107),
                 screen,
-                380,
+                180,
                 (54 - text_height) / 2,
-            )  # ice cost
+            )
+
+            text_width, text_height = FONT.size(str(wave_num))
             draw_text(
-                str(globs.FIRE_COST),
-                SMALL_FONT,
+                str(str(wave_num) + "/20"),
+                FONT,
                 (235, 191, 107),
                 screen,
-                480,
+                260,
                 (54 - text_height) / 2,
-            )  # fire cost
-            draw_text(
-                str(globs.ELECTRIC_COST),
-                SMALL_FONT,
-                (235, 191, 107),
-                screen,
-                580,
-                (54 - text_height) / 2,
-            )  # elec cost
+            )
 
-            if placing_ice:
-                screen.blit(globs.ICE_SPRITE, (mx - 16, my - 11))
+            # enemy culling
+            enemies[:] = [enemy for enemy in enemies if enemy.alive]
 
-            elif placing_electric:
-                screen.blit(globs.ELECTRIC_SPRITE, (mx - 16, my - 11))
+            enemies.sort(key=lambda e: len(e.path), reverse=True)
 
-            elif placing_fire:
-                screen.blit(globs.FIRE_SPRITE, (mx - 16, my - 11))
+            for e in enemies:
+                e.update()
+                if e.type == "s":
+                    screen.blit(
+                        pygame.transform.rotate(globs.SLIME_FRAMES[e.frame], e.angle),
+                        (e.x - 32, e.y - 32),
+                    )
+                elif e.type == "c":
+                    screen.blit(
+                        pygame.transform.rotate(globs.CRAB_FRAMES[e.frame], e.angle),
+                        (e.x - 16, e.y - 16),
+                    )
+                else:
+                    screen.blit(
+                        pygame.transform.rotate(globs.PYTHON_FRAMES[e.frame], e.angle),
+                        (e.x - 16, e.y - 16),
+                    )
+            # target = test.getTarget(enemies)
 
-        # drawing player health and player currency
-        screen.blit(globs.coin, (45, 19))
-        text_width, text_height = FONT.size(str(globs.player_cash))
-        draw_text(
-            str(globs.player_cash),
-            FONT,
-            (235, 191, 107),
-            screen,
-            75,
-            (54 - text_height) / 2,
-        )
+            # if target: SCREEN.blit(pygame.transform.rotate(slimetest,target.angle),(target.x-32,target.y-32))
+            # pygame.draw.circle(SCREEN, (0,0,255), (test.x,test.y), 100, 1)
+            for t in towers:
+                t.update(enemies)
 
-        screen.blit(globs.heart, (150, 19))
-        text_width, text_height = FONT.size(str(globs.player_health))
-        draw_text(
-            str(globs.player_health),
-            FONT,
-            (235, 191, 107),
-            screen,
-            180,
-            (54 - text_height) / 2,
-        )
+            if waiting:
+                if globs.player_cash >= 100:
+                    for t in towers:
+                        if t.level < 5:
+                            if not globs.clicked:
+                                button(
+                                    None,
+                                    t.hitbox.x,
+                                    t.hitbox.y,
+                                    t.hitbox.w,
+                                    t.hitbox.h,
+                                    None,
+                                    None,
+                                    None,
+                                    None,
+                                    None,
+                                    t.level_up,
+                                )
 
-        text_width, text_height = FONT.size(str(wave_num))
-        draw_text(
-            str(str(wave_num) + "/20"),
-            FONT,
-            (235, 191, 107),
-            screen,
-            260,
-            (54 - text_height) / 2,
-        )
-
-        # enemy culling
-        enemies[:] = [enemy for enemy in enemies if enemy.alive]
-
-        enemies.sort(key=lambda e: len(e.path), reverse=True)
-
-        for e in enemies:
-            e.update()
-            if e.type == "s":
-                screen.blit(
-                    pygame.transform.rotate(globs.SLIME_FRAMES[e.frame], e.angle),
-                    (e.x - 32, e.y - 32),
-                )
-            elif e.type == "c":
-                screen.blit(
-                    pygame.transform.rotate(globs.CRAB_FRAMES[e.frame], e.angle),
-                    (e.x - 16, e.y - 16),
-                )
-            else:
-                screen.blit(
-                    pygame.transform.rotate(globs.PYTHON_FRAMES[e.frame], e.angle),
-                    (e.x - 16, e.y - 16),
-                )
-        # target = test.getTarget(enemies)
-
-        # if target: SCREEN.blit(pygame.transform.rotate(slimetest,target.angle),(target.x-32,target.y-32))
-        # pygame.draw.circle(SCREEN, (0,0,255), (test.x,test.y), 100, 1)
-        for t in towers:
-            t.update(enemies)
-
-        if waiting:
-            if globs.player_cash >= 100:
-                for t in towers:
-                    if t.level < 5:
-                        if not globs.clicked:
-                            button(
-                                None,
-                                t.hitbox.x,
-                                t.hitbox.y,
-                                t.hitbox.w,
-                                t.hitbox.h,
-                                None,
-                                None,
-                                None,
-                                None,
-                                None,
-                                t.level_up,
+                            pygame.draw.polygon(
+                                screen,
+                                (235, 191, 107),
+                                [
+                                    t.hitbox.bottomleft,
+                                    t.hitbox.midtop,
+                                    t.hitbox.bottomright,
+                                    t.hitbox.center,
+                                ],
                             )
 
-                        pygame.draw.polygon(
-                            screen,
-                            (235, 191, 107),
-                            [
-                                t.hitbox.bottomleft,
-                                t.hitbox.midtop,
-                                t.hitbox.bottomright,
-                                t.hitbox.center,
-                            ],
-                        )
+            pygame.display.flip()
 
-        pygame.display.flip()
-
-        globs.CLOCK.tick(60)
+            globs.CLOCK.tick(60)
 
 
-play_game()
+    play_game()
