@@ -370,7 +370,8 @@ def playGame():
         elif wavescombined[counter] == "w":
             if len(enemies) == 0:
                 text_width, text_height = medFont.size("I I")
-                globs.playercash += 100
+                if not waiting:
+                    globs.playercash += 100
                 waiting = True
         else:
             enemies.append(enemy.AI(wavescombined[counter]))
