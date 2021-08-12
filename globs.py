@@ -80,7 +80,12 @@ heart = pygame.image.load(os.path.join("mapideas", "heart.png"))
 
 
 SLIME_FRAMES = ([SLIME_FRAME_1] * 10) + ([SLIME_FRAME_2] * 10)
-CRAB_FRAMES = ([CRAB_FRAME_1] * 5) + ([CRAB_FRAME_2] * 5) + ([CRAB_FRAME_3] * 5) + ([CRAB_FRAME_4] * 5)
+CRAB_FRAMES = (
+    ([CRAB_FRAME_1] * 5)
+    + ([CRAB_FRAME_2] * 5)
+    + ([CRAB_FRAME_3] * 5)
+    + ([CRAB_FRAME_4] * 5)
+)
 PYTHON_FRAMES = (
     ([PYTHON_FRAME_1] * 5)
     + ([PYTHON_FRAME_2] * 5)
