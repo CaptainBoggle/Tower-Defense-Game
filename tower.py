@@ -60,7 +60,7 @@ class ElectricTower(pygame.sprite.Sprite):
         self.level += 1
         self.cooldown -= 5
         self.range += 10
-        self.damage += 100
+        self.damage += 125
 
 
 class IceTower(pygame.sprite.Sprite):
@@ -142,4 +142,5 @@ class FireTower(pygame.sprite.Sprite):
         self.level += 1
         self.range += 10
         self.targets += 1
-        self.damage += 1
+        if self.level % 2 == 0:
+            self.damage += 1
