@@ -84,6 +84,7 @@ def paused():
     global pause
     pause = True
     blit_alpha(screen, globs.transparentOverlay, (0, 0), 128)
+    screen.fill((4, 67, 40))
     text_width, text_height = contrastMedFont.size("Main Menu")
     draw_text(
         "Main Menu",
