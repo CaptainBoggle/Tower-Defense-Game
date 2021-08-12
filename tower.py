@@ -17,7 +17,7 @@ class ElectricTower(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=pos)
         self.range = 100
         self.x, self.y = pos
-        self.damage = 50
+        self.damage = 100
         self.cooldowntime = 30
         self.cooldown = self.cooldowntime
         self.lines = []
@@ -60,7 +60,7 @@ class ElectricTower(pygame.sprite.Sprite):
         self.level += 1
         self.cooldown -= 1
         self.range += 10
-        self.damage += 35
+        self.damage += 50
 
 
 class IceTower(pygame.sprite.Sprite):

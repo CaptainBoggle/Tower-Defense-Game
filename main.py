@@ -318,7 +318,6 @@ def playGame():
         waiting = False
         mx, my = pygame.mouse.get_pos()
         mpos = str(mx) + " " + str(my)
-        pygame.display.set_caption(mpos)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

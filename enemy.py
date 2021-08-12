@@ -51,11 +51,11 @@ class AI(object):
         elif self.type == "s":
             self.worth = 10
             self.speed = 3
-            self.hp = 250
+            self.hp = 500
         else:
             self.worth = 20
             self.speed = 1.5
-            self.hp = 500
+            self.hp = 1000
 
     def remove(self, reason):
         self.alive = False
