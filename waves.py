@@ -1479,7 +1479,7 @@ wave20 = [
     "n",
     "n",
     "n",
-] * 30 + ["w","x"]
+] * 30 + ["w", "x"]
 
 wavescombined = (
     wave1
