@@ -55,12 +55,12 @@ class AI(object):
         else:
             self.worth = 5
             self.speed = 1.5
-            self.hp = 2000  
+            self.hp = 2000
 
     def remove(self, reason):
         self.alive = False
         if reason == "getthrough":
-            globs.playerhealth -= round(self.hp/10)
+            globs.playerhealth -= round(self.hp / 10)
         else:
             globs.playercash += self.worth  # give player some cash money
 
