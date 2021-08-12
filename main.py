@@ -168,7 +168,7 @@ wavenum = 0
 def nextwave():
     global wavenum
     global counter
-    if wavescombined[counter+1] == "x":
+    if wavescombined[counter + 1] == "x":
         endGame("win")
         return
     counter += 1
@@ -361,7 +361,6 @@ def playGame():
                     paused()
 
         # wave handling
-
 
         if globs.playerhealth <= 0:
             endGame("lose")
