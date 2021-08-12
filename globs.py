@@ -2,8 +2,11 @@ import pygame
 from pygame.locals import *
 import os
 import sys
+import itertools
+debounce = itertools.cycle(range(10))
 
-playercash = 150
+clicked = False
+playercash = 450
 playerhealth = 200
 transparentOverlay = pygame.image.load(os.path.join("mapideas", "dgBackground.png"))
 screen = pygame.display.set_mode((900, 580), pygame.SCALED, pygame.RESIZABLE)

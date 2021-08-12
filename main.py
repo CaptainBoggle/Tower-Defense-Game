@@ -16,6 +16,7 @@ import globs
 placingIce = False
 placingFire = False
 placingElec = False
+import itertools
 
 
 def pRect(x1, y1, x2, y2):
@@ -39,6 +40,7 @@ trackbounds = [
     pRect(0, 55, 899, 0),
 ]
 
+towerhitboxes = []
 
 pygame.init()
 from textRenderer import *
@@ -67,8 +69,10 @@ def button(msg, x, y, w, h, bc, tc, tx, ty, tfont, action=None):
     if x + w > mouse[0] > x and y + h > mouse[1] > y:
         if click[0] == 1 and action != None:
             action()
-    pygame.draw.rect(screen, bc, (x, y, w, h))
-    draw_text(msg, tfont, tc, screen, tx, ty)
+    if bc:
+        pygame.draw.rect(screen, bc, (x, y, w, h))
+    if msg:
+        draw_text(msg, tfont, tc, screen, tx, ty)
 
 
 def unpause():
@@ -296,9 +300,11 @@ def playGame():
     global placingFire
     global placingElec
     global trackbounds
+    global towerhitboxes
     global wavenum
     wavelength = len(wavescombined) - 1
     paused()
+    
     # enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),enemy.AI(0, 240, 2), enemy.AI(0, 240, 3)]
     enemies = []
 
@@ -316,27 +322,27 @@ def playGame():
                 sys.exit()
 
             elif event.type == pygame.MOUSEBUTTONUP:
-                pass
+                globs.clicked = False
 
             elif (
                 event.type == pygame.MOUSEBUTTONDOWN
-                and pygame.Rect(mx - 13, my, 26, 21).collidelist(trackbounds) == -1
+                and pygame.Rect(mx - 13, my, 26, 21).collidelist(trackbounds+towerhitboxes) == -1
             ):
 
                 if placingElec:
                     placingElec = False
-                    towers.append(tower.ElectricTower((mx, my)))
-                    trackbounds.append(pygame.Rect(mx - 13, my, 26, 21))
+                    towers.append(tower.ElectricTower((mx, my),pygame.Rect(mx - 13, my, 26, 21)))
+                    towerhitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
 
                 elif placingIce:
                     placingIce = False
-                    towers.append(tower.IceTower((mx, my)))
-                    trackbounds.append(pygame.Rect(mx - 13, my, 26, 21))
+                    towers.append(tower.IceTower((mx, my),pygame.Rect(mx - 13, my, 26, 21)))
+                    towerhitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
 
                 elif placingFire:
                     placingFire = False
-                    towers.append(tower.FireTower((mx, my)))
-                    trackbounds.append(pygame.Rect(mx - 13, my, 26, 21))
+                    towers.append(tower.FireTower((mx, my),pygame.Rect(mx - 13, my, 26, 21)))
+                    towerhitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
@@ -431,21 +437,21 @@ def playGame():
                 pygame.draw.rect(screen, (226, 54, 54), (340, 5, 80, 45), 3)
                 pygame.draw.line(screen, (226, 54, 54), (340, 5), (420, 50), 3)
                 pygame.draw.line(screen, (226, 54, 54), (340, 50), (420, 5), 3)
-            else:
+            elif not placingIce and not placingElec and not placingFire:
                 button("", 340, 5, 80, 45, (1, 50, 24), 0, 0, 0, font, newIceTower)
 
             if globs.playercash < globs.fireCost:
                 pygame.draw.rect(screen, (226, 54, 54), (440, 5, 80, 45), 3)
                 pygame.draw.line(screen, (226, 54, 54), (440, 5), (520, 50), 3)
                 pygame.draw.line(screen, (226, 54, 54), (440, 50), (520, 5), 3)
-            else:
+            elif not placingIce and not placingElec and not placingFire:
                 button("", 440, 5, 80, 45, (1, 50, 24), 0, 0, 0, font, newFireTower)
 
             if globs.playercash < globs.elecCost:
                 pygame.draw.rect(screen, (226, 54, 54), (540, 5, 80, 45), 3)
                 pygame.draw.line(screen, (226, 54, 54), (540, 5), (620, 50), 3)
                 pygame.draw.line(screen, (226, 54, 54), (540, 50), (620, 5), 3)
-            else:
+            elif not placingIce and not placingElec and not placingFire:
                 button("", 540, 5, 80, 45, (1, 50, 24), 0, 0, 0, font, newElecTower)
 
             screen.blit(globs.icesprite, ((350), (55 - text_height)))
@@ -479,6 +485,7 @@ def playGame():
                 580,
                 (54 - text_height) / 2,
             )  # elec cost
+
 
             if placingIce:
                 screen.blit(globs.icesprite, (mx - 16, my - 11))
@@ -551,8 +558,19 @@ def playGame():
         for t in towers:
             t.update(enemies)
 
-        pygame.display.flip()
+        if waiting:
+            if globs.playercash >= 100:
+                for t in towers:
+                    if t.level < 5:
+                        if not globs.clicked:
+                            button(None,t.hitbox.x,t.hitbox.y,t.hitbox.w,t.hitbox.h,None,None,None,None,None,t.levelup)
+                        
+                        
+                        pygame.draw.polygon(screen,(235, 191, 107),[t.hitbox.bottomleft,t.hitbox.midtop,t.hitbox.bottomright,t.hitbox.center])        
 
+
+        pygame.display.flip()
+        
         globs.clock.tick(60)
 
 
