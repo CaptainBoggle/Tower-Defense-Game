@@ -6,7 +6,6 @@ import os
 import sys
 import random
 from waves import WAVES_COMBINED
-from pygame.mixer import pause
 
 import tower
 import enemy
@@ -50,6 +49,10 @@ while True:
     tower_hitboxes = []
 
     pygame.init()
+    pygame.mixer.music.load("music.wav")
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(0.2)
+
 
 
 
@@ -85,11 +88,13 @@ while True:
     def unpause():
         global pause
         pause = False
+        pygame.mixer.music.unpause()
 
 
     def paused():
         global pause
         pause = True
+        pygame.mixer.music.pause()
         blit_alpha(screen, globs.TRANSPARENT_OVERLAY, (0, 0), 128)
         screen.fill((4, 67, 40))
         text_width, text_height = CONTRAST_MEDIUM_FONT.size("Main Menu")
