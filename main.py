@@ -171,6 +171,7 @@ def nextwave():
     if wavescombined[counter+1] == "x":
         endGame("win")
         return
+    globs.playercash += 100
     counter += 1
     wavenum += 1
     
@@ -370,8 +371,6 @@ def playGame():
         elif wavescombined[counter] == "w":
             if len(enemies) == 0:
                 text_width, text_height = medFont.size("I I")
-                if not waiting:
-                    globs.playercash += 100
                 waiting = True
         else:
             enemies.append(enemy.AI(wavescombined[counter]))
