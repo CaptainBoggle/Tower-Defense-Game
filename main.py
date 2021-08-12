@@ -12,6 +12,8 @@ import enemy
 import globs
 import itertools
 
+
+
 while True:
     replay = False
 
@@ -47,7 +49,10 @@ while True:
     tower_hitboxes = []
 
     pygame.init()
+
+    # sound manager
     pygame.mixer.music.load("music.wav")
+    CLICK_SOUND = pygame.mixer.Sound("click.wav")
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.2)
 
@@ -70,6 +75,7 @@ while True:
         click = pygame.mouse.get_pressed()
         if x + w > mouse[0] > x and y + h > mouse[1] > y:
             if click[0] == 1 and action != None:
+                CLICK_SOUND.play()
                 action()
         if bc:
             pygame.draw.rect(screen, bc, (x, y, w, h))
@@ -373,6 +379,7 @@ while True:
                 ):
 
                     if placing_electric:
+                        CLICK_SOUND.play()
                         placing_electric = False
                         towers.append(
                             tower.electric_tower(
@@ -382,6 +389,7 @@ while True:
                         tower_hitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
 
                     elif placing_ice:
+                        CLICK_SOUND.play()
                         placing_ice = False
                         towers.append(
                             tower.ice_tower((mx, my), pygame.Rect(mx - 13, my, 26, 21))
@@ -389,6 +397,7 @@ while True:
                         tower_hitboxes.append(pygame.Rect(mx - 13, my, 26, 21))
 
                     elif placing_fire:
+                        CLICK_SOUND.play()
                         placing_fire = False
                         towers.append(
                             tower.fire_tower((mx, my), pygame.Rect(mx - 13, my, 26, 21))

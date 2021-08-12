@@ -9,10 +9,10 @@ debounce = itertools.cycle(range(10))
 clicked = False
 player_cash = 450
 player_health = 200
+
 TRANSPARENT_OVERLAY = pygame.image.load(os.path.join("mapideas", "dgBackground.png"))
 SCREEN = pygame.display.set_mode((900, 580), pygame.SCALED, pygame.RESIZABLE)
 CLOCK = pygame.time.Clock()
-
 BACKGROUND = pygame.image.load(os.path.join("mapideas", "map2.png"))
 BACKGROUND = pygame.transform.scale(BACKGROUND, (900, 580))
 
