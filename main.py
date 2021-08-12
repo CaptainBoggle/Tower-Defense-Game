@@ -356,8 +356,6 @@ def playGame():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     paused()
-                elif event.key == pygame.K_SPACE:
-                    random.choice(towers).levelup(type="range")
 
         # wave handling
         if counter >= wavelength and len(enemies) == 0:
