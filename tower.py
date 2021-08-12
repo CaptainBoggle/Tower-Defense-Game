@@ -92,15 +92,15 @@ class IceTower(pygame.sprite.Sprite):
                 globs.screen.blit(globs.cold, (enemy.x - 16, enemy.y - 16))
                 # pygame.draw.polygon(surface=screen, color=(0,206,209), points=[(enemy.x+5,enemy.y), (enemy.x,enemy.y+5), (enemy.x,enemy.y-5)])
                 enemy.slow = nextcycle
-            #else:
-               # enemy.slow = 0
+            # else:
+            # enemy.slow = 0
 
     def levelup(self):
         globs.clicked = True
         globs.playercash -= 100
         self.level += 1
         self.range += 5
-        if self.level % 2 ==0:
+        if self.level % 2 == 0:
             self.intensity += 1
             self.cycle = itertools.cycle(range(self.intensity + 2))
 
