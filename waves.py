@@ -1472,7 +1472,7 @@ wave20 = [
     "n",
 ] * 30 + ["w", "x"]
 
-wavescombined = (
+WAVES_COMBINED = (
     wave1
     + wave2
     + wave3
