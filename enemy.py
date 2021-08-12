@@ -42,10 +42,10 @@ class AI(object):
         self.angle = 270
         self.slow = 0
         self.type = type
-        self.ftotal = 19
+        self.frames_total = 19
         if self.type == "p":
             self.worth = 2
-            self.ftotal = 34
+            self.frames_total = 34
             self.speed = 6
             self.hp = 350
         elif self.type == "s":
@@ -60,9 +60,9 @@ class AI(object):
     def remove(self, reason):
         self.alive = False
         if reason == "getthrough":
-            globs.playerhealth -= round(self.hp / 10)
+            globs.player_health -= round(self.hp / 10)
         else:
-            globs.playercash += self.worth  # give player some cash money
+            globs.player_cash += self.worth  # give player some cash money
 
     def update(self):
         if self.slow != 0:
@@ -83,7 +83,7 @@ class AI(object):
         z = (self.x - (self.path[0])[0], self.y - (self.path[0])[1])
         if (z[0] / -self.speed, z[1] / -self.speed) == (0, 0):
             self.path = self.path[1:]
-        if self.frame < self.ftotal:
+        if self.frame < self.frames_total:
             self.frame += 1
         else:
             self.frame = 0
