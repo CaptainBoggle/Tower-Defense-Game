@@ -173,6 +173,7 @@ def nextwave():
         return
     counter += 1
     wavenum += 1
+    globs.playercash += 50
 
 
 def newIceTower():

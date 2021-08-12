@@ -44,16 +44,16 @@ class AI(object):
         self.type = type
         self.ftotal = 19
         if self.type == "p":
-            self.worth = 15
+            self.worth = 2
             self.ftotal = 34
             self.speed = 6
             self.hp = 200
         elif self.type == "s":
-            self.worth = 10
+            self.worth = 1
             self.speed = 3
             self.hp = 500
         else:
-            self.worth = 20
+            self.worth = 4
             self.speed = 1.5
             self.hp = 1000
 

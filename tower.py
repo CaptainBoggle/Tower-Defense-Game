@@ -100,8 +100,9 @@ class IceTower(pygame.sprite.Sprite):
         globs.playercash -= 100
         self.level += 1
         self.range += 5
-        self.intensity += 1
-        self.cycle = itertools.cycle(range(self.intensity + 2))
+        if self.level % 2 ==0:
+            self.intensity += 1
+            self.cycle = itertools.cycle(range(self.intensity + 2))
 
 
 class FireTower(pygame.sprite.Sprite):
@@ -112,8 +113,8 @@ class FireTower(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=pos)
         self.range = 60
         self.x, self.y = pos
-        self.targets = 2
-        self.damage = 2
+        self.targets = 4
+        self.damage = 1
         self.hitbox = hitbox
 
     def inRange(self, enemy):
