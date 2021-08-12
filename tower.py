@@ -100,7 +100,7 @@ class IceTower(pygame.sprite.Sprite):
         globs.playercash -= 100
         self.level += 1
         self.range += 5
-        if self.level % 2 ==0:
+        if self.level % 2 == 0:
             self.intensity += 1
             self.cycle = itertools.cycle(range(self.intensity + 2))
 
