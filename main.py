@@ -84,6 +84,7 @@ def paused():
     global pause
     pause = True
     blit_alpha(screen, globs.transparentOverlay, (0, 0), 128)
+    screen.fill((4, 67, 40))
     text_width, text_height = contrastMedFont.size("Main Menu")
     draw_text(
         "Main Menu",
@@ -168,13 +169,13 @@ wavenum = 0
 def nextwave():
     global wavenum
     global counter
-    if wavescombined[counter+1] == "x":
+    if wavescombined[counter + 1] == "x":
         endGame("win")
         return
     globs.playercash += 100
     counter += 1
     wavenum += 1
-    
+
 
 def newIceTower():
     global placingIce
@@ -361,7 +362,6 @@ def playGame():
                     paused()
 
         # wave handling
-
 
         if globs.playerhealth <= 0:
             endGame("lose")
