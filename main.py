@@ -86,7 +86,6 @@ while True:
         pause = True
         pygame.mixer.music.pause()
         blit_alpha(screen, globs.TRANSPARENT_OVERLAY, (0, 0), 128)
-        screen.fill((4, 67, 40))
         text_width, text_height = CONTRAST_MEDIUM_FONT.size("Main Menu")
         draw_text(
             "Main Menu",
@@ -339,6 +338,7 @@ while True:
         global tower_hitboxes
         global wave_num
         wavelength = len(WAVES_COMBINED) - 1
+        screen.fill((4, 67, 40))
         paused()
 
         # enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),enemy.AI(0, 240, 2), enemy.AI(0, 240, 3)]
