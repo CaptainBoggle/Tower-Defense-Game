@@ -1,3 +1,6 @@
+# wave file
+# note: I did not write these by hand, I used regex
+
 wave1 = (
     ["w"]
     + [

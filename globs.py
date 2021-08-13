@@ -4,13 +4,11 @@ import os
 import sys
 import itertools
 
-debounce = itertools.cycle(range(10))
-
-clicked = False
+clicked = False  # initialise some global variables
 player_cash = 450
 player_health = 200
 
-TRANSPARENT_OVERLAY = pygame.image.load(os.path.join("sprites", "dgBackground.png"))
+TRANSPARENT_OVERLAY = pygame.image.load(os.path.join("sprites", "dgBackground.png")) # load constant sprites, images, and values
 SCREEN = pygame.display.set_mode((900, 580), pygame.SCALED, pygame.RESIZABLE)
 CLOCK = pygame.time.Clock()
 BACKGROUND = pygame.image.load(os.path.join("sprites", "map.png"))
@@ -70,12 +68,12 @@ PYTHON_FRAME_7 = pygame.transform.scale2x(
 )
 
 
-cold = pygame.image.load(os.path.join("sprites", "Snowflake.png"))
+cold = pygame.image.load(os.path.join("sprites", "Snowflake.png")) 
 coin = pygame.image.load(os.path.join("sprites", "coin.png"))
 heart = pygame.image.load(os.path.join("sprites", "heart.png"))
 
 
-SLIME_FRAMES = ([SLIME_FRAME_1] * 10) + ([SLIME_FRAME_2] * 10)
+SLIME_FRAMES = ([SLIME_FRAME_1] * 10) + ([SLIME_FRAME_2] * 10) # setup frame progressions
 CRAB_FRAMES = (
     ([CRAB_FRAME_1] * 5)
     + ([CRAB_FRAME_2] * 5)

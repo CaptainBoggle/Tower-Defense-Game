@@ -6,22 +6,11 @@ import globs
 import random
 import itertools
 
-
-def alternator():
-    iterator = 0
-    while True:
-        value = 1 if iterator % 2 == 0 else 0
-        iterator += 1
-        yield value
-
-
-class AI(object):
+class AI(object): # Class for all enemies
     def __init__(self, type):
         self.x = 0
         self.y = 240
-        # self.speed = speed
-        # self.defspeed = speeds
-        self.path = [
+        self.path = [ # Coordinates to turn at
             (444, 246, 270),
             (444, 114, 0),
             (300, 114, 90),
@@ -55,14 +44,14 @@ class AI(object):
             self.speed = 1.5
             self.hp = 2000
 
-    def remove(self, reason):
+    def remove(self, reason): # Handle removing for either death or getting to the end of the path
         self.alive = False
         if reason == "getthrough":
             globs.player_health -= round(self.hp / 10)
         else:
             globs.player_cash += self.worth  # give player some cash money
 
-    def update(self):
+    def update(self): # Run every frame, moves and animates.
         if self.slow != 0:
             return
 
@@ -85,9 +74,8 @@ class AI(object):
             self.frame += 1
         else:
             self.frame = 0
-        # print(self.x,self.y)
 
-    def takedamage(self, amount):
+    def take_damage(self, amount): # Reduce health by amount
         self.hp -= amount
         if self.hp <= 0:
             self.remove("dead")

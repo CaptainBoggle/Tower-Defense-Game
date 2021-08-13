@@ -10,25 +10,24 @@ import tower
 import enemy
 import globs
 import itertools
-import text
+from text import *
 
 
-while True:
+while True: # Loop everything to make restarting easier.
     replay = False
 
-    def play_again():
+    def play_again(): # Restarts game
         global replay
         replay = True
 
-    placing_ice = False
+    placing_ice = False # initialise variables
     placing_fire = False
     placing_electric = False
-    from text import *
 
-    def rect_from_points(x1, y1, x2, y2):
+    def rect_from_points(x1, y1, x2, y2): # I needed to make rectangles with two points instead of one point and dimensions
         return pygame.Rect((x1, y1), (x2 - x1, y2 - y1))
 
-    TRACK_BOUNDS = [
+    TRACK_BOUNDS = [ # Rects that cover track to prevent towers being placed on track
         rect_from_points(0, 222, 474, 269),
         rect_from_points(279, 98, 475, 146),
         rect_from_points(334, 144, 277, 222),
@@ -47,28 +46,30 @@ while True:
 
     tower_hitboxes = []
     showing_guide = False
-    pygame.init()
+    pygame.init() # initialise pygame
     save_background = None
+    
     # sound manager
     pygame.mixer.music.load(os.path.join("files","music.wav"))
     CLICK_SOUND = pygame.mixer.Sound(os.path.join("files","click.wav"))
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.2)
 
-    def blit_alpha(target, source, location, opacity):
+
+    def blit_alpha(target, source, location, opacity): # helps with transparency overlay
         temp = pygame.Surface((source.get_width(), source.get_height())).convert()
         temp.blit(target, (0, 0))
         temp.blit(source, (0, 0))
         temp.set_alpha(opacity)
         target.blit(temp, location)
 
-    SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
+    SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size() # get constants for screen dimensions
 
-    def quit_game():
+    def quit_game(): # exit the game
         pygame.quit()
         quit()
 
-    def button(msg, x, y, w, h, bc, tc, tx, ty, tfont, action=None):
+    def button(msg, x, y, w, h, bc, tc, tx, ty, tfont, action=None): # general button function, best function ever
         global screen
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
@@ -81,12 +82,12 @@ while True:
         if msg:
             draw_text(msg, tfont, tc, screen, tx, ty)
 
-    def unpause():
+    def unpause(): # call to unpause
         global pause
         pause = False
         pygame.mixer.music.unpause()
 
-    def hide_guide():
+    def hide_guide(): # call to go from guide page to pause menu
         global save_background
         global showing_guide
         showing_guide = False
@@ -95,7 +96,7 @@ while True:
         )
         paused(True)
 
-    def show_guide():
+    def show_guide(): # call to go from pause menu to guide page
         global showing_guide
         global save_background
         save_background = pygame.image.tostring(globs.SCREEN, "RGBA")
@@ -107,146 +108,146 @@ while True:
                     quit()
             globs.SCREEN.fill((4, 67, 40))
             SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
-            text_width, text_height = text.CONTRAST_MEDIUM_FONT.size("Guide")
-            text.draw_text(
+            text_width, text_height = CONTRAST_MEDIUM_FONT.size("Guide")
+            draw_text(
                 "Guide",
-                text.CONTRAST_MEDIUM_FONT,
+                CONTRAST_MEDIUM_FONT,
                 (235, 191, 107),
                 globs.SCREEN,
                 (SCREEN_WIDTH / 2 - text_width / 2),
                 54,
             )
-            text_width, text_height = text.MEDIUM_FONT.size("Guide")
-            text.draw_text(
+            text_width, text_height = MEDIUM_FONT.size("Guide")
+            draw_text(
                 "Guide",
-                text.MEDIUM_FONT,
+                MEDIUM_FONT,
                 (252, 244, 230),
                 globs.SCREEN,
                 (SCREEN_WIDTH / 2 - text_width / 2),
                 54,
             )
 
-            text_width, text_height = text.FONT.size(
+            text_width, text_height = FONT.size(
                 "AIM: Stop incoming AI from corrupting the system"
             )
-            text.draw_text(
+            draw_text(
                 "AIM: to stop incoming AI from corrupting the system",
-                text.FONT,
+                FONT,
                 (235, 191, 107),
                 globs.SCREEN,
                 (SCREEN_WIDTH / 2 - text_width / 2),
                 110,
             )
 
-            text_width, text_height = text.INFO_FONT.size(
+            text_width, text_height = INFO_FONT.size(
                 "Place towers on the map by clicking once to select - once more to place down"
             )
-            text.draw_text(
+            draw_text(
                 "Place towers on the map by clicking once to select - once more to place down",
-                text.INFO_FONT,
+                INFO_FONT,
                 (252, 244, 230),
                 globs.SCREEN,
                 (SCREEN_WIDTH / 2 - text_width / 2),
                 160,
             )
 
-            text_width, text_height = text.INFO_FONT.size(
+            text_width, text_height = INFO_FONT.size(
                 "This will cost money as indicated next to the icons"
             )
-            text.draw_text(
+            draw_text(
                 "This will cost money as indicated next to the icons",
-                text.INFO_FONT,
+                INFO_FONT,
                 (252, 244, 230),
                 globs.SCREEN,
                 (SCREEN_WIDTH / 2 - text_width / 2),
                 200,
             )
 
-            text_width, text_height = text.INFO_FONT.size(
+            text_width, text_height = INFO_FONT.size(
                 "ICE TOWER: Slows nearby enemies"
             )
-            text.draw_text(
+            draw_text(
                 "ICE TOWER: Slows nearby enemies",
-                text.INFO_FONT,
+                INFO_FONT,
                 (252, 244, 230),
                 globs.SCREEN,
                 (SCREEN_WIDTH / 2 - text_width / 2),
                 240,
             )
 
-            text_width, text_height = text.INFO_FONT.size(
+            text_width, text_height = INFO_FONT.size(
                 "FIRE: Damages nearby enemies"
             )
-            text.draw_text(
+            draw_text(
                 "FIRE TOWER: Damages nearby enemies",
-                text.INFO_FONT,
+                INFO_FONT,
                 (252, 244, 230),
                 globs.SCREEN,
                 (SCREEN_WIDTH / 2 - text_width / 2),
                 260,
             )
 
-            text_width, text_height = text.INFO_FONT.size(
+            text_width, text_height = INFO_FONT.size(
                 "ELECTRIC TOWER: Slow but strong beams"
             )
-            text.draw_text(
+            draw_text(
                 "ELECTRIC TOWER: Slow but strong beams",
-                text.INFO_FONT,
+                INFO_FONT,
                 (252, 244, 230),
                 globs.SCREEN,
                 (SCREEN_WIDTH / 2 - text_width / 2),
                 280,
             )
 
-            text_width, text_height = text.INFO_FONT.size(
+            text_width, text_height = INFO_FONT.size(
                 "Click a tower with an orange arrow to upgrade - COST: $100"
             )
-            text.draw_text(
+            draw_text(
                 "Click a tower with an orange arrow to upgrade - COST: $100",
-                text.INFO_FONT,
+                INFO_FONT,
                 (252, 244, 230),
                 globs.SCREEN,
                 (SCREEN_WIDTH / 2 - text_width / 2),
                 320,
             )
 
-            text_width, text_height = text.INFO_FONT.size(
+            text_width, text_height = INFO_FONT.size(
                 "Press the green play icon (top right) to start the next wave"
             )
-            text.draw_text(
+            draw_text(
                 "Press the green play icon (top right) to start the next wave",
-                text.INFO_FONT,
+                INFO_FONT,
                 (252, 244, 230),
                 globs.SCREEN,
                 (SCREEN_WIDTH / 2 - text_width / 2),
                 360,
             )
 
-            text_width, text_height = text.INFO_FONT.size(
+            text_width, text_height = INFO_FONT.size(
                 "Survive all 20 waves to win: If an enemy gets through - you lose lives"
             )
-            text.draw_text(
+            draw_text(
                 "Survive all 20 waves to win: If an enemy gets through - you lose lives",
-                text.INFO_FONT,
+                INFO_FONT,
                 (252, 244, 230),
                 globs.SCREEN,
                 (SCREEN_WIDTH / 2 - text_width / 2),
                 400,
             )
 
-            text_width, text_height = text.INFO_FONT.size(
+            text_width, text_height = INFO_FONT.size(
                 "Enemies do damage based on their health"
             )
-            text.draw_text(
+            draw_text(
                 "Enemies do damage based on their health",
-                text.INFO_FONT,
+                INFO_FONT,
                 (252, 244, 230),
                 globs.SCREEN,
                 (SCREEN_WIDTH / 2 - text_width / 2),
                 440,
             )
 
-            text_width, text_height = text.FONT.size("BACK")
+            text_width, text_height = FONT.size("BACK")
             button(
                 "BACK",
                 (SCREEN_WIDTH / 2 - 100),
@@ -263,7 +264,7 @@ while True:
             pygame.display.update()
             globs.CLOCK.tick(60)
 
-    def paused(from_guide=False):
+    def paused(from_guide=False): # does this while paused, also call to pause
         global pause
         pause = True
         pygame.mixer.music.pause()
@@ -309,7 +310,7 @@ while True:
             40,
         )
 
-        while pause:
+        while pause: # Loop while paused
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -363,7 +364,7 @@ while True:
     counter = 0
     wave_num = 0
 
-    def next_wave():
+    def next_wave(): # Call to go to next wave
         global wave_num
         global counter
         if WAVES_COMBINED[counter + 1] == "x":
@@ -373,28 +374,28 @@ while True:
         counter += 1
         wave_num += 1
 
-    def new_ice_tower():
+    def new_ice_tower(): # Create new ice tower
         global placing_ice
         if placing_ice:
             return
         globs.player_cash -= globs.ICE_COST
         placing_ice = True
 
-    def new_fire_tower():
+    def new_fire_tower(): # Create new fire tower
         global placing_fire
         if placing_fire:
             return
         globs.player_cash -= globs.FIRE_COST
         placing_fire = True
 
-    def new_electric_tower():
+    def new_electric_tower(): # Create new electric tower
         global placing_electric
         if placing_electric:
             return
         globs.player_cash -= globs.ELECTRIC_COST
         placing_electric = True
 
-    def end_game(scenario):
+    def end_game(scenario): # Call at the end of the game, win or lose.
         global replay
         if scenario == "win":
             while True:
@@ -525,8 +526,8 @@ while True:
                 pygame.display.update()
                 globs.CLOCK.tick(60)
 
-    def play_game():
-        global replay
+    def play_game(): # main gameplay loop
+        global replay 
         global pause
         global counter
         global placing_ice
@@ -539,15 +540,12 @@ while True:
         screen.fill((4, 67, 40))
         paused()
 
-        # enemies = [enemy.AI(0, 240, 6), enemy.AI(0, 240, 1.5),enemy.AI(0, 240, 2), enemy.AI(0, 240, 3)]
         enemies = []
 
         towers = []
-        # towers = [tower.fire_tower((350, 288)),tower.ice_tower((460,288)),tower.fire_tower((350,382))]
         running = True
         while running:
             if replay:
-                globs.debounce = itertools.cycle(range(10))
                 globs.clicked = False
                 globs.player_cash = 450
                 globs.player_health = 200
@@ -555,7 +553,7 @@ while True:
 
             waiting = False
             mx, my = pygame.mouse.get_pos()
-            for event in pygame.event.get():
+            for event in pygame.event.get(): # input handling
                 if event.type == pygame.QUIT:
                     sys.exit()
 
@@ -600,17 +598,17 @@ while True:
                     if event.key == pygame.K_ESCAPE:
                         paused()
 
-            # wave handling
-
             if globs.player_health <= 0:
                 end_game("lose")
 
             if replay:
-                globs.debounce = itertools.cycle(range(10))
                 globs.clicked = False
                 globs.player_cash = 450
                 globs.player_health = 200
                 return
+
+            # wave handling
+
 
             if WAVES_COMBINED[counter] == "n":
                 counter += 1
@@ -621,6 +619,8 @@ while True:
             else:
                 enemies.append(enemy.AI(WAVES_COMBINED[counter]))
                 counter += 1
+
+            # draw background
 
             screen.fill((255, 255, 255))
             screen.blit(globs.BACKGROUND, (0, 0))
@@ -742,7 +742,7 @@ while True:
                     screen,
                     380,
                     (54 - text_height) / 2,
-                )  # ice cost
+                )  
                 draw_text(
                     str(globs.FIRE_COST),
                     SMALL_FONT,
@@ -750,7 +750,7 @@ while True:
                     screen,
                     480,
                     (54 - text_height) / 2,
-                )  # fire cost
+                )  
                 draw_text(
                     str(globs.ELECTRIC_COST),
                     SMALL_FONT,
@@ -758,8 +758,7 @@ while True:
                     screen,
                     580,
                     (54 - text_height) / 2,
-                )  # elec cost
-
+                )  
                 if placing_ice:
                     screen.blit(globs.ICE_SPRITE, (mx - 16, my - 11))
 
@@ -805,9 +804,9 @@ while True:
             # enemy culling
             enemies[:] = [enemy for enemy in enemies if enemy.alive]
 
-            enemies.sort(key=lambda e: len(e.path), reverse=True)
+            enemies.sort(key=lambda e: len(e.path), reverse=True) # enemy sorting
 
-            for e in enemies:
+            for e in enemies: # enemy updating and drawing
                 e.update()
                 if e.type == "s":
                     screen.blit(
@@ -824,14 +823,10 @@ while True:
                         pygame.transform.rotate(globs.PYTHON_FRAMES[e.frame], e.angle),
                         (e.x - 16, e.y - 16),
                     )
-            # target = test.getTarget(enemies)
-
-            # if target: SCREEN.blit(pygame.transform.rotate(slimetest,target.angle),(target.x-32,target.y-32))
-            # pygame.draw.circle(SCREEN, (0,0,255), (test.x,test.y), 100, 1)
             for t in towers:
                 t.update(enemies)
 
-            if waiting:
+            if waiting: # draw upgrade buttons if available
                 if globs.player_cash >= 100:
                     for t in towers:
                         if t.level < 5:
@@ -861,8 +856,8 @@ while True:
                                 ],
                             )
 
-            pygame.display.flip()
+            pygame.display.flip() # update screen   
 
-            globs.CLOCK.tick(60)
+            globs.CLOCK.tick(60) # set fps to 60
 
-    play_game()
+    play_game() # start game
