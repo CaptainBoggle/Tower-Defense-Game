@@ -9,10 +9,10 @@ debounce = itertools.cycle(range(10))
 clicked = False
 player_cash = 450
 player_health = 200
+
 TRANSPARENT_OVERLAY = pygame.image.load(os.path.join("mapideas", "dgBackground.png"))
 SCREEN = pygame.display.set_mode((900, 580), pygame.SCALED, pygame.RESIZABLE)
 CLOCK = pygame.time.Clock()
-
 BACKGROUND = pygame.image.load(os.path.join("mapideas", "map2.png"))
 BACKGROUND = pygame.transform.scale(BACKGROUND, (900, 580))
 
@@ -80,7 +80,12 @@ heart = pygame.image.load(os.path.join("mapideas", "heart.png"))
 
 
 SLIME_FRAMES = ([SLIME_FRAME_1] * 10) + ([SLIME_FRAME_2] * 10)
-CRAB_FRAMES = ([CRAB_FRAME_1] * 5) + ([CRAB_FRAME_2] * 5) + ([CRAB_FRAME_3] * 5) + ([CRAB_FRAME_4] * 5)
+CRAB_FRAMES = (
+    ([CRAB_FRAME_1] * 5)
+    + ([CRAB_FRAME_2] * 5)
+    + ([CRAB_FRAME_3] * 5)
+    + ([CRAB_FRAME_4] * 5)
+)
 PYTHON_FRAMES = (
     ([PYTHON_FRAME_1] * 5)
     + ([PYTHON_FRAME_2] * 5)

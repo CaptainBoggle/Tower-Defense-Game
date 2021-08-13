@@ -20,24 +20,22 @@ class AI(object):
         self.x = 0
         self.y = 240
         # self.speed = speed
-        # self.defspeed = speed
+        # self.defspeed = speeds
         self.path = [
             (444, 246, 270),
             (444, 114, 0),
-            (294, 114, 90),
-            (294, 462, 180),
-            (150, 462, 90),
-            (150, 342, 0),
-            (570, 342, 270),
-            (570, 204, 0),
+            (300, 114, 90),
+            (300, 462, 180),
+            (168, 462, 90),
+            (168, 342, 0),
+            (558, 342, 270),
+            (558, 204, 0),
             (672, 204, 270),
             (672, 414, 180),
             (402, 414, 90),
             (402, 570, 180),
         ]
         self.alive = True
-        # self.hp = health # implement later
-        # self.worth = worth
         self.frame = 0
         self.angle = 270
         self.slow = 0
