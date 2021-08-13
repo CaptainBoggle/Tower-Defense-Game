@@ -1,10 +1,6 @@
-# SoftwareTask2
+# AI Defence
+
 Repo for 2021 SDD assessment task 2, by Felix, Anna, and James.
 
-File/folder structure:
+A small tower defence game written in pygame. 
 
-helloworld.py - demonstrates various map background possibilities.
-
-mapideas - contains files for possible map backgrounds
-
-towers - contains tower artworks, including drafts
