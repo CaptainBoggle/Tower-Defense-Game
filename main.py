@@ -224,9 +224,9 @@ while True:
                 FONT,
                 unpause,
             )
-            text_width, text_height = FONT.size("QUIT")
+            text_width, text_height = FONT.size("HELP")
             button(
-                "QUIT",
+                "HELP",
                 (SCREEN_WIDTH / 2 - 100),
                 290,
                 200,
@@ -236,12 +236,12 @@ while True:
                 (SCREEN_WIDTH / 2 - text_width / 2),
                 304,
                 FONT,
-                quit_game,
+                show_guide,
             )
 
             text_width, text_height = FONT.size("QUIT")
             button(
-                "HELP",
+                "QUIT",
                 (SCREEN_WIDTH / 2 - 100),
                 390,
                 200,
@@ -251,7 +251,7 @@ while True:
                 (SCREEN_WIDTH / 2 - text_width / 2),
                 404,
                 FONT,
-                show_guide,
+                quit_game,
             )
             pygame.display.update()
             globs.CLOCK.tick(60)
