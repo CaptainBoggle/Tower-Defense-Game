@@ -14,7 +14,7 @@ LARGE_FONT = pygame.font.Font("retro.ttf", 80)
 CONTRAST_MEDIUM_FONT = pygame.font.Font("retro.ttf", 51)
 CONTRAST_LARGE_FONT = pygame.font.Font("retro.ttf", 83)
 
-INFO_FONT = pygame.font.Font("data-latin.ttf", 355)
+INFO_FONT = pygame.font.Font("data-latin.ttf",18)
 
 
 def draw_text(text, font, color, surface, x, y):
