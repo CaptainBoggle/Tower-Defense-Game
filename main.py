@@ -90,13 +90,15 @@ while True:
         global save_background
         global showing_guide
         showing_guide = False
-        screen.blit(pygame.image.fromstring(save_background,(900,580),'RGBA'),(0,0))
+        screen.blit(
+            pygame.image.fromstring(save_background, (900, 580), "RGBA"), (0, 0)
+        )
         paused(True)
 
     def show_guide():
         global showing_guide
         global save_background
-        save_background = pygame.image.tostring(globs.SCREEN,'RGBA')
+        save_background = pygame.image.tostring(globs.SCREEN, "RGBA")
         showing_guide = True
         while showing_guide:
             for event in pygame.event.get():
@@ -106,43 +108,145 @@ while True:
             globs.SCREEN.fill((4, 67, 40))
             SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
             text_width, text_height = text.CONTRAST_MEDIUM_FONT.size("Guide")
-            text.draw_text("Guide", text.CONTRAST_MEDIUM_FONT, (235, 191, 107), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 54)
+            text.draw_text(
+                "Guide",
+                text.CONTRAST_MEDIUM_FONT,
+                (235, 191, 107),
+                globs.SCREEN,
+                (SCREEN_WIDTH / 2 - text_width / 2),
+                54,
+            )
             text_width, text_height = text.MEDIUM_FONT.size("Guide")
-            text.draw_text("Guide", text.MEDIUM_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 54)
-            
-            text_width, text_height = text.FONT.size("AIM: Stop incoming AI from corrupting the system")
-            text.draw_text("AIM: to stop incoming AI from corrupting the system", text.FONT, (235, 191, 107), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 110)
-            
-            text_width, text_height = text.INFO_FONT.size("Place towers on the map by clicking once to select - once more to place down")
-            text.draw_text("Place towers on the map by clicking once to select - once more to place down", text.INFO_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 160)       
-            
-            text_width, text_height = text.INFO_FONT.size("This will cost money as indicated next to the icons")
-            text.draw_text("This will cost money as indicated next to the icons", text.INFO_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 200)
-            
+            text.draw_text(
+                "Guide",
+                text.MEDIUM_FONT,
+                (252, 244, 230),
+                globs.SCREEN,
+                (SCREEN_WIDTH / 2 - text_width / 2),
+                54,
+            )
 
-            text_width, text_height = text.INFO_FONT.size("ICE TOWER: Slows nearby enemies")
-            text.draw_text("ICE TOWER: Slows nearby enemies", text.INFO_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 240)
-            
-            text_width, text_height = text.INFO_FONT.size("FIRE: Damages nearby enemies")
-            text.draw_text("FIRE TOWER: Damages nearby enemies", text.INFO_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 260)
+            text_width, text_height = text.FONT.size(
+                "AIM: Stop incoming AI from corrupting the system"
+            )
+            text.draw_text(
+                "AIM: to stop incoming AI from corrupting the system",
+                text.FONT,
+                (235, 191, 107),
+                globs.SCREEN,
+                (SCREEN_WIDTH / 2 - text_width / 2),
+                110,
+            )
 
-            text_width, text_height = text.INFO_FONT.size("ELECTRIC TOWER: Slow but strong beams")
-            text.draw_text("ELECTRIC TOWER: Slow but strong beams", text.INFO_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 280)
+            text_width, text_height = text.INFO_FONT.size(
+                "Place towers on the map by clicking once to select - once more to place down"
+            )
+            text.draw_text(
+                "Place towers on the map by clicking once to select - once more to place down",
+                text.INFO_FONT,
+                (252, 244, 230),
+                globs.SCREEN,
+                (SCREEN_WIDTH / 2 - text_width / 2),
+                160,
+            )
 
+            text_width, text_height = text.INFO_FONT.size(
+                "This will cost money as indicated next to the icons"
+            )
+            text.draw_text(
+                "This will cost money as indicated next to the icons",
+                text.INFO_FONT,
+                (252, 244, 230),
+                globs.SCREEN,
+                (SCREEN_WIDTH / 2 - text_width / 2),
+                200,
+            )
 
-            text_width, text_height = text.INFO_FONT.size("Click a tower with an orange arrow to upgrade - COST: $100")
-            text.draw_text("Click a tower with an orange arrow to upgrade - COST: $100", text.INFO_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 320)
-            
-            text_width, text_height = text.INFO_FONT.size("Press the green play icon (top right) to start the next wave")
-            text.draw_text("Press the green play icon (top right) to start the next wave", text.INFO_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 360)
-            
-            text_width, text_height = text.INFO_FONT.size("Survive all 20 waves to win: If an enemy gets through - you lose lives")
-            text.draw_text("Survive all 20 waves to win: If an enemy gets through - you lose lives", text.INFO_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 400)
-            
-            text_width, text_height = text.INFO_FONT.size("Enemies do damage based on their health")
-            text.draw_text("Enemies do damage based on their health", text.INFO_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 440)
-            
-            text_width,text_height = text.FONT.size("BACK")
+            text_width, text_height = text.INFO_FONT.size(
+                "ICE TOWER: Slows nearby enemies"
+            )
+            text.draw_text(
+                "ICE TOWER: Slows nearby enemies",
+                text.INFO_FONT,
+                (252, 244, 230),
+                globs.SCREEN,
+                (SCREEN_WIDTH / 2 - text_width / 2),
+                240,
+            )
+
+            text_width, text_height = text.INFO_FONT.size(
+                "FIRE: Damages nearby enemies"
+            )
+            text.draw_text(
+                "FIRE TOWER: Damages nearby enemies",
+                text.INFO_FONT,
+                (252, 244, 230),
+                globs.SCREEN,
+                (SCREEN_WIDTH / 2 - text_width / 2),
+                260,
+            )
+
+            text_width, text_height = text.INFO_FONT.size(
+                "ELECTRIC TOWER: Slow but strong beams"
+            )
+            text.draw_text(
+                "ELECTRIC TOWER: Slow but strong beams",
+                text.INFO_FONT,
+                (252, 244, 230),
+                globs.SCREEN,
+                (SCREEN_WIDTH / 2 - text_width / 2),
+                280,
+            )
+
+            text_width, text_height = text.INFO_FONT.size(
+                "Click a tower with an orange arrow to upgrade - COST: $100"
+            )
+            text.draw_text(
+                "Click a tower with an orange arrow to upgrade - COST: $100",
+                text.INFO_FONT,
+                (252, 244, 230),
+                globs.SCREEN,
+                (SCREEN_WIDTH / 2 - text_width / 2),
+                320,
+            )
+
+            text_width, text_height = text.INFO_FONT.size(
+                "Press the green play icon (top right) to start the next wave"
+            )
+            text.draw_text(
+                "Press the green play icon (top right) to start the next wave",
+                text.INFO_FONT,
+                (252, 244, 230),
+                globs.SCREEN,
+                (SCREEN_WIDTH / 2 - text_width / 2),
+                360,
+            )
+
+            text_width, text_height = text.INFO_FONT.size(
+                "Survive all 20 waves to win: If an enemy gets through - you lose lives"
+            )
+            text.draw_text(
+                "Survive all 20 waves to win: If an enemy gets through - you lose lives",
+                text.INFO_FONT,
+                (252, 244, 230),
+                globs.SCREEN,
+                (SCREEN_WIDTH / 2 - text_width / 2),
+                400,
+            )
+
+            text_width, text_height = text.INFO_FONT.size(
+                "Enemies do damage based on their health"
+            )
+            text.draw_text(
+                "Enemies do damage based on their health",
+                text.INFO_FONT,
+                (252, 244, 230),
+                globs.SCREEN,
+                (SCREEN_WIDTH / 2 - text_width / 2),
+                440,
+            )
+
+            text_width, text_height = text.FONT.size("BACK")
             button(
                 "BACK",
                 (SCREEN_WIDTH / 2 - 100),
