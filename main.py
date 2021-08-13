@@ -13,21 +13,23 @@ import itertools
 from text import *
 
 
-while True: # Loop everything to make restarting easier.
+while True:  # Loop everything to make restarting easier.
     replay = False
 
-    def play_again(): # Restarts game
+    def play_again():  # Restarts game
         global replay
         replay = True
 
-    placing_ice = False # initialise variables
+    placing_ice = False  # initialise variables
     placing_fire = False
     placing_electric = False
 
-    def rect_from_points(x1, y1, x2, y2): # I needed to make rectangles with two points instead of one point and dimensions
+    def rect_from_points(
+        x1, y1, x2, y2
+    ):  # I needed to make rectangles with two points instead of one point and dimensions
         return pygame.Rect((x1, y1), (x2 - x1, y2 - y1))
 
-    TRACK_BOUNDS = [ # Rects that cover track to prevent towers being placed on track
+    TRACK_BOUNDS = [  # Rects that cover track to prevent towers being placed on track
         rect_from_points(0, 222, 474, 269),
         rect_from_points(279, 98, 475, 146),
         rect_from_points(334, 144, 277, 222),
@@ -46,30 +48,36 @@ while True: # Loop everything to make restarting easier.
 
     tower_hitboxes = []
     showing_guide = False
-    pygame.init() # initialise pygame
+    pygame.init()  # initialise pygame
     save_background = None
-    
+
     # sound manager
-    pygame.mixer.music.load(os.path.join("files","music.wav"))
-    CLICK_SOUND = pygame.mixer.Sound(os.path.join("files","click.wav"))
+    pygame.mixer.music.load(os.path.join("files", "music.wav"))
+    CLICK_SOUND = pygame.mixer.Sound(os.path.join("files", "click.wav"))
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.2)
 
-
-    def blit_alpha(target, source, location, opacity): # helps with transparency overlay
+    def blit_alpha(
+        target, source, location, opacity
+    ):  # helps with transparency overlay
         temp = pygame.Surface((source.get_width(), source.get_height())).convert()
         temp.blit(target, (0, 0))
         temp.blit(source, (0, 0))
         temp.set_alpha(opacity)
         target.blit(temp, location)
 
-    SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size() # get constants for screen dimensions
+    (
+        SCREEN_WIDTH,
+        SCREEN_HEIGHT,
+    ) = pygame.display.get_surface().get_size()  # get constants for screen dimensions
 
-    def quit_game(): # exit the game
+    def quit_game():  # exit the game
         pygame.quit()
         quit()
 
-    def button(msg, x, y, w, h, bc, tc, tx, ty, tfont, action=None): # general button function, best function ever
+    def button(
+        msg, x, y, w, h, bc, tc, tx, ty, tfont, action=None
+    ):  # general button function, best function ever
         global screen
         mouse = pygame.mouse.get_pos()
         click = pygame.mouse.get_pressed()
@@ -82,12 +90,12 @@ while True: # Loop everything to make restarting easier.
         if msg:
             draw_text(msg, tfont, tc, screen, tx, ty)
 
-    def unpause(): # call to unpause
+    def unpause():  # call to unpause
         global pause
         pause = False
         pygame.mixer.music.unpause()
 
-    def hide_guide(): # call to go from guide page to pause menu
+    def hide_guide():  # call to go from guide page to pause menu
         global save_background
         global showing_guide
         showing_guide = False
@@ -96,7 +104,7 @@ while True: # Loop everything to make restarting easier.
         )
         paused(True)
 
-    def show_guide(): # call to go from pause menu to guide page
+    def show_guide():  # call to go from pause menu to guide page
         global showing_guide
         global save_background
         save_background = pygame.image.tostring(globs.SCREEN, "RGBA")
@@ -163,9 +171,7 @@ while True: # Loop everything to make restarting easier.
                 200,
             )
 
-            text_width, text_height = INFO_FONT.size(
-                "ICE TOWER: Slows nearby enemies"
-            )
+            text_width, text_height = INFO_FONT.size("ICE TOWER: Slows nearby enemies")
             draw_text(
                 "ICE TOWER: Slows nearby enemies",
                 INFO_FONT,
@@ -175,9 +181,7 @@ while True: # Loop everything to make restarting easier.
                 240,
             )
 
-            text_width, text_height = INFO_FONT.size(
-                "FIRE: Damages nearby enemies"
-            )
+            text_width, text_height = INFO_FONT.size("FIRE: Damages nearby enemies")
             draw_text(
                 "FIRE TOWER: Damages nearby enemies",
                 INFO_FONT,
@@ -264,7 +268,7 @@ while True: # Loop everything to make restarting easier.
             pygame.display.update()
             globs.CLOCK.tick(60)
 
-    def paused(from_guide=False): # does this while paused, also call to pause
+    def paused(from_guide=False):  # does this while paused, also call to pause
         global pause
         pause = True
         pygame.mixer.music.pause()
@@ -310,7 +314,7 @@ while True: # Loop everything to make restarting easier.
             40,
         )
 
-        while pause: # Loop while paused
+        while pause:  # Loop while paused
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -364,7 +368,7 @@ while True: # Loop everything to make restarting easier.
     counter = 0
     wave_num = 0
 
-    def next_wave(): # Call to go to next wave
+    def next_wave():  # Call to go to next wave
         global wave_num
         global counter
         if WAVES_COMBINED[counter + 1] == "x":
@@ -374,28 +378,28 @@ while True: # Loop everything to make restarting easier.
         counter += 1
         wave_num += 1
 
-    def new_ice_tower(): # Create new ice tower
+    def new_ice_tower():  # Create new ice tower
         global placing_ice
         if placing_ice:
             return
         globs.player_cash -= globs.ICE_COST
         placing_ice = True
 
-    def new_fire_tower(): # Create new fire tower
+    def new_fire_tower():  # Create new fire tower
         global placing_fire
         if placing_fire:
             return
         globs.player_cash -= globs.FIRE_COST
         placing_fire = True
 
-    def new_electric_tower(): # Create new electric tower
+    def new_electric_tower():  # Create new electric tower
         global placing_electric
         if placing_electric:
             return
         globs.player_cash -= globs.ELECTRIC_COST
         placing_electric = True
 
-    def end_game(scenario): # Call at the end of the game, win or lose.
+    def end_game(scenario):  # Call at the end of the game, win or lose.
         global replay
         if scenario == "win":
             while True:
@@ -526,8 +530,8 @@ while True: # Loop everything to make restarting easier.
                 pygame.display.update()
                 globs.CLOCK.tick(60)
 
-    def play_game(): # main gameplay loop
-        global replay 
+    def play_game():  # main gameplay loop
+        global replay
         global pause
         global counter
         global placing_ice
@@ -553,7 +557,7 @@ while True: # Loop everything to make restarting easier.
 
             waiting = False
             mx, my = pygame.mouse.get_pos()
-            for event in pygame.event.get(): # input handling
+            for event in pygame.event.get():  # input handling
                 if event.type == pygame.QUIT:
                     sys.exit()
 
@@ -608,7 +612,6 @@ while True: # Loop everything to make restarting easier.
                 return
 
             # wave handling
-
 
             if WAVES_COMBINED[counter] == "n":
                 counter += 1
@@ -742,7 +745,7 @@ while True: # Loop everything to make restarting easier.
                     screen,
                     380,
                     (54 - text_height) / 2,
-                )  
+                )
                 draw_text(
                     str(globs.FIRE_COST),
                     SMALL_FONT,
@@ -750,7 +753,7 @@ while True: # Loop everything to make restarting easier.
                     screen,
                     480,
                     (54 - text_height) / 2,
-                )  
+                )
                 draw_text(
                     str(globs.ELECTRIC_COST),
                     SMALL_FONT,
@@ -758,7 +761,7 @@ while True: # Loop everything to make restarting easier.
                     screen,
                     580,
                     (54 - text_height) / 2,
-                )  
+                )
                 if placing_ice:
                     screen.blit(globs.ICE_SPRITE, (mx - 16, my - 11))
 
@@ -804,9 +807,9 @@ while True: # Loop everything to make restarting easier.
             # enemy culling
             enemies[:] = [enemy for enemy in enemies if enemy.alive]
 
-            enemies.sort(key=lambda e: len(e.path), reverse=True) # enemy sorting
+            enemies.sort(key=lambda e: len(e.path), reverse=True)  # enemy sorting
 
-            for e in enemies: # enemy updating and drawing
+            for e in enemies:  # enemy updating and drawing
                 e.update()
                 if e.type == "s":
                     screen.blit(
@@ -826,7 +829,7 @@ while True: # Loop everything to make restarting easier.
             for t in towers:
                 t.update(enemies)
 
-            if waiting: # draw upgrade buttons if available
+            if waiting:  # draw upgrade buttons if available
                 if globs.player_cash >= 100:
                     for t in towers:
                         if t.level < 5:
@@ -856,8 +859,8 @@ while True: # Loop everything to make restarting easier.
                                 ],
                             )
 
-            pygame.display.flip() # update screen   
+            pygame.display.flip()  # update screen
 
-            globs.CLOCK.tick(60) # set fps to 60
+            globs.CLOCK.tick(60)  # set fps to 60
 
-    play_game() # start game
+    play_game()  # start game
