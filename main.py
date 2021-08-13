@@ -50,8 +50,8 @@ while True:
     pygame.init()
     save_background = None
     # sound manager
-    pygame.mixer.music.load("music.wav")
-    CLICK_SOUND = pygame.mixer.Sound("click.wav")
+    pygame.mixer.music.load(os.path.join("files","music.wav"))
+    CLICK_SOUND = pygame.mixer.Sound(os.path.join("files","click.wav"))
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.2)
 
