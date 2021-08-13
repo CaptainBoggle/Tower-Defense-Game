@@ -10,16 +10,16 @@ clicked = False
 player_cash = 450
 player_health = 200
 
-TRANSPARENT_OVERLAY = pygame.image.load(os.path.join("mapideas", "dgBackground.png"))
+TRANSPARENT_OVERLAY = pygame.image.load(os.path.join("sprites", "dgBackground.png"))
 SCREEN = pygame.display.set_mode((900, 580), pygame.SCALED, pygame.RESIZABLE)
 CLOCK = pygame.time.Clock()
-BACKGROUND = pygame.image.load(os.path.join("mapideas", "map2.png"))
+BACKGROUND = pygame.image.load(os.path.join("sprites", "map.png"))
 BACKGROUND = pygame.transform.scale(BACKGROUND, (900, 580))
 
-ICE_SPRITE = pygame.image.load(os.path.join("towers", "ice.png")).convert_alpha()
-FIRE_SPRITE = pygame.image.load(os.path.join("towers", "fire.png")).convert_alpha()
+ICE_SPRITE = pygame.image.load(os.path.join("sprites", "ice.png")).convert_alpha()
+FIRE_SPRITE = pygame.image.load(os.path.join("sprites", "fire.png")).convert_alpha()
 ELECTRIC_SPRITE = pygame.image.load(
-    os.path.join("towers", "electric.png")
+    os.path.join("sprites", "electric.png")
 ).convert_alpha()
 
 ICE_COST = 175
@@ -28,55 +28,55 @@ FIRE_COST = 150
 
 SLIME_FRAME_1 = pygame.transform.scale2x(
     pygame.image.load(
-        os.path.join("characters", "enemyslime", "sprite_0.png")
+        os.path.join("sprites", "slime", "slime0.png")
     ).convert_alpha()
 )
 SLIME_FRAME_2 = pygame.transform.scale2x(
     pygame.image.load(
-        os.path.join("characters", "enemyslime", "sprite_1.png")
+        os.path.join("sprites", "slime", "slime1.png")
     ).convert_alpha()
 )
 
 
 CRAB_FRAME_1 = pygame.transform.scale2x(
-    pygame.image.load(os.path.join("characters", "Crab", "Crab0.png")).convert_alpha()
+    pygame.image.load(os.path.join("sprites", "Crab", "Crab0.png")).convert_alpha()
 )
 CRAB_FRAME_2 = pygame.transform.scale2x(
-    pygame.image.load(os.path.join("characters", "Crab", "Crab1.png")).convert_alpha()
+    pygame.image.load(os.path.join("sprites", "Crab", "Crab1.png")).convert_alpha()
 )
 CRAB_FRAME_3 = pygame.transform.scale2x(
-    pygame.image.load(os.path.join("characters", "Crab", "Crab2.png")).convert_alpha()
+    pygame.image.load(os.path.join("sprites", "Crab", "Crab2.png")).convert_alpha()
 )
 CRAB_FRAME_4 = pygame.transform.scale2x(
-    pygame.image.load(os.path.join("characters", "Crab", "Crab3.png")).convert_alpha()
+    pygame.image.load(os.path.join("sprites", "Crab", "Crab3.png")).convert_alpha()
 )
 
 PYTHON_FRAME_1 = pygame.transform.scale2x(
-    pygame.image.load(os.path.join("characters", "Snake", "snake0.png")).convert_alpha()
+    pygame.image.load(os.path.join("sprites", "Snake", "snake0.png")).convert_alpha()
 )
 PYTHON_FRAME_2 = pygame.transform.scale2x(
-    pygame.image.load(os.path.join("characters", "Snake", "snake1.png")).convert_alpha()
+    pygame.image.load(os.path.join("sprites", "Snake", "snake1.png")).convert_alpha()
 )
 PYTHON_FRAME_3 = pygame.transform.scale2x(
-    pygame.image.load(os.path.join("characters", "Snake", "snake2.png")).convert_alpha()
+    pygame.image.load(os.path.join("sprites", "Snake", "snake2.png")).convert_alpha()
 )
 PYTHON_FRAME_4 = pygame.transform.scale2x(
-    pygame.image.load(os.path.join("characters", "Snake", "snake3.png")).convert_alpha()
+    pygame.image.load(os.path.join("sprites", "Snake", "snake3.png")).convert_alpha()
 )
 PYTHON_FRAME_5 = pygame.transform.scale2x(
-    pygame.image.load(os.path.join("characters", "Snake", "snake4.png")).convert_alpha()
+    pygame.image.load(os.path.join("sprites", "Snake", "snake4.png")).convert_alpha()
 )
 PYTHON_FRAME_6 = pygame.transform.scale2x(
-    pygame.image.load(os.path.join("characters", "Snake", "snake5.png")).convert_alpha()
+    pygame.image.load(os.path.join("sprites", "Snake", "snake5.png")).convert_alpha()
 )
 PYTHON_FRAME_7 = pygame.transform.scale2x(
-    pygame.image.load(os.path.join("characters", "Snake", "snake6.png")).convert_alpha()
+    pygame.image.load(os.path.join("sprites", "Snake", "snake6.png")).convert_alpha()
 )
 
 
-cold = pygame.image.load(os.path.join("towers", "Snowflake.png"))
-coin = pygame.image.load(os.path.join("mapideas", "coin.png"))
-heart = pygame.image.load(os.path.join("mapideas", "heart.png"))
+cold = pygame.image.load(os.path.join("sprites", "Snowflake.png"))
+coin = pygame.image.load(os.path.join("sprites", "coin.png"))
+heart = pygame.image.load(os.path.join("sprites", "heart.png"))
 
 
 SLIME_FRAMES = ([SLIME_FRAME_1] * 10) + ([SLIME_FRAME_2] * 10)
