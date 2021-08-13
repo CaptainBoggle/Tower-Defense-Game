@@ -27,14 +27,10 @@ ELECTRIC_COST = 125
 FIRE_COST = 150
 
 SLIME_FRAME_1 = pygame.transform.scale2x(
-    pygame.image.load(
-        os.path.join("sprites", "slime", "slime0.png")
-    ).convert_alpha()
+    pygame.image.load(os.path.join("sprites", "slime", "slime0.png")).convert_alpha()
 )
 SLIME_FRAME_2 = pygame.transform.scale2x(
-    pygame.image.load(
-        os.path.join("sprites", "slime", "slime1.png")
-    ).convert_alpha()
+    pygame.image.load(os.path.join("sprites", "slime", "slime1.png")).convert_alpha()
 )
 
 
