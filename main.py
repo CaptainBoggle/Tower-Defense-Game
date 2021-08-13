@@ -11,7 +11,7 @@ import tower
 import enemy
 import globs
 import itertools
-
+import text
 
 
 while True:
@@ -47,9 +47,9 @@ while True:
     ]
 
     tower_hitboxes = []
-
+    showing_guide = False
     pygame.init()
-
+    save_background = None
     # sound manager
     pygame.mixer.music.load("music.wav")
     CLICK_SOUND = pygame.mixer.Sound("click.wav")
@@ -87,11 +87,70 @@ while True:
         pause = False
         pygame.mixer.music.unpause()
 
-    def paused():
+    def hide_guide():
+        global save_background
+        global showing_guide
+        showing_guide = False
+        screen.blit(pygame.image.fromstring(save_background,(900,580),'RGBA'),(0,0))
+        paused(True)
+
+    def show_guide():
+        global showing_guide
+        global save_background
+        save_background = pygame.image.tostring(globs.SCREEN,'RGBA')
+        showing_guide = True
+        while showing_guide:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+            globs.SCREEN.fill((4, 67, 40))
+            SCREEN_WIDTH, SCREEN_HEIGHT = pygame.display.get_surface().get_size()
+            text_width, text_height = text.CONTRAST_MEDIUM_FONT.size("Guide")
+            text.draw_text("Guide", text.CONTRAST_MEDIUM_FONT, (235, 191, 107), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 37)
+            text_width, text_height = text.MEDIUM_FONT.size("Guide")
+            text.draw_text("Guide", text.MEDIUM_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 37)
+
+            text_width, text_height = text.SMALL_FONT.size("AIM: Stop incoming AI from corrupting the system")
+            text.draw_text("AIM: to stop incoming AI from corrupting the system", text.SMALL_FONT, (235, 191, 107), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 110)
+            text_width, text_height = text.SMALL_FONT.size("Place towers on the map by clicking once to select, and once more to place down.")
+            text.draw_text("Place towers on the map by clicking once to select, and once more to place down.", text.SMALL_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 160)       
+            text_width, text_height = text.SMALL_FONT.size("This will cost money as indicated next to the icons. The three towers are ice, fire, and electric.")
+            text.draw_text("This will cost money as indicated next to the icons. The three towers are ice, fire, and electric.", text.SMALL_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 200)
+            text_width, text_height = text.SMALL_FONT.size("ICE: Slows nearby enemies FIRE: Damages nearby enemies ELECTRIC: Slow, strong beams")
+            text.draw_text("ICE: Slows nearby enemies FIRE: Damages nearby enemies ELECTRIC: Slow, strong beams", text.SMALL_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 240)
+            text_width, text_height = text.SMALL_FONT.size("Clicking a tower with an orange arrow on it will upgrade it, boosting all stats. This costs $100.")
+            text.draw_text("Clicking a tower with an orange arrow on it will upgrade it, boosting all stats. This costs $100.", text.SMALL_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 280)
+            text_width, text_height = text.SMALL_FONT.size("Once you are ready, press the orange play icon in the top right to start the next wave.")
+            text.draw_text("Once you are ready, press the orange play icon in the top right to start the next wave.", text.SMALL_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 320)
+            text_width, text_height = text.SMALL_FONT.size("To win the game, survive all 20 waves. If an enemy manages to get through, you will lose lives.")
+            text.draw_text("To win the game, survive all 20 waves. If an enemy manages to get through, you will lose lives.", text.SMALL_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 360)
+            text_width, text_height = text.SMALL_FONT.size("Enemies do damage based on their health. Once your lives reach zero, you lose!")
+            text.draw_text("Enemies do damage based on their health. Once your lives reach zero, you lose!", text.SMALL_FONT, (252, 244, 230), globs.SCREEN, (SCREEN_WIDTH/2 - text_width/2), 400)
+            
+            text_width,text_height = text.FONT.size("BACK")
+            button(
+                "BACK",
+                (SCREEN_WIDTH / 2 - 100),
+                510,
+                200,
+                60,
+                (71, 126, 47),
+                (254, 244, 228),
+                (SCREEN_WIDTH / 2 - text_width / 2),
+                524,
+                FONT,
+                hide_guide,
+            )
+            pygame.display.update()
+            globs.CLOCK.tick(60)
+
+    def paused(from_guide=False):
         global pause
         pause = True
         pygame.mixer.music.pause()
-        blit_alpha(screen, globs.TRANSPARENT_OVERLAY, (0, 0), 128)
+        if not from_guide:
+            blit_alpha(screen, globs.TRANSPARENT_OVERLAY, (0, 0), 128)
         text_width, text_height = CONTRAST_MEDIUM_FONT.size("Main Menu")
         draw_text(
             "Main Menu",
@@ -164,6 +223,21 @@ while True:
                 304,
                 FONT,
                 quit_game,
+            )
+
+            text_width, text_height = FONT.size("QUIT")
+            button(
+                "HELP",
+                (SCREEN_WIDTH / 2 - 100),
+                390,
+                200,
+                60,
+                (71, 126, 47),
+                (254, 244, 228),
+                (SCREEN_WIDTH / 2 - text_width / 2),
+                404,
+                FONT,
+                show_guide,
             )
             pygame.display.update()
             globs.CLOCK.tick(60)
