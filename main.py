@@ -348,13 +348,13 @@ while True: # Loop everything to make restarting easier.
             button(
                 "QUIT",
                 (SCREEN_WIDTH / 2 - 100),
-                390,
+                440,
                 200,
                 60,
                 (71, 126, 47),
                 (254, 244, 228),
                 (SCREEN_WIDTH / 2 - text_width / 2),
-                404,
+                454,
                 FONT,
                 quit_game,
             )
@@ -527,7 +527,7 @@ while True: # Loop everything to make restarting easier.
                 globs.CLOCK.tick(60)
 
     def play_game(): # main gameplay loop
-        global replay 
+        global replay
         global pause
         global counter
         global placing_ice

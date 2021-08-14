@@ -1,7 +1,12 @@
-# AI Defence
-
+# SoftwareTask2
 Repo for 2021 SDD assessment task 2, by Felix, Anna, and James.
 
-A small tower defence game written in pygame. 
+File/folder structure:
 
-Launch the game by first installing pygame, then launching main.py.
+helloworld.py - demonstrates various map background possibilities.
+
+mapideas - contains files for possible map backgrounds
+
+towers - contains tower artworks, including drafts
+
+Start the game by running main.py. Pygame is required.
